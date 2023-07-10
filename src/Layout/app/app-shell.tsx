@@ -25,7 +25,7 @@ const items2: MenuProps["items"] = [
       </Link>
     ),
     key: "categories",
-    icon: <BiCategoryAlt size={21} color="#f77908" />,
+    icon: <BiCategoryAlt size={21} color="#3498db" />,
   },
   {
     label: (
@@ -34,7 +34,7 @@ const items2: MenuProps["items"] = [
       </Link>
     ),
     key: "reviews",
-    icon: <BiCategoryAlt size={21} color="#f77908" />,
+    icon: <BiCategoryAlt size={21} color="#3498db" />,
   },
   {
     label: (
@@ -43,7 +43,7 @@ const items2: MenuProps["items"] = [
       </Link>
     ),
     key: "sub-categories",
-    icon: <BiCategoryAlt size={21} color="#f77908" />,
+    icon: <BiCategoryAlt size={21} color="#3498db" />,
   },
   {
     label: (
@@ -52,7 +52,7 @@ const items2: MenuProps["items"] = [
       </Link>
     ),
     key: "products",
-    icon: <MdOutlineProductionQuantityLimits size={21} color="#f77908" />,
+    icon: <MdOutlineProductionQuantityLimits size={21} color="#3498db" />,
   },
   {
     label: (
@@ -61,7 +61,7 @@ const items2: MenuProps["items"] = [
       </Link>
     ),
     key: "orders",
-    icon: <MdOutlinePointOfSale size={21} color="#f77908" />,
+    icon: <MdOutlinePointOfSale size={21} color="#3498db" />,
   },
   {
     label: (
@@ -70,7 +70,7 @@ const items2: MenuProps["items"] = [
       </Link>
     ),
     key: "users",
-    icon: <FaUsersCog size={21} color="#f77908" />,
+    icon: <FaUsersCog size={21} color="#3498db" />,
   }, // remember to pass the key prop
   {
     label: (
@@ -79,7 +79,7 @@ const items2: MenuProps["items"] = [
       </Link>
     ),
     key: "reviews",
-    icon: <FaUsersCog size={21} color="#f77908" />,
+    icon: <FaUsersCog size={21} color="#3498db" />,
   }, // remember to pass the key prop
   {
     label: (
@@ -88,7 +88,7 @@ const items2: MenuProps["items"] = [
       </Link>
     ),
     key: "payments",
-    icon: <FaUsersCog size={21} color="#f77908" />,
+    icon: <FaUsersCog size={21} color="#3498db" />,
   }, // remember to pass the key prop
 ];
 interface IProps {
@@ -116,7 +116,10 @@ const AppShell: React.FC<IProps> = ({ children }) => {
       <ConfigProvider
         theme={{
           algorithm: isDarkMode ? darkAlgorithm : defaultAlgorithm,
-          token: {},
+          token: {
+            colorPrimary: "#3498db",
+            colorLink: "#2980b9",
+          },
         }}
       >
         <Layout className="app-shell-layout">
@@ -138,7 +141,7 @@ const AppShell: React.FC<IProps> = ({ children }) => {
               />
             </Sider>
             <Drawer
-              title="HoneyMan"
+              title="LinkaVet"
               placement="left"
               closable={true}
               onClose={onClose}
@@ -170,9 +173,11 @@ const AppShell: React.FC<IProps> = ({ children }) => {
               }}
             >
               {children}
+              {/* <Footer style={{ textAlign: "center" }}>
+                Ant Design ©2018 Created by Ant UED
+              </Footer> */}
             </Content>
           </Layout>
-          {/* <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer> */}
         </Layout>
       </ConfigProvider>
     </AppModalProvider>

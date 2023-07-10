@@ -12,15 +12,26 @@ export const WhyHoneyMan = () => {
   const { width } = useWindowSize();
   const { isDarkMode } = useTheme();
   return (
-    <Row align={"middle"} justify={"center"} style={{ padding: 40 }}>
+    <Row
+      align={"middle"}
+      justify={"center"}
+      style={{ paddingTop: "8rem", paddingBottom: "8rem" }}
+    >
       <Col xs={24} md={24} lg={24}>
-        <Title style={{ textAlign: "center", lineHeight: 1.5, fontSize: 40, marginBottom: 0 }}>
-          Why Honeyman?
+        <Title
+          style={{
+            textAlign: "center",
+            lineHeight: 1.5,
+            fontSize: 40,
+            marginBottom: 0,
+          }}
+        >
+          Why LinkaVet?
         </Title>
         <Paragraph style={{ fontSize: 17, textAlign: "center" }}>
           <p>
-            Getting access to different varieties of natural honey has never
-            been easier in the entire history of mankind
+            Get access to Veterinary doctors has never been easier in the entire
+            history of mankind
           </p>
         </Paragraph>
       </Col>
@@ -32,11 +43,10 @@ export const WhyHoneyMan = () => {
                 size={50}
                 style={{ color: isDarkMode ? "#572f08" : "#261f13" }}
               />
-              <Title level={5}>Best Quality</Title>
+              <Title level={5}>Top notch Professionals</Title>
               <Paragraph>
                 <p style={{ fontSize: width < 768 ? 11 : 13, lineHeight: 1.3 }}>
-                  With the best quality and affordability, we provide a wide
-                  range of honey and honey products.
+                  Get access to top-notch professionals affordably.
                 </p>
               </Paragraph>
             </div>

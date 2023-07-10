@@ -10,10 +10,10 @@ import { IUser, emptyUser } from "models/user.model";
 
 const RegisterPage: React.FC = () => {
   const { addUser } = useUser();
-  const [isSubmitting, setSubmitting]= useState(false);
+  const [isSubmitting, setSubmitting] = useState(false);
   const onFinish = async (values: any) => {
-    console.log(values)
-    setSubmitting(true)
+    console.log(values);
+    setSubmitting(true);
     const obj: IUser = {
       ...emptyUser,
       firstname: values.firstname,
@@ -30,7 +30,7 @@ const RegisterPage: React.FC = () => {
     } else {
       message.error("Registration failed!");
     }
-    setSubmitting(false)
+    setSubmitting(false);
   };
 
   return (
@@ -39,12 +39,11 @@ const RegisterPage: React.FC = () => {
         justify={"center"}
         align="middle"
         className="form__container"
-        // style={{
-        //   background: "url(./honey-man.svg)",
-        //   backgroundRepeat: "no-repeat, repeat",
-        //   backgroundSize: "cover",
-        //   backgroundPosition: "center",
-        // }}
+        style={{
+          background: "url(./images/bg-1-removebg-preview.png)",
+          backgroundRepeat: "no-repeat",
+          backgroundPosition: "right",
+        }}
       >
         <Col
           xs={18}

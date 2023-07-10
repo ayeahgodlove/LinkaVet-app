@@ -1,6 +1,4 @@
 import {
-  LoadingOutlined,
-  ShoppingCartOutlined,
   SmileOutlined,
   SolutionOutlined,
   UserOutlined,
@@ -9,35 +7,71 @@ import { Col, Row, Steps, Typography } from "antd";
 import useWindowSize from "hooks/shared/window-resize.hook";
 import React from "react";
 import { MdOutlinePayments } from "react-icons/md";
+import { FaUsersCog } from "react-icons/fa";
+import "./style.scss";
 
 const { Title, Paragraph } = Typography;
 const BuyInThreeSteps: React.FC = () => {
-    const {width} = useWindowSize();
+  const { width } = useWindowSize();
   return (
     <>
-      <Row align={"middle"} justify={"center"} style={{ padding: 40 }}>
+      <Row
+        align={"middle"}
+        justify={"center"}
+        style={{
+          borderRadius: 0,
+          paddingTop: "8rem",
+          paddingBottom: "8rem",
+          // backgroundRepeat: "no-repeat",
+          // background: "url(images/bg-1-removebg-preview.png)",
+          // backgroundPosition: "top right",
+        }}
+      >
         <Col xs={24} md={24} lg={24}>
-          <Title style={{ textAlign: "center", lineHeight: 1.5, fontSize: 40, marginBottom: 0 }}>
-            <span style={{ color: "#f77908" }}>Buy Items</span> in 3 Easy Steps
+          <Title
+            style={{
+              textAlign: "center",
+              lineHeight: 1.5,
+              fontSize: 40,
+              marginBottom: 0,
+            }}
+          >
+            <span style={{ color: "#2980b9" }}>Getstarted</span> in 3 Easy Steps
           </Title>
           <Paragraph style={{ fontSize: 17, textAlign: "center" }}>
-            <p>Our platform makes buying easy with these simple steps.</p>
+            <p>
+              Connecting medical professionals to farm owners, pet owners with
+              these simple steps.
+            </p>
           </Paragraph>
+          {width > 768 ? (
+            <>
+              <div className="image image-card-1">
+                <img src="images/bg-1.png" alt="doctors standing with pets" />
+              </div>
+              <div className="image image-card-2">
+                <img src="images/bg-2.png" alt="doctors standing with pets" />
+              </div>
+            </>
+          ) : (
+            <></>
+          )}
         </Col>
         <Col xs={24} md={24} lg={20}>
           <Steps
-          direction={width < 768 ? "vertical" : "horizontal"}
+            direction={width < 768 ? "vertical" : "horizontal"}
+            style={{ marginTop: 50 }}
             items={[
               {
                 title: (
                   <>
-                    <Title level={5} color="#261f13">
-                      Login
+                    <Title level={5} color="#f39c12">
+                      Register/Login
                     </Title>
                   </>
                 ),
                 status: "finish",
-                icon: <UserOutlined style={{ color: "#f77908"}} />,
+                icon: <UserOutlined style={{ color: "#f39c12" }} />,
                 description: (
                   <>
                     <Paragraph>
@@ -52,18 +86,19 @@ const BuyInThreeSteps: React.FC = () => {
               {
                 title: (
                   <>
-                    <Title level={5} color="#261f13">
-                      View Honey Products
+                    <Title level={5} color="#f39c12">
+                      Get-in-touch with professionals
                     </Title>
                   </>
                 ),
                 status: "finish",
-                icon: <SolutionOutlined  style={{ color: "#f77908"}}  />,
+                icon: <FaUsersCog style={{ color: "#f77908" }} />,
                 description: (
                   <>
                     <Paragraph>
                       <p>
-                        View correct details of the products you want to buy.
+                        Go through a list of renowned Veterinary doctors, and
+                        book the one of your chosing...
                       </p>
                     </Paragraph>
                   </>
@@ -72,20 +107,17 @@ const BuyInThreeSteps: React.FC = () => {
               {
                 title: (
                   <>
-                    <Title level={5} color="#261f13">
-                      Place Order
+                    <Title level={5} color="#f39c12">
+                      Get your solution
                     </Title>
                   </>
                 ),
                 status: "finish",
-                icon: <ShoppingCartOutlined style={{ color: "#f77908"}}  />,
+                icon: <SolutionOutlined style={{ color: "#f77908" }} />,
                 description: (
                   <>
                     <Paragraph>
-                      <p>
-                        Add product or many product items to your cart, and
-                        place your order
-                      </p>
+                      <p>Find the solution to your pets illnesses</p>
                     </Paragraph>
                   </>
                 ),
@@ -93,13 +125,13 @@ const BuyInThreeSteps: React.FC = () => {
               {
                 title: (
                   <>
-                    <Title level={5} color="#261f13">
+                    <Title level={5} color="#f39c12">
                       Pay
                     </Title>
                   </>
                 ),
                 status: "finish",
-                icon: <MdOutlinePayments style={{ color: "#f77908"}}  />,
+                icon: <MdOutlinePayments style={{ color: "#f77908" }} />,
                 description: (
                   <>
                     <Paragraph>
@@ -111,17 +143,17 @@ const BuyInThreeSteps: React.FC = () => {
               {
                 title: (
                   <>
-                    <Title level={5} color="#261f13">
+                    <Title level={5} color="#f39c12">
                       Done
                     </Title>
                   </>
                 ),
                 status: "finish",
-                icon: <SmileOutlined style={{ color: "#f77908"}}  />,
+                icon: <SmileOutlined style={{ color: "#f77908" }} />,
                 description: (
                   <>
                     <Paragraph>
-                      <p>Receive your product in time, and remain happy</p>
+                      <p> Live a happy life from now on!</p>
                     </Paragraph>
                   </>
                 ),

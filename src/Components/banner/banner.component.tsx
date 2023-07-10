@@ -15,9 +15,8 @@ export const Banner: React.FC = () => {
   return (
     <Card
       bordered={false}
-      style={{ borderRadius: 0, paddingTop: 30, paddingBottom: 40 }}
+      style={{ borderRadius: 0,paddingTop: "8rem", paddingBottom: "8rem" }}
     >
-     
       <Row justify={"center"} align={"middle"} gutter={[8, 8]}>
         <Col
           xs={12}
@@ -32,33 +31,18 @@ export const Banner: React.FC = () => {
           className=""
         >
           <div className="gallery">
-            <img src="./images/image-9.jpg" alt="image 1" />
-
-            <img src="./images/image-2.jpg" alt="image 2" />
-
-            <img src="./images/image-8.jpg" alt="image 3" />
-
-            <img src="./images/image-10.jpg" alt="image 4" />
-
-            <img src="./images/image-5.jpg" alt="image 5" />
-
-            <img src="./images/image-6.jpg" alt="image 6" />
-
-            <img src="./images/image-7.jpg" alt="image 7" />
+            <img src="./images/banner.png" alt="landing page image" />
           </div>
         </Col>
         <Col xs={20} md={13} lg={13} className="banner__text">
-          <Title>
-            <span style={{ color: "#f77908" }}>
-              One-stop natural honey market
-            </span>{" "}
-            for all your honey and honey products, buy, and sell quality honey
-            and honey products
+          <Title style={{ fontSize: 25}}>
+            <span style={{ color: "#3498db", fontSize: 40 }}>LinkaVet</span> <br /> Link to a
+            Veterinary professional within and without the national territory.
           </Title>
           <Paragraph style={{ fontSize: 17, textAlign: "center" }}>
             <p>
-              An online one-stop store for honey lovers and honey vendors to buy
-              and sell various honey varieties and products made from honey
+              If you are a farmers owner, per owners, or looking for mentorship
+              in the vetinary profession, this is the platform for you
             </p>
           </Paragraph>
           <Space
@@ -71,12 +55,13 @@ export const Banner: React.FC = () => {
             <ConfigProvider
               theme={{
                 token: {
-                  colorPrimary: "#f77908",
+                  colorPrimary: "#3498db",
+                  colorLink: "#2980b9"
                 },
               }}
             >
               <Button
-                type="primary"
+                type="default"
                 size="large"
                 style={{ paddingLeft: 25, paddingRight: 25, fontSize: 18 }}
               >

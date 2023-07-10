@@ -36,33 +36,19 @@ const GeneralAppShell: React.FC<IProps> = ({ children }) => {
     <ConfigProvider
       theme={{
         algorithm: isDarkMode ? darkAlgorithm : defaultAlgorithm,
+        token: {
+          colorPrimary: "#3498db",
+          colorLink: "#2980b9",
+        },
       }}
     >
       <Layout className="app-shell-layout">
-        <TweenOne
-          animation={{
-            x: 280,
-            y: 300,
-            scale: 0.7,
-            duration: 7000,
-            repeat: 0,
-            opacity: 0.6,
-          }}
-          style={{
-            transform: "translateX(-80px)",
-            overflowX: "hidden",
-            position: "absolute",
-            zIndex: 10,
-          }}
-          // className="code-box-shape"
-        >
-          <img src="/honeybee.png" height={50} width={50} />
-        </TweenOne>
+       
 
         <Navbar showMenuIcon handleShow={handleShow} />
         <Layout>
           <Drawer
-            title="HoneyMan"
+            title="LinkaVet"
             placement="left"
             closable={true}
             onClose={onClose}
@@ -84,25 +70,7 @@ const GeneralAppShell: React.FC<IProps> = ({ children }) => {
               />
             </Sider>
           </Drawer>
-
           <Layout style={{ padding: 0 }}>
-            <TweenOne
-              animation={{
-                x: 280,
-                y: 250,
-                repeat: 0, // demo 演示需要
-                duration: 5000,
-                opacity: 0.6,
-              }}
-              style={{
-                transform: "translateX(-80px)",
-                overflowX: "hidden",
-                position: "absolute",
-                zIndex: 10,
-              }}
-            >
-              <img src="/honeybee.png" height={50} width={50} />
-            </TweenOne>
             <Content
               className="site-layout-background"
               style={{

@@ -29,12 +29,11 @@ const LoginPage: React.FC = () => {
         justify={"center"}
         align="middle"
         className="form__container"
-        // style={{
-        //   background: "url(./honey-man.svg)",
-        //   backgroundRepeat: "no-repeat, repeat",
-        //   backgroundSize: "cover",
-        //   backgroundPosition: "center",
-        // }}
+        style={{
+          background: "url(./images/bg-1-removebg-preview.png)",
+          backgroundRepeat: "no-repeat",
+          backgroundPosition: "left",
+        }}
       >
         <Col
           xs={18}

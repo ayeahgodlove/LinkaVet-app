@@ -8,13 +8,10 @@ import {
   Row,
   Typography,
 } from "antd";
-import { useTheme } from "hooks/shared/theme.hook";
 import React from "react";
 
 const { Title, Paragraph } = Typography;
 const Subscribe = () => {
-  const {} = useTheme();
-
   const onFinish = (values: any) => {
     console.log(values);
   };
@@ -22,14 +19,20 @@ const Subscribe = () => {
     <Card
       bordered={false}
       style={{
-        background:
-          "linear-gradient(7deg,rgba(205, 66, 0, 1) 0%,rgba(254, 219, 7, 1) 100%)",
+        background: "linear-gradient(7deg, rgba(52, 152, 219, 1), transparent)",
         borderRadius: 0,
       }}
     >
       <Row justify={"center"} align={"middle"}>
         <Col xs={24} md={24} lg={24}>
-          <Title style={{ textAlign: "center", lineHeight: 1.5, fontSize: 40, marginBottom: 0 }}>
+          <Title
+            style={{
+              textAlign: "center",
+              lineHeight: 1.5,
+              fontSize: 40,
+              marginBottom: 0,
+            }}
+          >
             Stay up-to-date
           </Title>
           <Paragraph style={{ fontSize: 17, textAlign: "center" }}>
@@ -65,20 +68,22 @@ const Subscribe = () => {
                 justifyContent: "center",
                 alignItems: "center",
               }}
+              
             >
               <ConfigProvider
                 theme={{
-                    token: {
-                        colorPrimary: "#ba3d03"
-                    }
+                  token: {
+                    colorPrimary: "#3498db",
+                    colorLink: "#2980b9",
+                  },
                 }}
               >
                 <Button
-                  type="primary"
+                  type="default"
                   htmlType="submit"
                   className="login-form-button"
                   size="large"
-                  style={{ paddingLeft: 15, paddingRight: 15 }}
+                  style={{ paddingLeft: 15, paddingRight: 15, display:  "block" }}
                 >
                   Subscribe Now
                 </Button>

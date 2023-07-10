@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setActiveTheme } from "redux/shared/theme.slice";
 import { IRootState } from "redux/store";

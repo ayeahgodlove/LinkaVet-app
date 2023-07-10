@@ -1,4 +1,3 @@
-@import url("../../styles/utils/variable.scss");
 @import url("../../styles/utils/utils.scss");
 .app-shell-sidebar_hide {
     display: none;
@@ -8,11 +7,11 @@
 }
 
 .ant-layout-sider-trigger {
-    background: #ebcdb3 !important;
-    color: #333 !important;
+    background: #fff !important;
+    color: #2980b9 !important;
 
     &:hover {
-        background: #f79c4c !important;
+        background: #c4dcec !important;
     }
 }
 
