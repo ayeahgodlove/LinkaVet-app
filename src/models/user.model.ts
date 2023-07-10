@@ -2,27 +2,41 @@ import { IBaseState } from "./base-state.model";
 import { IResponseBase } from "./response-base.model";
 
 export interface IUser {
-  id: number;
-  username: string;
+  id: string;
   firstname: string;
+  authStrategy: string;
   lastname: string;
+  username: string;
   email: string;
-  password: string;
-  address: string;
-  role: string;
+  avatar: string;
   phoneNumber: string;
+  city: string; //town
+  country: string;
+  address: string;
+  password: string;
+  createdAt: Date;
+  updatedAt: Date;
+  verified: boolean;
+  isNormalUser: boolean
 }
 
 export const emptyUser: IUser = {
-  id: 0,
+  id: "",
   username: "",
   lastname: "",
   firstname: "",
   email: "",
   password: "",
   address: "",
-  role: "",
-  phoneNumber: ""
+  phoneNumber: "",
+  isNormalUser: true,
+  authStrategy: "",
+  avatar: "",
+  city: "",
+  country: "",
+  createdAt: new Date(),
+  updatedAt: new Date(),
+  verified: false
 };
 
 export interface IUserState extends IBaseState {
@@ -32,5 +46,8 @@ export interface IUserState extends IBaseState {
 
 export interface IUserResponse extends IResponseBase {
   data: IUser;
-  token: string;
+  message: string;
+}
+export interface IUserResponses extends IResponseBase {
+  data: IUser[];
 }

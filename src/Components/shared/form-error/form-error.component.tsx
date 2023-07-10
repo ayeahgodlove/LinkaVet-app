@@ -30,9 +30,9 @@ export const FormErrorComponent: React.FC<IProps> = ({
                     message="Error Messages"
                     description={
                         <>
-                            {formError.validationErrors.constrains &&
-                            formError.validationErrors.constrains.length > 0 ? (
-                                formError.validationErrors.constrains.map((v, index) => (
+                            {formError.validationErrors &&
+                            formError.validationErrors.length > 0 ? (
+                                formError.validationErrors.map((v, index) => (
                                     <span key={index} style={{ display: 'block' }}>
                                         {v}
                                     </span>

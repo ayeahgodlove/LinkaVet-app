@@ -30,13 +30,12 @@ const useUser = () => {
   const addUser = async (user: IUser) => {
     return await UserService.create(user)
       .then((userResponse) => {
-        console.log("SUCCESS!", userResponse.data)
-        debugger
-        dispatch(addUserSuccess(userResponse.data));
+        dispatch(addUserSuccess({ ...user, ...userResponse.data }));
+        debugger;
         return userResponse.success;
       })
       .catch((error) => {
-        console.log(error)
+        console.log(error);
         return false;
       });
   };
@@ -53,7 +52,7 @@ const useUser = () => {
         return true;
       })
       .catch((error) => {
-        console.log(error)
+        console.log(error);
         return false;
       });
   };

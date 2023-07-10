@@ -3,13 +3,14 @@ import React, { useState } from "react";
 import { LockOutlined, PhoneOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Col, Form, Input, Row, message } from "antd";
 import "../../styles/login.style.scss";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { MdEmail } from "react-icons/md";
 import { useUser } from "hooks/user.hook";
 import { IUser, emptyUser } from "models/user.model";
 
 const RegisterPage: React.FC = () => {
   const { addUser } = useUser();
+  const router = useNavigate();
   const [isSubmitting, setSubmitting] = useState(false);
   const onFinish = async (values: any) => {
     console.log(values);
@@ -27,11 +28,13 @@ const RegisterPage: React.FC = () => {
     const feedback = await addUser(obj);
     if (feedback) {
       message.success("User Registered Sucessfully!");
+      router("/login");
     } else {
       message.error("Registration failed!");
     }
     setSubmitting(false);
   };
+
 
   return (
     <GeneralAppShell>

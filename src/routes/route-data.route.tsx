@@ -4,9 +4,11 @@ import AdminCategoryDetailPage from "pages/admin/category/category-detail.page";
 import AdminCategoryPage from "pages/admin/category/category.page";
 import AdminReviewDetailPage from "pages/admin/review/review-detail.page";
 import AdminReviewPage from "pages/admin/review/review.page";
+import UserDashboard from "pages/auth/dashboard/user-dashboard.page";
 import ForgotPasswordPage from "pages/auth/forgot-password.page";
 import LoginPage from "pages/auth/login.page";
 import RegisterPage from "pages/auth/register.page";
+import WhoAreYouPage from "pages/auth/who-are-you.page";
 import CallbackPage from "pages/callback.page";
 import DashboardPage from "pages/dashboard.page";
 import ProductPage from "pages/product/index.page";
@@ -77,6 +79,18 @@ export const routes: IRoute[] = [
     private: true,
     exact: true,
     component: <ForgotPasswordPage />,
+  },
+  {
+    path: "/who-are-you",
+    private: true,
+    exact: true,
+    component: <WhoAreYouPage />,
+  },
+  {
+    path: "/user-dashboard/:userCode",
+    private: true,
+    exact: true,
+    component: <UserDashboard />,
   },
   // admin section
   // private routes

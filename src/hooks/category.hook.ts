@@ -23,7 +23,7 @@ const useCategory = () => {
   const dispatch = useDispatch();
   const { setformError } = useFormErrors()
 
-  const loadCategorys = useCallback(() => {
+  const loadCategories = useCallback(() => {
     if (initialFetch) {
       dispatch(fetchCategoriesAsync() as any);
     }
@@ -59,8 +59,8 @@ const useCategory = () => {
   };
 
   useEffect(() => {
-    loadCategorys();
-  }, [category, categories, isLoading, initialFetch, loadCategorys]);
+    loadCategories();
+  }, [category, categories, isLoading, initialFetch, loadCategories]);
 
   return {
     category,

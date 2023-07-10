@@ -169,12 +169,12 @@ const RightMenu = () => {
         <Avatar
           style={{
             color: "#fff",
-            backgroundColor: "#f77908",
+            backgroundColor: "#3498db",
             fontWeight: "bold",
             fontSize: 14,
           }}
           // src={user?.picture}
-        >
+        > 
           {user?.username?.charAt(0).toUpperCase()}
         </Avatar>
       ),

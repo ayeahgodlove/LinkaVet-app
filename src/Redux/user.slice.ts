@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { UserService } from "services/user.service";
-import { IUserState, emptyUser, IUser } from "../models/user.model";
+import { IUserState, emptyUser, IUser, IUserResponse, IUserResponses } from "../models/user.model";
 
 export const initialState: IUserState = {
   users: [],
@@ -10,8 +10,8 @@ export const initialState: IUserState = {
   initialFetch: true,
 };
 
-export const fetchUsersAsync = createAsyncThunk<IUser[], void>(
-  "user/fetchUsersAsync",
+export const fetchUsersAsync = createAsyncThunk<IUserResponses, void>(
+  "user/fetchUsusersAsync",
   async (_, thunkApi) => {
     try {
       return await UserService.list();
@@ -25,15 +25,15 @@ export const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    fetchuserRequest: (state) => {
+    fetchUserRequest: (state) => {
       state.isLoading = true;
     },
-    fetchuserSuccess: (state, action: PayloadAction<IUser[]>) => {
+    fetchUserSuccess: (state, action: PayloadAction<IUser[]>) => {
       state.isLoading = false;
       state.initialFetch = false;
       state.users = action.payload;
     },
-    fetchuserError: (state, action: PayloadAction<string>) => {
+    fetchUserError: (state, action: PayloadAction<string>) => {
       state.isLoading = false;
       state.errors = action.payload;
     },
@@ -43,7 +43,6 @@ export const userSlice = createSlice({
       });
     },
     addUserSuccess: (state, action: PayloadAction<IUser>) => {
-      console.log("state.users: ", state.users)
       state.users = [...state.users, action.payload];
     },
     setActiveUser: (state, action: PayloadAction<IUser>) => {
@@ -54,10 +53,10 @@ export const userSlice = createSlice({
     builder.addCase(fetchUsersAsync.pending, (state) => {
       state.isLoading = true;
     });
-    builder.addCase(fetchUsersAsync.fulfilled, (state, action) => {
+    builder.addCase(fetchUsersAsync.fulfilled, (state, action: PayloadAction<IUserResponses>) => {
       state.isLoading = false;
       state.initialFetch = false;
-      state.users = action.payload;
+      state.users = action.payload.data;
     });
     builder.addCase(fetchUsersAsync.rejected, (state, action) => {
       state.isLoading = false;
@@ -67,9 +66,9 @@ export const userSlice = createSlice({
 });
 
 export const {
-  fetchuserRequest,
-  fetchuserSuccess,
-  fetchuserError,
+  fetchUserRequest,
+  fetchUserSuccess,
+  fetchUserError,
   editUserSuccess,
   addUserSuccess,
   setActiveUser,
