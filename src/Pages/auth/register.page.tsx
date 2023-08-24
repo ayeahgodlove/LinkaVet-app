@@ -1,7 +1,16 @@
 import GeneralAppShell from "layout/app/general-app-shell";
 import React, { useState } from "react";
 import { LockOutlined, PhoneOutlined, UserOutlined } from "@ant-design/icons";
-import { Button, Col, Form, Input, Row, message } from "antd";
+import {
+  Button,
+  Col,
+  Form,
+  Input,
+  Radio,
+  RadioChangeEvent,
+  Row,
+  message,
+} from "antd";
 import "../../styles/login.style.scss";
 import { Link, useNavigate } from "react-router-dom";
 import { MdEmail } from "react-icons/md";
@@ -10,10 +19,12 @@ import { IUser, emptyUser } from "models/user.model";
 
 const RegisterPage: React.FC = () => {
   const { addUser } = useUser();
+  const [form] = Form.useForm();
   const router = useNavigate();
   const [isSubmitting, setSubmitting] = useState(false);
+  const [value, setValue] = useState("pet-owner");
+
   const onFinish = async (values: any) => {
-    console.log(values);
     setSubmitting(true);
     const obj: IUser = {
       ...emptyUser,
@@ -23,18 +34,22 @@ const RegisterPage: React.FC = () => {
       email: values.email,
       phoneNumber: values.phoneNumber,
       password: values.password,
+      userRole: value,
     };
 
     const feedback = await addUser(obj);
     if (feedback) {
       message.success("User Registered Sucessfully!");
-      router("/login");
+      router("/auth/login");
     } else {
       message.error("Registration failed!");
     }
     setSubmitting(false);
   };
 
+  const onChange = (e: RadioChangeEvent) => {
+    setValue(e.target.value);
+  };
 
   return (
     <GeneralAppShell>
@@ -63,6 +78,7 @@ const RegisterPage: React.FC = () => {
             className="login-form"
             initialValues={{ remember: true }}
             onFinish={onFinish}
+            form={form}
           >
             <Row justify={"space-between"} align={"middle"}>
               <Col span={12}>
@@ -131,6 +147,20 @@ const RegisterPage: React.FC = () => {
             </Form.Item>
 
             <Form.Item
+              name={"userRole"}
+              rules={[{ message: "Select your role!" }]}
+            >
+              <p style={{ marginBottom: 2 }}>what is your role?</p>
+              <Radio.Group onChange={onChange} value={value}>
+                <Radio value={"pet-owner"}>Pet Owner</Radio>
+                <Radio value={"farmer"}>Famer</Radio>
+                <Radio value={"doctor"}>Doctor</Radio>
+                <Radio value={"student"}>Student</Radio>
+                <Radio value={"researcher"}>Researcher</Radio>
+              </Radio.Group>
+            </Form.Item>
+
+            <Form.Item
               name="password"
               rules={[
                 { required: true, message: "Please input your Password!" },
@@ -142,6 +172,7 @@ const RegisterPage: React.FC = () => {
                 placeholder="Password"
               />
             </Form.Item>
+
             <Form.Item style={{ marginBottom: 0 }}>
               <Button
                 type="primary"
@@ -161,7 +192,7 @@ const RegisterPage: React.FC = () => {
                 marginTop: 10,
               }}
             >
-              Or <Link to="/login">login now!</Link>
+              Or <Link to="/auth/login">login now!</Link>
             </span>
           </Form>
         </Col>

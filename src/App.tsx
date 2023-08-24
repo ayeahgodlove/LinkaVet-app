@@ -5,12 +5,15 @@ import { Provider } from "react-redux";
 import store, { persistor } from "redux/store";
 import withLoading from "components/shared/with-loading/with-loading.component";
 import { PersistGate } from "redux-persist/integration/react";
+import { AppModalProvider } from "context/app-modal.context";
 
 function App() {
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
-        <AppRouteProvider />
+        <AppModalProvider>
+          <AppRouteProvider />
+        </AppModalProvider>
       </PersistGate>
     </Provider>
   );

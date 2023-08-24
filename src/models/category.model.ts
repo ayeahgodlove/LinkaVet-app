@@ -5,9 +5,9 @@ export interface ICategory {
   id: string;
   name: string;
   slug: string;
+  description: string;
   createdAt: Date;
   updatedAt: Date;
-  deletedAt: Date;
 }
 
 export interface ISubCategory extends ICategory {
@@ -20,7 +20,7 @@ export const emptyCategory: ICategory = {
   slug: "",
   createdAt: new Date(),
   updatedAt: new Date(),
-  deletedAt: new Date(),
+  description: ""
 };
 
 export const emptySubCategory: ISubCategory = {

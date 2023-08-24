@@ -12,22 +12,25 @@ import sessionStorage from 'redux-persist/lib/storage/session'
 import { productReducer } from "./product.slice";
 import { userReducer } from "./user.slice";
 import { categoryReducer } from "./category.slice";
-import { orderReducer } from "./order.slice";
-import { subCategoryReducer } from "./sub-category.slice";
+// import { orderReducer } from "./order.slice";
 import { paymentReducer } from "./payment.slice";
 import { themeReducer } from "./shared/theme.slice";
 import { formErrorReducer } from "./shared/form-error.slice";
 import { reviewReducer } from "./review.slice";
 import { authReducer } from "./auth/auth.slice";
+import { postReducer } from "./post.slice";
+import { documentReducer } from "./document.slice";
 
 const middlewares: [any] = [thunkMiddleware];
 
 export const rootReducer = combineReducers({
   user: userReducer,
   product: productReducer,
-  order: orderReducer,
+  // order: orderReducer,
+  post: postReducer,
+  document: documentReducer,
   category: categoryReducer,
-  subCategory: subCategoryReducer,
+  // subCategory: subCategoryReducer,
   payment: paymentReducer,
   review: reviewReducer,
   theme: themeReducer,

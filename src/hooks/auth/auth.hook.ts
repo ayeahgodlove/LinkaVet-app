@@ -24,6 +24,7 @@ const useAuth = () => {
       dispatch(
         loginUser({ email: user.email, password: user.password }) as any
       );
+      // dispatch(setUser())
     },
     [dispatch]
   );

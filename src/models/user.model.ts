@@ -1,5 +1,6 @@
 import { IBaseState } from "./base-state.model";
 import { IResponseBase } from "./response-base.model";
+import { IRole } from "./role.model";
 
 export interface IUser {
   id: string;
@@ -17,7 +18,8 @@ export interface IUser {
   createdAt: Date;
   updatedAt: Date;
   verified: boolean;
-  isNormalUser: boolean
+  userRole: string;
+  roles: IRole[]
 }
 
 export const emptyUser: IUser = {
@@ -29,14 +31,15 @@ export const emptyUser: IUser = {
   password: "",
   address: "",
   phoneNumber: "",
-  isNormalUser: true,
   authStrategy: "",
   avatar: "",
   city: "",
   country: "",
   createdAt: new Date(),
   updatedAt: new Date(),
-  verified: false
+  verified: false,
+  userRole: "",
+  roles: []
 };
 
 export interface IUserState extends IBaseState {

@@ -29,7 +29,7 @@ const RightMenu = () => {
   const items: ItemType[] = [
     {
       label: (
-        <Link to={"/login"}>
+        <Link to={"/auth/login"}>
           Signin
         </Link>
       ),

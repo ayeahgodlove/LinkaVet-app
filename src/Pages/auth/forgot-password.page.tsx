@@ -69,7 +69,7 @@ const ForgotPasswordPage: React.FC = () => {
                 marginTop: 10,
               }}
             >
-              Or <Link to="/login">Go back!</Link>
+              Or <Link to="/auth/login">Go back!</Link>
             </span>
           </Form>
         </Col>

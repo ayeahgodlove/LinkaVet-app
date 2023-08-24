@@ -84,7 +84,7 @@ const LoginPage: React.FC = () => {
                 <Checkbox>Remember me</Checkbox>
               </Form.Item>
 
-              <Link className="login-form-forgot" to="/forgot-password">
+              <Link className="login-form-forgot" to="/auth/forgot-password">
                 Forgot password
               </Link>
             </div>
@@ -107,7 +107,7 @@ const LoginPage: React.FC = () => {
                 marginTop: 10,
               }}
             >
-              Or <Link to="/register">register now!</Link>
+              Or <Link to="/auth/register">register now!</Link>
             </span>
           </Form>
         </Col>

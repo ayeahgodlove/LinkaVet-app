@@ -41,6 +41,7 @@ export const CategoryForm: React.FC<Props> = ({ formMode }) => {
             ...category,
             ...values,
             name: values.name,
+            description: values.description
         }
 
         if (formMode === UpdateMode.ADD) {
@@ -80,6 +81,7 @@ export const CategoryForm: React.FC<Props> = ({ formMode }) => {
                     name="name"
                     label="Name"
                     requiredMark
+                    style={{ marginBottom: 3}}
                     rules={[
                         {
                             required: true,

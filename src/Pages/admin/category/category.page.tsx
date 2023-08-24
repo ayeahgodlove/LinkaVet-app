@@ -5,7 +5,6 @@ import TitleBar from "components/common/title-bar/title-bar.component";
 import PageBreadCrumbs from "components/shared/page-breadcrumb/page-breadcrumb.component";
 import { useModalContext } from "context/app-modal.context";
 import { useAuth } from "hooks/auth/auth.hook";
-import AppShell from "layout/app/app-shell";
 import { UpdateMode } from "models/shared/update-mode.enum";
 import React, { useEffect, useState } from "react";
 import { FiPlus } from "react-icons/fi";
@@ -16,20 +15,8 @@ const AdminCategoryPage: React.FC = () => {
   const { isLoading } = useAuth();
   useEffect(() => {}, [isLoading]);
   const { setContent, setTitle, setShow } = useModalContext();
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const dispatch = useDispatch();
 
-  const showModal = () => {
-    setIsModalOpen(true);
-  };
-
-  const handleOk = () => {
-    setIsModalOpen(false);
-  };
-
-  const handleCancel = () => {
-    setIsModalOpen(false);
-  };
 
   const createCategory = () => {
     setContent(<CategoryForm formMode={UpdateMode.ADD} />);
@@ -37,32 +24,25 @@ const AdminCategoryPage: React.FC = () => {
     setShow(true);
   };
 
-  useEffect(()=> {
-    dispatch(fetchCategoriesAsync() as any)
-  },[])
+  useEffect(() => {
+    dispatch(fetchCategoriesAsync() as any);
+  }, []);
 
   return (
-    <AppShell>
-      <PageBreadCrumbs items={["Configurations", "Category"]} />
-      <TitleBar
-        title={"Categories"}
-        subTitle={"View and Create Categories"}
-        showButton={true}
-        buttonLabel={"Add Record"}
-        handleShow={showModal}
-        icon={<FiPlus />}
-      />
-      <CategoryTable createCategory={showModal} />
-
-      <Modal
-        title="Basic Modal"
-        open={isModalOpen}
-        onOk={handleOk}
-        onCancel={handleCancel}
-      >
-        <CategoryForm formMode={UpdateMode.ADD} />
-      </Modal>
-    </AppShell>
+    <>
+      <div style={{ margin: "1rem" }}>
+        <PageBreadCrumbs items={["Configurations", "Category"]} />
+        <TitleBar
+          title={"Categories"}
+          subTitle={"View and Create Categories"}
+          showButton={true}
+          buttonLabel={"Add Record"}
+          handleShow={createCategory}
+          icon={<FiPlus />}
+        />
+        <CategoryTable createCategory={createCategory} />
+      </div>
+    </>
   );
 };
 

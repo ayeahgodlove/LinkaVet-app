@@ -1,14 +1,26 @@
+import { CategoryForm } from "components/admin/category/category-form.component";
+import { useModalContext } from "context/app-modal.context";
 import { useAuth } from "hooks/auth/auth.hook";
-import AppShell from "layout/app/app-shell";
+import { UpdateMode } from "models/shared/update-mode.enum";
 import React, { useEffect } from "react";
 
 const AdminCategoryDetailPage: React.FC = () => {
   const { isLoading } = useAuth();
+  const { setContent, setTitle, setShow } = useModalContext();
+  
+  const editCategory = () => {
+    setContent(<CategoryForm formMode={UpdateMode.EDIT} />);
+    setTitle("Edit new category");
+    setShow(true);
+  };
+
   useEffect(() => {}, [isLoading]);
   return (
-    <AppShell>
-      <h1 style={{ padding: 30 }}> Category Page Page</h1>
-    </AppShell>
+    <>
+      <div style={{ margin: "1rem" }}>
+        <h1 style={{ padding: 30 }}> Category Edit Page</h1>
+      </div>
+    </>
   );
 };
 

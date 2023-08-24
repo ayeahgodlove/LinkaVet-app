@@ -1,6 +1,7 @@
-import { Breadcrumb, Drawer, Layout, Menu, MenuProps } from "antd";
+import { Drawer, Layout, Menu, MenuProps } from "antd";
 import React, { useEffect, useState } from "react";
-import { FaUsersCog } from "react-icons/fa";
+import { FaBlog, FaRegComments, FaUsersCog } from "react-icons/fa";
+import { TiDocumentText } from "react-icons/ti";
 import {
   MdOutlinePointOfSale,
   MdOutlineProductionQuantityLimits,
@@ -12,7 +13,9 @@ import { Link } from "react-router-dom";
 
 import { ConfigProvider, theme } from "antd";
 import { useTheme } from "hooks/shared/theme.hook";
-import { AppModalProvider } from "context/app-modal.context";
+import { FiUsers } from "react-icons/fi";
+import { useAuth } from "hooks/auth/auth.hook";
+
 const { defaultAlgorithm, darkAlgorithm } = theme;
 
 const { Sider, Content, Footer } = Layout;
@@ -29,21 +32,21 @@ const items2: MenuProps["items"] = [
   },
   {
     label: (
-      <Link to="/admin/reviews" style={{ padding: 0 }}>
-        Reviews
+      <Link to="/admin/posts" style={{ padding: 0 }}>
+        Posts
       </Link>
     ),
-    key: "reviews",
-    icon: <BiCategoryAlt size={21} color="#3498db" />,
+    key: "posts",
+    icon: <FaBlog size={21} color="#3498db" />,
   },
   {
     label: (
-      <Link to="/admin/sub-categories" style={{ padding: 0 }}>
-        Sub Categories
+      <Link to="/admin/documents" style={{ padding: 0 }}>
+        Documents
       </Link>
     ),
-    key: "sub-categories",
-    icon: <BiCategoryAlt size={21} color="#3498db" />,
+    key: "documents",
+    icon: <TiDocumentText size={21} color="#3498db" />,
   },
   {
     label: (
@@ -54,15 +57,15 @@ const items2: MenuProps["items"] = [
     key: "products",
     icon: <MdOutlineProductionQuantityLimits size={21} color="#3498db" />,
   },
-  {
-    label: (
-      <Link to="/admin/orders" style={{ padding: 0 }}>
-        Orders
-      </Link>
-    ),
-    key: "orders",
-    icon: <MdOutlinePointOfSale size={21} color="#3498db" />,
-  },
+  // {
+  //   label: (
+  //     <Link to="/admin/orders" style={{ padding: 0 }}>
+  //       Orders
+  //     </Link>
+  //   ),
+  //   key: "orders",
+  //   icon: <MdOutlinePointOfSale size={21} color="#3498db" />,
+  // },
   {
     label: (
       <Link to="/admin/users" style={{ padding: 0 }}>
@@ -70,7 +73,7 @@ const items2: MenuProps["items"] = [
       </Link>
     ),
     key: "users",
-    icon: <FaUsersCog size={21} color="#3498db" />,
+    icon: <FiUsers size={21} color="#3498db" />,
   }, // remember to pass the key prop
   {
     label: (
@@ -79,8 +82,8 @@ const items2: MenuProps["items"] = [
       </Link>
     ),
     key: "reviews",
-    icon: <FaUsersCog size={21} color="#3498db" />,
-  }, // remember to pass the key prop
+    icon: <FaRegComments size={21} color="#3498db" />,
+  },
   {
     label: (
       <Link to="/admin/payments" style={{ padding: 0 }}>
@@ -98,6 +101,7 @@ const AppShell: React.FC<IProps> = ({ children }) => {
   const [collapsed, setCollapsed] = useState(false);
   const [show, setShow] = useState(false);
   const { isDarkMode } = useTheme();
+  const { isAuthenticated, user } = useAuth();
 
   const handleShow = () => {
     setShow(true);
@@ -112,75 +116,84 @@ const AppShell: React.FC<IProps> = ({ children }) => {
 
   useEffect(() => {}, []);
   return (
-    <AppModalProvider>
-      <ConfigProvider
-        theme={{
-          algorithm: isDarkMode ? darkAlgorithm : defaultAlgorithm,
-          token: {
-            colorPrimary: "#3498db",
-            colorLink: "#2980b9",
-          },
-        }}
-      >
-        <Layout className="app-shell-layout">
-          <Navbar showMenuIcon handleShow={handleShow} />
-          <Layout>
-            <Sider
-              width={200}
-              className={`site-layout-background ${
-                show ? "app-shell-sidebar_show" : "app-shell-sidebar_hide"
-              }`}
-              collapsible
-              collapsed={collapsed}
-              onCollapse={handleCollapse}
-            >
-              <Menu
-                mode="inline"
-                style={{ height: "100vh", borderRight: 0 }}
-                items={items2}
-              />
-            </Sider>
-            <Drawer
-              title="LinkaVet"
-              placement="left"
-              closable={true}
-              onClose={onClose}
-              open={show}
-              width={200}
-            >
-              <Sider
-                width={200}
-                className={`site-layout-background ${
-                  show ? "app-shell-sidebar_show" : "app-shell-sidebar_hide"
-                }`}
-              >
-                <Menu
-                  mode="inline"
-                  defaultSelectedKeys={["1"]}
-                  defaultOpenKeys={["sub1"]}
-                  style={{ height: "100%", borderRight: 0 }}
-                  items={items2}
-                />
-              </Sider>
-            </Drawer>
+    <ConfigProvider
+      theme={{
+        algorithm: isDarkMode ? darkAlgorithm : defaultAlgorithm,
+        token: {
+          colorPrimary: "#3498db",
+          colorLink: "#2980b9",
+        },
+      }}
+    >
+      <Layout className="app-shell-layout">
+        <Navbar showMenuIcon handleShow={handleShow} />
+        <Layout>
+          {
+            //Display Sidebar when it's admin
+            user.roles.map((r) => r.name).includes("doctor") ? (
+              <>
+                <Sider
+                  width={200}
+                  className={`site-layout-background ${
+                    show ? "app-shell-sidebar_show" : "app-shell-sidebar_hide"
+                  }`}
+                  collapsible
+                  collapsed={collapsed}
+                  onCollapse={handleCollapse}
+                >
+                  <Menu
+                    mode="inline"
+                    style={{ height: "100vh", borderRight: 0 }}
+                    items={items2}
+                  />
+                </Sider>
+                <Drawer
+                  title="LinkaVet"
+                  placement="left"
+                  closable={true}
+                  onClose={onClose}
+                  open={show}
+                  width={200}
+                >
+                  <Sider
+                    width={200}
+                    className={`site-layout-background ${
+                      show ? "app-shell-sidebar_show" : "app-shell-sidebar_hide"
+                    }`}
+                  >
+                    <Menu
+                      mode="inline"
+                      defaultSelectedKeys={["1"]}
+                      defaultOpenKeys={["sub1"]}
+                      style={{ height: "100%", borderRight: 0 }}
+                      items={items2}
+                    />
+                  </Sider>
+                </Drawer>
+              </>
+            ) : (
+              <></>
+            )
+          }
 
-            <Content
-              className="site-layout-background"
-              style={{
-                padding: 24,
-                margin: 0,
-                minHeight: 400,
-              }}
-            >
-              {children}
-              {/* <Footer style={{ textAlign: "center" }}>
+          {/* Display no sidebar when it's others */}
+
+          <Content
+            className="site-layout-background"
+            style={{
+              // padding: 24,
+              margin: 0,
+              minHeight: 400,
+            }}
+          >
+            {children}
+            {/* <Footer style={{ textAlign: "center" }}>
                 Ant Design ©2018 Created by Ant UED
               </Footer> */}
-            </Content>
-          </Layout>
+          </Content>
         </Layout>
-      </ConfigProvider>
-    </AppModalProvider>
+      </Layout>
+    </ConfigProvider>
   );
 };
 
