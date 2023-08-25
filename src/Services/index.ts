@@ -1,48 +1,34 @@
 import { AppConstant } from "config/constant";
-import axios, { AxiosResponse } from "axios";
+import axios, {  AxiosResponse } from "axios";
+import { tokenConfig } from "models/shared/config.model";
 
-const api = axios.create({
-  baseURL: AppConstant.API_URI,
+var user = JSON.parse(localStorage.getItem("user")!);
+const apiHeaders = {
+  baseURL: `${AppConstant.API_URI}`,
   headers: {
-    Accept: "application/json",
+      Accept: 'application/json',
+      Authorization: '',
   },
-});
+}
 
-api.interceptors.request.use(
-  async (config) => {
-    config.headers = {
-      Accept: "application/json",
-      "Access-Control-Allow-Origin": "*",
-      mode: "no-cors",
-    };
-    return config;
-  },
-  (error) => {
-    Promise.reject(error);
-  }
-);
+const apiConfig = () => {
+  apiHeaders.headers['Authorization'] = `Bearer ${user.token}`
+  return apiHeaders
+}
 
-const responseBody = (response: AxiosResponse) => response.data;
+const responseBody = (response: AxiosResponse) => response.data
 
 export const requestType = {
-  get: (url: string) =>
-    api
-      .get(url)
-      .then(responseBody)
-      .catch((error) => console.log("Error: ", error.message)),
+  get: (url: string) => axios.get(url, apiConfig()).then(responseBody),
   post: (url: string, body: {}) =>
-    api
-      .post(url, body)
-      .then(responseBody)
-      .catch((error) => console.log("Error: ", error.message)),
+      axios.post(url, body, apiConfig()).then(responseBody),
   put: (url: string, body: {}) =>
-    api
-      .put(url, body)
-      .then(responseBody)
-      .catch((error) => console.log("Error: ", error.message)),
+      axios.put(url, body, apiConfig()).then(responseBody),
   del: (url: string, body: {}) =>
-    api
-      .delete(url, body)
-      .then(responseBody)
-      .catch((error) => console.log("Error: ", error.message)),
-};
+      axios
+          .delete(apiConfig().baseURL + url, {
+              headers: apiConfig().headers,
+              data: body,
+          })
+          .then(responseBody),
+}

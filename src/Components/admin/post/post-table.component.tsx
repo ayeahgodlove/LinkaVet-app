@@ -1,16 +1,17 @@
 import React from "react";
 import { Table } from "antd";
 import { useNavigate } from "react-router-dom";
-import { postTableColumns } from "./post-column.component";
+import { usePostColumn } from "./post-column.component";
 import { usePost } from "hooks/post.hook";
 import { NoContent } from "components/shared/no-content/no-content.component";
 import { IPost } from "models/post";
 
 type Prop = {
-  createPost: () => void
-}
+  createPost: () => void;
+};
 const PostTable: React.FC<Prop> = ({ createPost }) => {
   const { posts, setPost } = usePost();
+  const { postTableColumns } = usePostColumn();
   const router = useNavigate();
   // const route = use
   const handleRowClick = (post: IPost) => {
@@ -29,7 +30,7 @@ const PostTable: React.FC<Prop> = ({ createPost }) => {
           onRow={(record: IPost) => {
             return {
               onClick: (e) => {
-                console.log(e)
+                console.log(e);
                 handleRowClick(record);
               },
             };

@@ -13,7 +13,7 @@ import { Link } from "react-router-dom";
 
 import { ConfigProvider, theme } from "antd";
 import { useTheme } from "hooks/shared/theme.hook";
-import { FiUsers } from "react-icons/fi";
+import { FiTag, FiUsers } from "react-icons/fi";
 import { useAuth } from "hooks/auth/auth.hook";
 
 const { defaultAlgorithm, darkAlgorithm } = theme;
@@ -57,15 +57,15 @@ const items2: MenuProps["items"] = [
     key: "products",
     icon: <MdOutlineProductionQuantityLimits size={21} color="#3498db" />,
   },
-  // {
-  //   label: (
-  //     <Link to="/admin/orders" style={{ padding: 0 }}>
-  //       Orders
-  //     </Link>
-  //   ),
-  //   key: "orders",
-  //   icon: <MdOutlinePointOfSale size={21} color="#3498db" />,
-  // },
+  {
+    label: (
+      <Link to="/admin/tags" style={{ padding: 0 }}>
+        Tags
+      </Link>
+    ),
+    key: "tags",
+    icon: <FiTag size={21} color="#3498db" />,
+  },
   {
     label: (
       <Link to="/admin/users" style={{ padding: 0 }}>
@@ -130,7 +130,7 @@ const AppShell: React.FC<IProps> = ({ children }) => {
         <Layout>
           {
             //Display Sidebar when it's admin
-            user.roles.map((r) => r.name).includes("doctor") ? (
+            user && user.roles && user.roles.map((r) => r.name).includes("doctor") ? (
               <>
                 <Sider
                   width={200}

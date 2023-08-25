@@ -20,22 +20,26 @@ import { reviewReducer } from "./review.slice";
 import { authReducer } from "./auth/auth.slice";
 import { postReducer } from "./post.slice";
 import { documentReducer } from "./document.slice";
+import { tagReducer } from "./tag.slice";
+import { tokenReducer } from "./auth/token.slice";
+import { subCategoryReducer } from "./sub-category.slice";
 
 const middlewares: [any] = [thunkMiddleware];
 
 export const rootReducer = combineReducers({
   user: userReducer,
   product: productReducer,
-  // order: orderReducer,
+  tag: tagReducer,
   post: postReducer,
   document: documentReducer,
   category: categoryReducer,
-  // subCategory: subCategoryReducer,
+  subCategory: subCategoryReducer,
   payment: paymentReducer,
   review: reviewReducer,
   theme: themeReducer,
   formError: formErrorReducer,
   auth: authReducer,
+  token: tokenReducer
 });
 
 const persistConfig = {
@@ -51,6 +55,9 @@ const persistConfig = {
     "order",
     "review",
     "payment",
+    "token",
+    "post",
+    "tag"
   ], // Specify the reducers you want to persist
 };
 

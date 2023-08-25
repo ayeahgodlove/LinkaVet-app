@@ -34,7 +34,7 @@ const useCategory = () => {
       .then((categoryResponse) => {
         dispatch(addCategorySuccess(categoryResponse.data));
         return true;
-      })
+      }) 
       .catch((error) => {
         setformError(error)
         return false;

@@ -6,8 +6,6 @@ export interface ICategory {
   name: string;
   slug: string;
   description: string;
-  createdAt: Date;
-  updatedAt: Date;
 }
 
 export interface ISubCategory extends ICategory {
@@ -18,8 +16,6 @@ export const emptyCategory: ICategory = {
   id: "",
   name: "",
   slug: "",
-  createdAt: new Date(),
-  updatedAt: new Date(),
   description: ""
 };
 
@@ -49,5 +45,9 @@ export interface ICategoryResponses extends IResponseBase {
 export interface ISubCategoryResponse extends IResponseBase {
   data: ISubCategory;
 }
+export interface ISubCategoryResponses extends IResponseBase {
+  data: ISubCategory[];
+}
+
 
 

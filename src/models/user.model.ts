@@ -19,7 +19,8 @@ export interface IUser {
   updatedAt: Date;
   verified: boolean;
   userRole: string;
-  roles: IRole[]
+  roles: IRole[];
+  token?: string;
 }
 
 export const emptyUser: IUser = {

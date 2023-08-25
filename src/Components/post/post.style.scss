@@ -1,0 +1,37 @@
+.post-card {
+  img {
+    height: 250px !important;
+    max-width: 100% !important;
+    object-fit: cover;
+  }
+  .ant-card-meta-title {
+    margin-bottom: 0 !important;
+  }
+  .ant-card-meta-description {
+    margin-bottom: 5px;
+  }
+
+  position: relative;
+  .add-to-fav-btn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    .add-to-fav {
+      overflow: visible;
+      color: rgb(55, 17, 17);
+      // stroke: #f3f3f3;
+      // stroke-width: 2;
+      outline-color: #f3f3f3;
+    }
+  }
+}
+
+@media screen and (min-width: 768px) {
+
+}
+
+@media screen and (min-width: 991px) {
+  .post-list {
+    margin: 0 2rem;
+  }
+}

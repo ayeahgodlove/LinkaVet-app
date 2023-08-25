@@ -9,6 +9,7 @@ import {
   setActiveUser,
 } from "../redux/user.slice";
 import { UserService } from "services/user.service";
+
 const useUser = () => {
   const users = useSelector<IRootState, IUser[]>((state) => state.user.users);
   const isLoading = useSelector<IRootState, boolean>(
@@ -31,7 +32,6 @@ const useUser = () => {
     return await UserService.create(user)
       .then((userResponse) => {
         dispatch(addUserSuccess({ ...user, ...userResponse.data }));
-        debugger;
         return userResponse.success;
       })
       .catch((error) => {
@@ -58,7 +58,7 @@ const useUser = () => {
   };
 
   useEffect(() => {
-    loadUsers();
+    // loadUsers();
   }, [user, users, isLoading, initialFetch, loadUsers]);
 
   return {

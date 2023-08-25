@@ -63,7 +63,7 @@ const useReview = () => {
   };
 
   useEffect(() => {
-    loadReviews();
+    // loadReviews();
   }, [review, reviews, isLoading, initialFetch, loadReviews]);
 
   return {

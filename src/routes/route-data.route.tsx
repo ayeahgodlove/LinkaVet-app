@@ -8,11 +8,17 @@ import AdminPostDetailPage from "pages/admin/post/post-detail.page";
 import AdminPostPage from "pages/admin/post/post.page";
 import AdminReviewDetailPage from "pages/admin/review/review-detail.page";
 import AdminReviewPage from "pages/admin/review/review.page";
+import AdminTagDetailPage from "pages/admin/tag/tag-detail.page";
+import AdminTagPage from "pages/admin/tag/tag.page";
+import AdminUserDetailPage from "pages/admin/user/user-detail.page";
+import AdminUserPage from "pages/admin/user/user.page";
 import ForgotPasswordPage from "pages/auth/forgot-password.page";
 import LoginPage from "pages/auth/login.page";
 import RegisterPage from "pages/auth/register.page";
 import CallbackPage from "pages/callback.page";
 import DashboardPage from "pages/dashboard/dashboard.page";
+import PostPage from "pages/post/index.page";
+import PostDetailPage from "pages/post/post-detail.page";
 import ProductPage from "pages/product/index.page";
 import ProductDetailPage from "pages/product/product-detail.page";
 import WelcomePage from "pages/welcome.page";
@@ -48,6 +54,19 @@ export const routes: IRoute[] = [
     private: false,
     exact: true,
     component: <ProductDetailPage />,
+  },
+
+  {
+    path: "/posts",
+    private: false,
+    exact: true,
+    component: <PostPage />,
+  },
+  {
+    path: "/posts/:name",
+    private: false,
+    exact: true,
+    component: <PostDetailPage />,
   },
 
   /**
@@ -96,7 +115,19 @@ export const routes: IRoute[] = [
     exact: true,
     component: <AdminCategoryDetailPage />,
   },
-  
+  {
+    path: "/admin/tags",
+    private: true,
+    exact: true,
+    component: <AdminTagPage />,
+  },
+  {
+    path: "/admin/tags/:name",
+    private: true,
+    exact: true,
+    component: <AdminTagDetailPage />,
+  },
+
   {
     path: "/admin/posts",
     private: true,
@@ -123,7 +154,7 @@ export const routes: IRoute[] = [
     component: <AdminDocumentDetailPage />,
   },
 
-    // admin section
+  // admin section
   // private routes
   {
     path: "/admin/reviews",
@@ -136,6 +167,18 @@ export const routes: IRoute[] = [
     private: true,
     exact: true,
     component: <AdminReviewDetailPage />,
+  },
+  {
+    path: "/admin/users",
+    private: true,
+    exact: true,
+    component: <AdminUserPage />,
+  },
+  {
+    path: "/admin/users/:id",
+    private: true,
+    exact: true,
+    component: <AdminUserDetailPage />,
   },
   {
     // default not found route

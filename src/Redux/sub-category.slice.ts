@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { SubCategoryService } from "services/sub-category.service";
-import { ISubCategoryState, emptySubCategory, ISubCategory } from "../models/category.model";
+import { ISubCategoryState, emptySubCategory, ISubCategory, ISubCategoryResponses } from "../models/category.model";
 
 export const initialState: ISubCategoryState = {
   subCategories: [],
@@ -10,7 +10,7 @@ export const initialState: ISubCategoryState = {
   initialFetch: true,
 };
 
-export const fetchSubCategoriesAsync = createAsyncThunk<ISubCategory[], void>(
+export const fetchSubCategoriesAsync = createAsyncThunk<ISubCategoryResponses, void>(
   "subCategory/fetchSubCategoriesAsync",
   async (_, thunkApi) => {
     try {
@@ -56,7 +56,7 @@ export const subCategorySlice = createSlice({
     builder.addCase(fetchSubCategoriesAsync.fulfilled, (state, action) => {
       state.isLoading = false;
       state.initialFetch = false;
-      state.subCategories = action.payload;
+      state.subCategories = action.payload.data;
     });
     builder.addCase(fetchSubCategoriesAsync.rejected, (state, action) => {
       state.isLoading = false;

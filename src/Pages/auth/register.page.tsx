@@ -16,9 +16,10 @@ import { Link, useNavigate } from "react-router-dom";
 import { MdEmail } from "react-icons/md";
 import { useUser } from "hooks/user.hook";
 import { IUser, emptyUser } from "models/user.model";
+import { useAuth } from "hooks/auth/auth.hook";
 
 const RegisterPage: React.FC = () => {
-  const { addUser } = useUser();
+  const { registerUserFunction } = useAuth();
   const [form] = Form.useForm();
   const router = useNavigate();
   const [isSubmitting, setSubmitting] = useState(false);
@@ -37,7 +38,7 @@ const RegisterPage: React.FC = () => {
       userRole: value,
     };
 
-    const feedback = await addUser(obj);
+    const feedback = registerUserFunction(obj);
     if (feedback) {
       message.success("User Registered Sucessfully!");
       router("/auth/login");

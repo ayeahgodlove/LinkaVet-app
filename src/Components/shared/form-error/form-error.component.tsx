@@ -22,7 +22,6 @@ export const FormErrorComponent: React.FC<IProps> = ({
 
     useEffect(() => {}, [hasSubmitted])
 
-    console.log(formError)
     return (
         <div>
             {hasSubmitted && (

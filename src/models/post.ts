@@ -33,3 +33,7 @@ export interface IPostState extends IBaseState {
 export interface IPostResponse extends IResponseBase {
   data: IPost;
 }
+
+export interface IPostResponses extends IResponseBase {
+  data: IPost[];
+}

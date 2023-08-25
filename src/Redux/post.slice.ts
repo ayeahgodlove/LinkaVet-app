@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { emptyPost, IPost, IPostState } from "models/post";
+import { emptyPost, IPost, IPostResponses, IPostState } from "models/post";
 import { PostService } from "services/post.service";
 
 export const initialState: IPostState = {
@@ -10,11 +10,12 @@ export const initialState: IPostState = {
   initialFetch: true,
 };
 
-export const fetchPostsAsync = createAsyncThunk<IPost[], void>(
+export const fetchPostsAsync = createAsyncThunk<IPostResponses, void>(
   "post/fetchPostsAsync",
   async (_, thunkApi) => {
     try {
-      return await PostService.list();
+       const response = await PostService.list();
+       return response;
     } catch (error: any) {
       return thunkApi.rejectWithValue({ error: error.data });
     }
@@ -53,10 +54,10 @@ export const postSlice = createSlice({
     builder.addCase(fetchPostsAsync.pending, (state) => {
       state.isLoading = true;
     });
-    builder.addCase(fetchPostsAsync.fulfilled, (state, action) => {
+    builder.addCase(fetchPostsAsync.fulfilled, (state, action: PayloadAction<IPostResponses>) => {
       state.isLoading = false;
       state.initialFetch = false;
-      state.posts = action.payload;
+      state.posts = action.payload.data;
     });
     builder.addCase(fetchPostsAsync.rejected, (state, action) => {
       state.isLoading = false;

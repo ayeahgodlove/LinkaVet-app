@@ -57,7 +57,7 @@ const usePost = () => {
   };
 
   useEffect(() => {
-    loadPosts();
+    // loadPosts();
   }, [post, posts, isLoading, initialFetch, loadPosts]);
 
   return {

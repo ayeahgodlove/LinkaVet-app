@@ -1,10 +1,17 @@
-import { IPost, IPostResponse } from "models/post";
+import { IPost, IPostResponse, IPostResponses } from "models/post";
 import { requestType } from "services";
 
+
 export const PostService = {
-    list: (): Promise<IPost[]> => requestType.get("/api/posts"),
-    details: (code: string): Promise<IPostResponse> => requestType.get(`/api/posts/${code}`),
-    create: (user: IPost): Promise<IPostResponse> => requestType.post(`/api/posts`, user),
-    update: (user: IPost): Promise<IPostResponse> => requestType.put(`/api/posts`, user),
-    delete: (user: IPost): Promise<IPostResponse> => requestType.del(`/api/posts`, user),
-}
+  list: (): Promise<IPostResponses> => requestType.get("/api/posts"),
+  details: (code: string): Promise<IPostResponse> =>
+    requestType.get(`/api/posts/${code}`),
+  create: async (post: IPost): Promise<IPostResponse> => {
+    debugger
+    return requestType.post(`/api/posts`, post)
+  },
+  update: (post: IPost): Promise<IPostResponse> =>
+    requestType.put(`/api/posts`, post),
+  delete: (post: IPost): Promise<IPostResponse> =>
+    requestType.del(`/api/posts`, post),
+};

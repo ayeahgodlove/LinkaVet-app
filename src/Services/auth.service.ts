@@ -1,12 +1,16 @@
 import { IUser, IUserResponse } from "models/user.model";
-import { requestType } from "services";
+import axios from "axios";
+
+const instance = axios.create({
+  baseURL: "http://localhost:8000", // Replace with your API server URL
+});
 
 export const authService = {
-  register: (user: IUser): Promise<IUserResponse> =>
-    requestType.post(`/auth/register`, user),
-  login: (user: {
+  register: async (user: IUser): Promise<IUserResponse> =>
+    await instance.post(`/api/users`, user),
+  login: async (user: {
     email: string;
     password: string;
-  }): Promise<IUserResponse> => requestType.post(`/auth/login`, user),
-  logout: (): Promise<any> => requestType.get("/auth/logout")
+  }): Promise<any> => await instance.post("/auth/login", user),
+  logout: async (): Promise<any> => await instance.get("/auth/logout"),
 };

@@ -29,11 +29,11 @@ const GeneralMenuItemsWithIcons: MenuProps["items"] = [
 
   {
     label: (
-      <Link to="/blog" style={{ padding: 0 }}>
-        Blog
+      <Link to="/posts" style={{ padding: 0 }}>
+        Posts
       </Link>
     ),
-    key: "blog",
+    key: "posts",
     icon: <MdOutlineArticle size={21} color="#f77908" />,
   },
   {
@@ -67,11 +67,11 @@ const GeneralMenuItemsWithoutIcons: MenuProps["items"] = [
 
   {
     label: (
-      <Link to="/blog" style={{ padding: 0 }}>
-        Blog
+      <Link to="/posts" style={{ padding: 0 }}>
+        Posts
       </Link>
     ),
-    key: "blog",
+    key: "posts",
   },
   {
     label: (

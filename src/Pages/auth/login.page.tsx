@@ -1,5 +1,5 @@
 import GeneralAppShell from "layout/app/general-app-shell";
-import React, {  useState } from "react";
+import React, { useState } from "react";
 import { LockOutlined } from "@ant-design/icons";
 import { Button, Checkbox, Col, Form, Input, Row, message } from "antd";
 import "../../styles/login.style.scss";
@@ -21,6 +21,7 @@ const LoginPage: React.FC = () => {
   };
 
   if (isAuthenticated && user) {
+    message.success("Login Successful!");
     return <Navigate to={"/callback"} />;
   }
   return (
