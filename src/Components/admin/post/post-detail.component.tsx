@@ -24,7 +24,13 @@ const PostDetailComponent: React.FC = () => {
           },
           {
             label: "Content",
-            value: post.content,
+            value: (
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: post.content,
+                }}
+              />
+            ),
           },
           {
             label: "Category",

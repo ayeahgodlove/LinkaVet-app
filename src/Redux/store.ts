@@ -20,7 +20,7 @@ import { reviewReducer } from "./review.slice";
 import { authReducer } from "./auth/auth.slice";
 import { postReducer } from "./post.slice";
 import { documentReducer } from "./document.slice";
-import { tagReducer } from "./tag.slice";
+import { tagReducer } from "./tag.slice"; 
 import { tokenReducer } from "./auth/token.slice";
 import { subCategoryReducer } from "./sub-category.slice";
 

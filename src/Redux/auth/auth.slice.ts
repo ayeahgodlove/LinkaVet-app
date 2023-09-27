@@ -25,7 +25,6 @@ export const loginUser = createAsyncThunk(
   async (user: { email: string; password: string }, thunkAPI) => {
     try {
       const response = await authService.login(user);
-      // dispatch(setTokenAction(response.data.token!));
       return response.data.data;
     } catch (error: any) {
       return thunkAPI.rejectWithValue(error.response.data);
@@ -51,7 +50,7 @@ interface AuthState {
 }
 
 const initialState: AuthState = {
-  user: JSON.parse(localStorage.getItem("user") || "null"),
+  user: JSON.parse(window.localStorage.getItem("user") || "null"),
   isLoading: false,
   error: null,
   isAuthenticated: false,
@@ -66,7 +65,7 @@ const authSlice = createSlice({
       state.isLoading = false;
       state.error = null;
       state.isAuthenticated = false;
-      localStorage.removeItem("user");
+      window.localStorage.removeItem("user");
     },
   },
   extraReducers: (builder) => {
@@ -93,7 +92,7 @@ const authSlice = createSlice({
         state.user = action.payload;
         state.isAuthenticated = true;
         // dispatch(setTokenAction(action.payload.token!));
-        localStorage.setItem("user", JSON.stringify(action.payload));
+        window.localStorage.setItem("user", JSON.stringify(action.payload));
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.isLoading = false;

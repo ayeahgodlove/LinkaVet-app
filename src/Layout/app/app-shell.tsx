@@ -15,6 +15,8 @@ import { ConfigProvider, theme } from "antd";
 import { useTheme } from "hooks/shared/theme.hook";
 import { FiTag, FiUsers } from "react-icons/fi";
 import { useAuth } from "hooks/auth/auth.hook";
+import { useDispatch } from "react-redux";
+import { initialDataAsync } from "redux/action/initial.action";
 
 const { defaultAlgorithm, darkAlgorithm } = theme;
 
@@ -102,6 +104,7 @@ const AppShell: React.FC<IProps> = ({ children }) => {
   const [show, setShow] = useState(false);
   const { isDarkMode } = useTheme();
   const { isAuthenticated, user } = useAuth();
+  const dispatch = useDispatch();
 
   const handleShow = () => {
     setShow(true);
@@ -113,6 +116,12 @@ const AppShell: React.FC<IProps> = ({ children }) => {
   const onClose = () => {
     setShow(false);
   };
+
+  if (isAuthenticated && user) {
+    setTimeout(() =>   {
+      dispatch(initialDataAsync() as any);
+    }, 3000);
+  }
 
   useEffect(() => {}, []);
   return (

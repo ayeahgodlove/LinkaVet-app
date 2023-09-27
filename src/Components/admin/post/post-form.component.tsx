@@ -2,6 +2,7 @@ import { UploadOutlined } from "@ant-design/icons";
 import { Button, Form, Input, Alert, message, Select, Upload } from "antd";
 import { useForm } from "antd/es/form/Form";
 import { FormErrorComponent } from "components/shared/form-error/form-error.component";
+import { modules } from "config/constant";
 import { useModalContext } from "context/app-modal.context";
 import { useAuth } from "hooks/auth/auth.hook";
 import { useCategory } from "hooks/category.hook";
@@ -11,6 +12,8 @@ import { useFormInit } from "hooks/shared/form-init.hook";
 import { IPost, emptyPost } from "models/post";
 import { UpdateMode } from "models/shared/update-mode.enum";
 import React, { useCallback, useEffect, useState } from "react";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
 
 type Props = {
   formMode: UpdateMode;
@@ -179,9 +182,8 @@ export const PostForm: React.FC<Props> = ({ formMode }) => {
         </Form.Item>
 
         <Form.Item
-          name="content"
+          name={"content"}
           label="Content"
-          requiredMark
           rules={[
             {
               required: true,
@@ -189,7 +191,12 @@ export const PostForm: React.FC<Props> = ({ formMode }) => {
             },
           ]}
         >
-          <Input.TextArea />
+          <ReactQuill
+            modules={modules}
+            theme="snow"
+            onChange={(html) => form.setFieldValue("content", html)}
+            placeholder="Enter content..."
+          />
         </Form.Item>
 
         <Button

@@ -59,7 +59,7 @@ const useCategory = () => {
   };
 
   useEffect(() => {
-    loadCategories();
+    // loadCategories();
   }, [category, categories, isLoading, initialFetch, loadCategories]);
 
   return {
