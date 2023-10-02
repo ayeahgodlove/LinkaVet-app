@@ -7,7 +7,7 @@ const FilterComponent: React.FC = () => {
   const handleSearchChange = () => {};
   return (
     <Col
-      style={{ margin: "0 auto", marginBottom: 10, marginTop: 10 }}
+      style={{ margin: "0 auto",  marginTop: 40 }}
       sm={20}
       md={18}
       lg={15}

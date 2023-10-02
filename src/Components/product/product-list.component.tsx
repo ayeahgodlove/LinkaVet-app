@@ -1,17 +1,29 @@
 import { Col, List } from "antd";
-import React from "react";
+import React, { useEffect } from "react";
 import ProductCard from "./product-card.component";
 import { Link } from "react-router-dom";
 import slugify from "slugify";
 import { useProduct } from "hooks/product.hook";
 import { NoContent } from "components/shared/no-content/no-content.component";
-import { IProduct } from "models/product.model";
+import { ProductService } from "services/product.service";
+import { fetchproductSuccess } from "redux/product.slice";
 
 interface Props {
   slice?: boolean;
-  products: IProduct[]
 }
-const ProductList: React.FC<Props> = ({ slice = false, products }) => {
+const ProductList: React.FC<Props> = ({ slice = false }) => {
+  const { products } = useProduct();
+
+  useEffect(() => {
+    const getProducts = async () => {
+      const products = await ProductService.list();
+      fetchproductSuccess(products);
+      return products;
+    };
+
+    getProducts();
+  }, []);
+
   return (
     <>
       {products && products.length > 0 ? (
