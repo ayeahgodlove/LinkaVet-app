@@ -23,6 +23,7 @@ import { documentReducer } from "./document.slice";
 import { tagReducer } from "./tag.slice"; 
 import { tokenReducer } from "./auth/token.slice";
 import { subCategoryReducer } from "./sub-category.slice";
+import { bannerReducer } from "./banner.slice";
 
 const middlewares: [any] = [thunkMiddleware];
 
@@ -39,7 +40,8 @@ export const rootReducer = combineReducers({
   theme: themeReducer,
   formError: formErrorReducer,
   auth: authReducer,
-  token: tokenReducer
+  token: tokenReducer,
+  banner: bannerReducer
 });
 
 const persistConfig = {

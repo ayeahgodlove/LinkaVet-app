@@ -4,6 +4,7 @@ import { CategoryForm } from "components/admin/category/category-form.component"
 import { SubCategoryForm } from "components/admin/sub-category/sub-category-form.component";
 import SubCategoryTable from "components/admin/sub-category/sub-category-table.component";
 import TitleBar from "components/common/title-bar/title-bar.component";
+import BackButton from "components/shared/back-button.component";
 import PageBreadCrumbs from "components/shared/page-breadcrumb/page-breadcrumb.component";
 import { useModalContext } from "context/app-modal.context";
 import { useAuth } from "hooks/auth/auth.hook";
@@ -14,7 +15,6 @@ import { FiEdit, FiPlus } from "react-icons/fi";
 const AdminCategoryDetailPage: React.FC = () => {
   const { isLoading } = useAuth();
   const { setContent, setTitle, setShow } = useModalContext();
-
   const editCategory = () => {
     setContent(<CategoryForm formMode={UpdateMode.EDIT} />);
     setTitle("Edit new category");
@@ -41,13 +41,15 @@ const AdminCategoryDetailPage: React.FC = () => {
           icon={<FiEdit />}
           showExtra
           extra={
-            <Button icon={<FiPlus />} onClick={addSubCategory}>Add Sub Category</Button>
+            <Button icon={<FiPlus />} onClick={addSubCategory}>
+              Add Sub Category
+            </Button>
           }
         />
+        <BackButton title="Categories" />
         <CategoryDetailComponent />
-          <hr />
-          <SubCategoryTable createSubCategory={addSubCategory} />
-
+        <hr />
+        <SubCategoryTable createSubCategory={addSubCategory} />
       </div>
     </>
   );

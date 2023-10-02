@@ -20,13 +20,7 @@ export const usePostColumn = () => {
       title: "TITLE",
       dataIndex: "title",
       key: "title",
-      width: "5rem",
       filtered: true,
-    },
-    {
-      title: "CONTENT",
-      dataIndex: "content",
-      key: "content",
     },
     {
       title: "PUBLISHED AT",

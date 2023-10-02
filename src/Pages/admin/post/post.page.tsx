@@ -37,7 +37,7 @@ const AdminPostPage: React.FC = () => {
           handleShow={createPost}
           icon={<FiPlus />}
         />
-        <PostTable createPost={createPost} />
+        <PostTable />
       </div>
     </>
   );

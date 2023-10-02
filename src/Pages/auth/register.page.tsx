@@ -2,6 +2,7 @@ import GeneralAppShell from "layout/app/general-app-shell";
 import React, { useState } from "react";
 import { LockOutlined, PhoneOutlined, UserOutlined } from "@ant-design/icons";
 import {
+  Alert,
   Button,
   Col,
   Form,
@@ -9,6 +10,7 @@ import {
   Radio,
   RadioChangeEvent,
   Row,
+  Typography,
   message,
 } from "antd";
 import "../../styles/login.style.scss";
@@ -24,6 +26,7 @@ const RegisterPage: React.FC = () => {
   const router = useNavigate();
   const [isSubmitting, setSubmitting] = useState(false);
   const [value, setValue] = useState("pet-owner");
+  const [success, setSuccess] = useState(false);
 
   const onFinish = async (values: any) => {
     setSubmitting(true);
@@ -41,9 +44,11 @@ const RegisterPage: React.FC = () => {
     const feedback = registerUserFunction(obj);
     if (feedback) {
       message.success("User Registered Sucessfully!");
-      router("/auth/login");
+      router("/auth/check-email");
+      setSuccess(true);
     } else {
       message.error("Registration failed!");
+      setSuccess(false);
     }
     setSubmitting(false);
   };
@@ -74,6 +79,23 @@ const RegisterPage: React.FC = () => {
             borderRadius: 10,
           }}
         >
+          {success && (
+            <Alert
+              type="success"
+              style={{ marginBottom: 20 }}
+              message={
+                <Typography.Title level={5}>
+                  Verify your account!
+                </Typography.Title>
+              }
+              description={
+                <Typography.Paragraph>
+                  Click on the link sent to your email to verify your email
+                </Typography.Paragraph>
+              }
+              closable
+            />
+          )}
           <Form
             name="normal_login"
             className="login-form"
@@ -151,14 +173,16 @@ const RegisterPage: React.FC = () => {
               name={"userRole"}
               rules={[{ message: "Select your role!" }]}
             >
-              <p style={{ marginBottom: 2 }}>what is your role?</p>
-              <Radio.Group onChange={onChange} value={value}>
-                <Radio value={"pet-owner"}>Pet Owner</Radio>
-                <Radio value={"farmer"}>Famer</Radio>
-                <Radio value={"doctor"}>Doctor</Radio>
-                <Radio value={"student"}>Student</Radio>
-                <Radio value={"researcher"}>Researcher</Radio>
-              </Radio.Group>
+              <>
+                <p style={{ marginBottom: 2 }}>what is your role?</p>
+                <Radio.Group onChange={onChange} value={value}>
+                  <Radio value={"pet-owner"}>Pet Owner</Radio>
+                  <Radio value={"farmer"}>Famer</Radio>
+                  <Radio value={"doctor"}>Doctor</Radio>
+                  <Radio value={"student"}>Student</Radio>
+                  <Radio value={"researcher"}>Researcher</Radio>
+                </Radio.Group>
+              </>
             </Form.Item>
 
             <Form.Item

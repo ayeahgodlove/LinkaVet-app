@@ -10,7 +10,7 @@ import { format } from "utils/format";
 const postDetailPage: React.FC = () => {
   const { post } = usePost();
   const { users } = useUser();
-  const {categories} = useCategory()
+  const { categories } = useCategory();
 
   return (
     <GeneralAppShell>
@@ -28,8 +28,17 @@ const postDetailPage: React.FC = () => {
                 alt={post.title}
                 src={`http://localhost:8000/uploads/posts/${post.imageUrl}`}
               />
-              <div className="text" style={{ paddingLeft: "2rem", color: "#333" }}>
-                <p>{post.content}</p>
+              <div
+                className="text"
+                style={{ paddingLeft: "2rem", color: "#333" }}
+              >
+                <p>
+                  <div
+                    dangerouslySetInnerHTML={{
+                      __html: post.content,
+                    }}
+                  />
+                </p>
                 <br />
                 <p style={{ marginBottom: 0 }}>
                   Category:{" "}
@@ -46,9 +55,7 @@ const postDetailPage: React.FC = () => {
                 <p>Published On: {format.date(post.publishedAt)}</p>
               </div>
 
-              <div className="comments">
-
-              </div>
+              <div className="comments"></div>
             </div>
           </Card>
         </Col>

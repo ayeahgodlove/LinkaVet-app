@@ -1,48 +1,48 @@
-import { UserForm } from "components/admin/user/user-form.component";
-import UserTable from "components/admin/user/user-table.component";
+import BannerForm  from "components/admin/banner/banner-form.component";
+import {BannerTable} from "components/admin/banner/banner-table.component";
 import TitleBar from "components/common/title-bar/title-bar.component";
 import PageBreadCrumbs from "components/shared/page-breadcrumb/page-breadcrumb.component";
 import { useModalContext } from "context/app-modal.context";
 import { useAuth } from "hooks/auth/auth.hook";
 import { UpdateMode } from "models/shared/update-mode.enum";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { FiPlus } from "react-icons/fi";
 import { useDispatch } from "react-redux";
-import { fetchUsersAsync } from "redux/user.slice";
+import { fetchBannersAsync } from "redux/banner.slice";
 
-const AdminUserPage: React.FC = () => {
+const AdminBannerPage: React.FC = () => {
   const { isLoading } = useAuth();
   useEffect(() => {}, [isLoading]);
   const { setContent, setTitle, setShow } = useModalContext();
   const dispatch = useDispatch();
 
 
-  const createUser = () => {
-    setContent(<UserForm formMode={UpdateMode.ADD} />);
-    setTitle("Create new user");
+  const createBanner = () => {
+    setContent(<BannerForm formMode={UpdateMode.ADD} />);
+    setTitle("Create new banner");
     setShow(true);
   };
 
   useEffect(() => {
-    dispatch(fetchUsersAsync() as any);
+    dispatch(fetchBannersAsync() as any);
   }, []);
 
   return (
     <>
       <div style={{ margin: "1rem" }}>
-        <PageBreadCrumbs items={["Configurations", "User"]} />
+        <PageBreadCrumbs items={["Configurations", "Banner"]} />
         <TitleBar
-          title={"Users"}
-          subTitle={"View and Create Users"}
+          title={"Banners"}
+          subTitle={"View and Create Banners"}
           showButton={true}
           buttonLabel={"Add Record"}
-          handleShow={createUser}
+          handleShow={createBanner}
           icon={<FiPlus />}
         />
-        <UserTable />
+        <BannerTable />
       </div>
     </>
   );
 };
 
-export default AdminUserPage;
+export default AdminBannerPage;

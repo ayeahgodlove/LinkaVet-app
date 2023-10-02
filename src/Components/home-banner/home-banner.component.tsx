@@ -8,9 +8,9 @@ import {
   Space,
   Typography,
 } from "antd";
-import "./banner.style.scss";
+import "./home-banner.style.scss";
 
-export const Banner: React.FC = () => {
+export const HomeBanner: React.FC = () => {
   const { Title, Paragraph } = Typography;
   return (
     <Card

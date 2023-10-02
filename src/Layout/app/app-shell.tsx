@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import { FaBlog, FaRegComments, FaUsersCog } from "react-icons/fa";
 import { TiDocumentText } from "react-icons/ti";
 import {
-  MdOutlinePointOfSale,
   MdOutlineProductionQuantityLimits,
 } from "react-icons/md";
 import { BiCategoryAlt } from "react-icons/bi";
@@ -17,6 +16,7 @@ import { FiTag, FiUsers } from "react-icons/fi";
 import { useAuth } from "hooks/auth/auth.hook";
 import { useDispatch } from "react-redux";
 import { initialDataAsync } from "redux/action/initial.action";
+import { TfiGallery } from "react-icons/tfi";
 
 const { defaultAlgorithm, darkAlgorithm } = theme;
 
@@ -67,6 +67,15 @@ const items2: MenuProps["items"] = [
     ),
     key: "tags",
     icon: <FiTag size={21} color="#3498db" />,
+  },
+  {
+    label: (
+      <Link to="/admin/banners" style={{ padding: 0 }}>
+        Banners
+      </Link>
+    ),
+    key: "banners",
+    icon: <TfiGallery size={21} color="#3498db" />,
   },
   {
     label: (

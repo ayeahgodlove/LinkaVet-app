@@ -5,12 +5,13 @@ import { Link } from "react-router-dom";
 import slugify from "slugify";
 import { useProduct } from "hooks/product.hook";
 import { NoContent } from "components/shared/no-content/no-content.component";
+import { IProduct } from "models/product.model";
 
 interface Props {
   slice?: boolean;
+  products: IProduct[]
 }
-const ProductList: React.FC<Props> = ({ slice = false }) => {
-  const { products } = useProduct();
+const ProductList: React.FC<Props> = ({ slice = false, products }) => {
   return (
     <>
       {products && products.length > 0 ? (

@@ -1,5 +1,8 @@
 import { IRoute } from "models/route.model";
 import NotFoundPage from "pages/404_Page";
+import ActivationPage from "pages/activation.page";
+import AdminBannerDetailPage from "pages/admin/banner/banner-detail.page";
+import AdminBannerPage from "pages/admin/banner/banner.page";
 import AdminCategoryDetailPage from "pages/admin/category/category-detail.page";
 import AdminCategoryPage from "pages/admin/category/category.page";
 import AdminDocumentDetailPage from "pages/admin/document/document-detail.page";
@@ -25,6 +28,12 @@ import WelcomePage from "pages/welcome.page";
 import React from "react";
 
 export const routes: IRoute[] = [
+  {
+    path: "/activation/:activationToken",
+    private: false,
+    exact: true,
+    component: <ActivationPage />,
+  },
   /**
    * callback route
    */
@@ -152,6 +161,18 @@ export const routes: IRoute[] = [
     private: true,
     exact: true,
     component: <AdminDocumentDetailPage />,
+  },
+    {
+    path: "/admin/banners",
+    private: true,
+    exact: true,
+    component: <AdminBannerPage />,
+  },
+  {
+    path: "/admin/banners/:title",
+    private: true,
+    exact: true,
+    component: <AdminBannerDetailPage />,
   },
 
   // admin section

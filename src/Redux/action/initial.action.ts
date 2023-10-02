@@ -8,7 +8,7 @@ export const initialDataAsync = (): AppThunk => async (dispatch) => {
   try {
     dispatch(fetchCategoriesAsync());
     dispatch(fetchPostsAsync());
-    dispatch(fetchProductsAsync());
+    // dispatch(fetchProductsAsync());
     dispatch(fetchDocumentsAsync());
   } catch (error) {
     console.log(error);

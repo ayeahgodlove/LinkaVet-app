@@ -39,7 +39,7 @@ const AdminTagPage: React.FC = () => {
           handleShow={createTag}
           icon={<FiPlus />}
         />
-        <TagTable createTag={createTag} />
+        <TagTable />
       </div>
     </>
   );

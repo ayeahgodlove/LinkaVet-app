@@ -1,5 +1,5 @@
 import { UploadOutlined } from "@ant-design/icons";
-import { Button, Form, Input, Alert, message, Select, Upload } from "antd";
+import { Button, Form, Input, message, Select, Upload } from "antd";
 import { useForm } from "antd/es/form/Form";
 import { FormErrorComponent } from "components/shared/form-error/form-error.component";
 import { modules } from "config/constant";
@@ -9,9 +9,10 @@ import { useCategory } from "hooks/category.hook";
 import { usePost } from "hooks/post.hook";
 import { useFormErrors } from "hooks/shared/form-error.hook";
 import { useFormInit } from "hooks/shared/form-init.hook";
-import { IPost, emptyPost } from "models/post";
+import { useUpload } from "hooks/shared/upload.hook";
+import { IPost } from "models/post";
 import { UpdateMode } from "models/shared/update-mode.enum";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 
@@ -26,12 +27,11 @@ export const PostForm: React.FC<Props> = ({ formMode }) => {
   const { formError } = useFormErrors();
   const { setShow } = useModalContext();
   const { user } = useAuth();
+  const { beforeUpload, onRemove, normFile, fileList, progress } = useUpload();
 
   const [hasSubmitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
-  const [fileList, setFileList] = useState<any[]>([]);
 
-  console.log("fileList: ", fileList)
   initFormData(form, formMode, post);
 
   const onChange = (value: string) => {
@@ -84,26 +84,6 @@ export const PostForm: React.FC<Props> = ({ formMode }) => {
     setSubmitting(false);
   };
 
-  const uploadProps = {
-    onRemove: (file) => {
-      setFileList((prevFileList) =>
-        prevFileList.filter((item: any) => item.uid !== file.uid)
-      );
-    },
-    beforeUpload: (file) => {
-      setFileList((prevFileList) => [...prevFileList, file]);
-      return false;
-    },
-    fileList,
-  };
-
-  const normFile = (e: any) => {
-    if (Array.isArray(e)) {
-      return e;
-    }
-    return e?.fileList;
-  };
-
   useEffect(() => {}, [hasSubmitted]);
 
   return (
@@ -113,11 +93,7 @@ export const PostForm: React.FC<Props> = ({ formMode }) => {
         setSubmitted={setSubmitted}
       />
 
-      <Form
-        form={form}
-        onFinish={onFinish}
-        layout="vertical"
-      >
+      <Form form={form} onFinish={onFinish} layout="vertical">
         <Form.Item
           name="categoryId"
           label="Category"
@@ -174,9 +150,18 @@ export const PostForm: React.FC<Props> = ({ formMode }) => {
               message: "Upload is required",
             },
           ]}
-          valuePropName="fileList" getValueFromEvent={normFile}
+          valuePropName="fileList"
+          getValueFromEvent={normFile}
         >
-          <Upload {...uploadProps}>
+          <Upload
+            beforeUpload={beforeUpload}
+            onRemove={onRemove}
+            maxCount={1}
+            name="imageUrl"
+            progress={progress}
+            fileList={fileList}
+            type="drag"
+          >
             <Button icon={<UploadOutlined />}>Select File</Button>
           </Upload>
         </Form.Item>

@@ -1,6 +1,5 @@
 import { AppConstant } from "config/constant";
 import axios, {  AxiosResponse } from "axios";
-import { tokenConfig } from "models/shared/config.model";
 
 var user = JSON.parse(localStorage.getItem("user")!);
 const apiHeaders = {
@@ -9,9 +8,10 @@ const apiHeaders = {
       Accept: 'application/json',
       Authorization: '',
   },
-}
+} 
 
 const apiConfig = () => {
+  console.log("user: ", user, user.token)
   apiHeaders.headers['Authorization'] = `Bearer ${user.token}`
   return apiHeaders
 }

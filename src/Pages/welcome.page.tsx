@@ -1,4 +1,4 @@
-import { Banner } from "components/banner/banner.component";
+import { HomeBanner } from "components/home-banner/home-banner.component";
 import BuyInThreeSteps from "components/buy-in-three-steps/buy-in-three-steps.component";
 import Review from "components/review/review.component";
 import Subscribe from "components/subscribe/subscribe.component";
@@ -10,7 +10,7 @@ const WelcomePage: React.FC = () => {
   return (
     <GeneralAppShell>
       {/* Banner */}
-      <Banner />
+      <HomeBanner />
 
       {/* startup in 3 steps */}
       <BuyInThreeSteps />

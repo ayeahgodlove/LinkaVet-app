@@ -40,7 +40,7 @@ const AdminCategoryPage: React.FC = () => {
           handleShow={createCategory}
           icon={<FiPlus />}
         />
-        <CategoryTable createCategory={createCategory} />
+        <CategoryTable />
       </div>
     </>
   );
