@@ -34,7 +34,8 @@ const BannerIndexComponent = () => {
                   <Image
                     src={`${API_URL_UPLOADS_BANNERS}/${b.image}`}
                     alt={b.title}
-                    style={{ aspectRatio: "1/1" }}
+                    style={{ aspectRatio: "1/1", objectFit: 'cover' }}
+                    
                   />
                   <div className="banner-caption">{b.subTitle}</div>
                 </div>
@@ -52,7 +53,6 @@ const BannerIndexComponent = () => {
 export default BannerIndexComponent;
 const settings: Settings = {
   className: "banner-slick",
-  centerMode: true,
   infinite: true,
   centerPadding: "60px",
   dots: true,

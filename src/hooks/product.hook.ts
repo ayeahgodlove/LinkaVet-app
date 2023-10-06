@@ -9,15 +9,20 @@ import {
   setActiveProduct,
 } from "../redux/product.slice";
 import { ProductService } from "services/product.service";
+
 const useProduct = () => {
-  const products = useSelector<IRootState, IProduct[]>((state) => state.product.products);
+  const products = useSelector<IRootState, IProduct[]>(
+    (state) => state.product.products
+  );
   const isLoading = useSelector<IRootState, boolean>(
     (state) => state.product.isLoading
   );
   const initialFetch = useSelector<IRootState, boolean>(
     (state) => state.product.initialFetch
   );
-  const product = useSelector<IRootState, IProduct>((state) => state.product.product);
+  const product = useSelector<IRootState, IProduct>(
+    (state) => state.product.product
+  );
 
   const dispatch = useDispatch();
 
@@ -34,7 +39,7 @@ const useProduct = () => {
         return true;
       })
       .catch((error) => {
-        console.log(error)
+        console.log(error);
         return false;
       });
   };
@@ -51,7 +56,7 @@ const useProduct = () => {
         return true;
       })
       .catch((error) => {
-        console.log(error)
+        console.log(error);
         return false;
       });
   };
