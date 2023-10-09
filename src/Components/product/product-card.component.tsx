@@ -22,7 +22,7 @@ const ProductCard: React.FC<IProp> = ({ product }) => {
         bordered={false}
         style={{ padding: 0 }}
         bodyStyle={{ paddingTop: 10 }}
-        cover={<img alt={product.description} src={product.imagePath} />}
+        cover={<img alt={product.description} src={product.productImages[0]} />} //can implement banner for product cover
         className="product-card"
       >
         <div

@@ -9,8 +9,12 @@ import AdminDocumentDetailPage from "pages/admin/document/document-detail.page";
 import AdminDocumentPage from "pages/admin/document/document.page";
 import AdminPostDetailPage from "pages/admin/post/post-detail.page";
 import AdminPostPage from "pages/admin/post/post.page";
+import AdminProductDetailPage from "pages/admin/product/product-detail.page";
+import AdminProductPage from "pages/admin/product/product.page";
 import AdminReviewDetailPage from "pages/admin/review/review-detail.page";
 import AdminReviewPage from "pages/admin/review/review.page";
+import AdminStoreDetailPage from "pages/admin/store/store-detail.page";
+import AdminStorePage from "pages/admin/store/store.page";
 import AdminTagDetailPage from "pages/admin/tag/tag-detail.page";
 import AdminTagPage from "pages/admin/tag/tag.page";
 import AdminUserDetailPage from "pages/admin/user/user-detail.page";
@@ -148,6 +152,32 @@ export const routes: IRoute[] = [
     private: true,
     exact: true,
     component: <AdminPostDetailPage />,
+  },
+
+  {
+    path: "/admin/stores",
+    private: true,
+    exact: true,
+    component: <AdminStorePage />,
+  },
+  {
+    path: "/admin/stores/:name",
+    private: true,
+    exact: true,
+    component: <AdminStoreDetailPage />,
+  },
+  
+  {
+    path: "/admin/products",
+    private: true,
+    exact: true,
+    component: <AdminProductPage />,
+  },
+  {
+    path: "/admin/products/:name",
+    private: true,
+    exact: true,
+    component: <AdminProductDetailPage />,
   },
 
   {

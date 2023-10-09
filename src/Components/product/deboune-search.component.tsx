@@ -92,6 +92,7 @@ export const DebounceSelectComponent: React.FC = () => {
       style={{ width: "100%" }}
       clearIcon
       showSearch
+      size="large"
     />
   );
 };

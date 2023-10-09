@@ -12,7 +12,7 @@ import { Link } from "react-router-dom";
 
 import { ConfigProvider, theme } from "antd";
 import { useTheme } from "hooks/shared/theme.hook";
-import { FiTag, FiUsers } from "react-icons/fi";
+import { FiShoppingCart, FiTag, FiUsers } from "react-icons/fi";
 import { useAuth } from "hooks/auth/auth.hook";
 import { useDispatch } from "react-redux";
 import { initialDataAsync } from "redux/action/initial.action";
@@ -76,6 +76,15 @@ const items2: MenuProps["items"] = [
     ),
     key: "banners",
     icon: <TfiGallery size={21} color="#3498db" />,
+  },
+  {
+    label: (
+      <Link to="/admin/stores" style={{ padding: 0 }}>
+        Stores
+      </Link>
+    ),
+    key: "stores",
+    icon: <FiShoppingCart size={21} color="#3498db" />,
   },
   {
     label: (

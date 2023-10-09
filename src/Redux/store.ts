@@ -24,6 +24,7 @@ import { tagReducer } from "./tag.slice";
 import { tokenReducer } from "./auth/token.slice";
 import { subCategoryReducer } from "./sub-category.slice";
 import { bannerReducer } from "./banner.slice";
+import { storeReducer } from "./store.slice";
 
 const middlewares: [any] = [thunkMiddleware];
 
@@ -41,7 +42,8 @@ export const rootReducer = combineReducers({
   formError: formErrorReducer,
   auth: authReducer,
   token: tokenReducer,
-  banner: bannerReducer
+  banner: bannerReducer,
+  store: storeReducer
 });
 
 const persistConfig = {
@@ -59,7 +61,8 @@ const persistConfig = {
     "payment",
     "token",
     "post",
-    "tag"
+    "tag",
+    "store"
   ], // Specify the reducers you want to persist
 };
 
