@@ -30,6 +30,7 @@ import ProductPage from "pages/product/index.page";
 import ProductDetailPage from "pages/product/product-detail.page";
 import WelcomePage from "pages/welcome.page";
 import React from "react";
+import ProductCreatePage from "pages/admin/product/product-create.page";
 
 export const routes: IRoute[] = [
   {
@@ -172,6 +173,12 @@ export const routes: IRoute[] = [
     private: true,
     exact: true,
     component: <AdminProductPage />,
+  },
+  {
+    path: "/admin/products/create",
+    private: true,
+    exact: true,
+    component: <ProductCreatePage />,
   },
   {
     path: "/admin/products/:name",

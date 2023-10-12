@@ -27,7 +27,7 @@ const usePost = () => {
     }
   }, [dispatch, initialFetch]);
 
-  const addPost = async (post: IPost) => {
+  const addPost = async (post: FormData) => {
     return await PostService.create(post)
       .then((postResponse) => {
         dispatch(addPostSuccess(postResponse.data));
@@ -43,7 +43,7 @@ const usePost = () => {
     dispatch(setActivePost(post));
   };
 
-  const editPost = async (post: IPost) => {
+  const editPost = async (post: FormData) => {
     return await PostService.update(post)
       .then((postResponse) => {
         dispatch(editPostSuccess(postResponse.data));

@@ -63,7 +63,7 @@ export const ProductForm: React.FC<Props> = ({ formMode }) => {
     });
 
     if (formMode === UpdateMode.ADD) {
-      const feedback = await addProduct(formData as any);
+      const feedback = await addProduct(formData);
       if (feedback) {
         message.success("Product created successfully!");
         setShow(false);
@@ -75,7 +75,7 @@ export const ProductForm: React.FC<Props> = ({ formMode }) => {
     }
 
     if (formMode === UpdateMode.EDIT) {
-      const feedback = await editProduct(formData as any);
+      const feedback = await editProduct(formData);
       if (feedback) {
         message.success("Product updated successfully!");
         setShow(false);

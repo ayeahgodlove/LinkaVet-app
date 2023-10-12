@@ -28,16 +28,11 @@ const ProductTable: React.FC = () => {
 
   const dispatch = useDispatch();
 
+  const navigate = useNavigate();
   const createProduct = () => {
-    setTitle("Create a Product");
-    setWidth("35rem");
-    setShow(true);
-    setContent(
-      <>
-        <ProductForm formMode={UpdateMode.ADD} />
-      </>
-    );
+    navigate("/admin/products/create")
   };
+
 
   const getProducts = useCallback(async (): Promise<IProduct[]> => {
     setLoading(true);

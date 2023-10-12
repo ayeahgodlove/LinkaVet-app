@@ -32,7 +32,7 @@ const useProduct = () => {
     }
   }, [dispatch, initialFetch]);
 
-  const addProduct = async (product: IProduct) => {
+  const addProduct = async (product: FormData) => {
     return await ProductService.create(product)
       .then((productResponse) => {
         dispatch(addProductSuccess(productResponse.data));
@@ -48,7 +48,7 @@ const useProduct = () => {
     dispatch(setActiveProduct(product));
   };
 
-  const editProduct = async (product: IProduct) => {
+  const editProduct = async (product: FormData) => {
     return await ProductService.update(product)
       .then((productResponse) => {
         dispatch(editProductSuccess(productResponse.data));
@@ -62,7 +62,7 @@ const useProduct = () => {
   };
 
   useEffect(() => {
-    loadProducts();
+    // loadProducts();
   }, [product, products, isLoading, initialFetch, loadProducts]);
 
   return {

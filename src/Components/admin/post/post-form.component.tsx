@@ -54,12 +54,11 @@ export const PostForm: React.FC<Props> = ({ formMode }) => {
 
     // Append the selected file(s) to the FormData object
     fileList.forEach((file: any) => {
-      console.log("search:", file.originFileObj);
       formData.append("imageUrl", file);
     });
 
     if (formMode === UpdateMode.ADD) {
-      const feedback = await addPost(formData as any);
+      const feedback = await addPost(formData);
       if (feedback) {
         message.success("Post created successfully!");
         setShow(false);
@@ -71,7 +70,7 @@ export const PostForm: React.FC<Props> = ({ formMode }) => {
     }
 
     if (formMode === UpdateMode.EDIT) {
-      const feedback = await editPost(formData as any);
+      const feedback = await editPost(formData);
       if (feedback) {
         message.success("Post updated successfully!");
         setShow(false);

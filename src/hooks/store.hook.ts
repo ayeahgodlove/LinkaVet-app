@@ -28,7 +28,7 @@ const useStore = () => {
     }
   }, [dispatch, initialFetch]);
 
-  const addStore = async (store: IStore) => {
+  const addStore = async (store: FormData) => {
     return await storeService.create(store)
       .then((storeResponse) => {
         dispatch(addStoreSuccess(storeResponse.data));
@@ -44,7 +44,7 @@ const useStore = () => {
     dispatch(setActiveStore(store));
   };
 
-  const editStore = async (store: IStore) => {
+  const editStore = async (store: FormData) => {
     return await storeService.update(store)
       .then((storeResponse) => {
         dispatch(editStoreSuccess(storeResponse.data));
@@ -58,7 +58,7 @@ const useStore = () => {
   };
 
   useEffect(() => {
-    loadStores();
+    // loadStores();
   }, [store, stores, isLoading, initialFetch, loadStores]);
 
   return {

@@ -14,7 +14,7 @@ import { UpdateMode } from "models/shared/update-mode.enum";
 import { useStore } from "hooks/store.hook";
 import { useModalContext } from "context/app-modal.context";
 import { useFormInit } from "hooks/shared/form-init.hook";
-import { emptyStore } from "models/store";
+import { IStore, emptyStore } from "models/store";
 import { useUpload } from "hooks/shared/upload.hook";
 import theme from "utils/themeConfig";
 
@@ -33,21 +33,20 @@ const StoreForm: React.FC<Props> = ({ formMode }) => {
 
   initFormData(form, formMode, store);
 
-  console.log("fileList: ", fileList)
-  const onFinish = async (values: any) => {
-    debugger;
+  const onFinish = async (values: IStore) => {
     const formData = new FormData();
-    formData.append("title", values.title);
-    formData.append("subTitle", values.subTitle);
+    formData.append("name", values.name);
+    formData.append("location", values.location);
     formData.append("userId", user.id);
 
     // Append the selected file(s) to the FormData object
     fileList.forEach((file: any) => {
-      formData.append("image", file);
-    });
+      formData.append("imageBannerUrl", file);
+    }); 
+
 
     if (formMode === UpdateMode.ADD) {
-      const feedback = await addStore(formData as any);
+      const feedback = await addStore(formData);
       if (feedback) {
         message.success("Store created successfully!");
         setShow(false);
@@ -58,7 +57,7 @@ const StoreForm: React.FC<Props> = ({ formMode }) => {
     }
 
     if (formMode === UpdateMode.EDIT) {
-      const feedback = await editStore(formData as any);
+      const feedback = await editStore(formData);
       if (feedback) {
         message.success("Store updated successfully!");
         setShow(false);
@@ -100,7 +99,7 @@ const StoreForm: React.FC<Props> = ({ formMode }) => {
         </Form.Item>
 
         <Form.Item
-          name="image"
+          name="imageBannerUrl"
           label="Upload"
           style={{ marginBottom: 15 }}
           rules={[

@@ -44,7 +44,7 @@ const RegisterPage: React.FC = () => {
     const feedback = registerUserFunction(obj);
     if (feedback) {
       message.success("User Registered Sucessfully!");
-      router("/auth/check-email");
+      // router("/auth/check-email");
       setSuccess(true);
     } else {
       message.error("Registration failed!");
