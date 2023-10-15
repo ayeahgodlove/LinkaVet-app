@@ -1,5 +1,5 @@
 import { UploadOutlined } from "@ant-design/icons";
-import { Button, Form, Input, message, Select, Upload } from "antd";
+import { Button, Col, Form, Input, message, Row, Select, Upload } from "antd";
 import { useForm } from "antd/es/form/Form";
 import { FormErrorComponent } from "components/shared/form-error/form-error.component";
 import { modules } from "config/constant";
@@ -10,6 +10,7 @@ import { usePost } from "hooks/post.hook";
 import { useFormErrors } from "hooks/shared/form-error.hook";
 import { useFormInit } from "hooks/shared/form-init.hook";
 import { useUpload } from "hooks/shared/upload.hook";
+import { useTag } from "hooks/tag.hook";
 import { IPost } from "models/post";
 import { UpdateMode } from "models/shared/update-mode.enum";
 import React, { useEffect, useState } from "react";
@@ -24,6 +25,7 @@ export const PostForm: React.FC<Props> = ({ formMode }) => {
   const [form] = useForm();
   const { post, editPost, addPost } = usePost();
   const { categories } = useCategory();
+  const {tags} = useTag()
   const { formError } = useFormErrors();
   const { setShow } = useModalContext();
   const { user } = useAuth();
@@ -51,7 +53,10 @@ export const PostForm: React.FC<Props> = ({ formMode }) => {
     formData.append("content", values.content);
     formData.append("authorId", user.id);
     formData.append("categoryId", values.categoryId);
-
+    values.tags.forEach((tag) => {
+      formData.append("tags", tag);
+    });
+    
     // Append the selected file(s) to the FormData object
     fileList.forEach((file: any) => {
       formData.append("imageUrl", file);
@@ -93,35 +98,75 @@ export const PostForm: React.FC<Props> = ({ formMode }) => {
       />
 
       <Form form={form} onFinish={onFinish} layout="vertical">
-        <Form.Item
-          name="categoryId"
-          label="Category"
-          requiredMark
-          style={{ marginBottom: 3 }}
-          rules={[
-            {
-              required: true,
-              message: "Category is required",
-            },
-          ]}
-        >
-          <Select
-            showSearch
-            placeholder="Select a person"
-            optionFilterProp="children"
-            onChange={onChange}
-            onSearch={onSearch}
-            filterOption={(input, option) =>
-              (option?.label ?? "").toLowerCase().includes(input.toLowerCase())
-            }
-            options={categories.map((c) => {
-              return {
-                value: c.id,
-                label: c.name,
-              };
-            })}
-          />
-        </Form.Item>
+        <Row align={"middle"} justify={"space-between"} gutter={[8, 8]}>
+          <Col xs={24} md={12}>
+            <Form.Item
+              name="categoryId"
+              label="Category"
+              requiredMark
+              style={{ marginBottom: 3 }}
+              rules={[
+                {
+                  required: true,
+                  message: "Category is required",
+                },
+              ]}
+            >
+              <Select
+                showSearch
+                placeholder="Select a person"
+                optionFilterProp="children"
+                onChange={onChange}
+                onSearch={onSearch}
+                filterOption={(input, option) =>
+                  (option?.label ?? "")
+                    .toLowerCase()
+                    .includes(input.toLowerCase())
+                }
+                options={categories.map((c) => {
+                  return {
+                    value: c.id,
+                    label: c.name,
+                  };
+                })}
+              />
+            </Form.Item>
+          </Col>
+          <Col xs={24} md={12}>
+          <Form.Item
+              name="tags"
+              label="Select Tags"
+              requiredMark
+              style={{ marginBottom: 3 }}
+              rules={[
+                {
+                  required: true,
+                  message: "Tags is required",
+                },
+              ]}
+            >
+              <Select
+                showSearch
+                placeholder="Select a person"
+                optionFilterProp="children"
+                onChange={onChange}
+                onSearch={onSearch}
+                mode="multiple"
+                filterOption={(input, option) =>
+                  (option?.label ?? "")
+                    .toLowerCase()
+                    .includes(input.toLowerCase())
+                }
+                options={tags.map((c) => {
+                  return {
+                    value: c.id,
+                    label: c.name,
+                  };
+                })}
+              />
+            </Form.Item>
+          </Col>
+        </Row>
 
         <Form.Item
           name="title"

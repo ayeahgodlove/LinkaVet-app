@@ -1,9 +1,9 @@
 import { IBaseState } from "./base-state.model";
 import { IResponseBase } from "./response-base.model";
 
-// name, description, "createdAt", "updatedAt", "deletedAt", quantity, "shortDescription", amount, "categoryId
+// name, description, "createdAt", "updatedAt", "deletedAt", qtty, "shortDescription", amount, "categoryId
 export interface IProduct {
-  id: number;
+  id: string;
   name: string;
   amount: number;
   description: string;
@@ -11,29 +11,23 @@ export interface IProduct {
   storeId: string;
   shortDescription: string;
   productImages: string[];
-  rating: number;
-  quantity: number;
+  qtty: number;
   reviews: string[];
-  userId: string
-
-  // createdAt: Date;
-  // updatedAt: Date;
-  // deletedAt: Date;
+  tags: string[];
 }
 
 export const emptyProduct: IProduct = {
-  id: 0,
+  id: "",
   name: "",
   amount: 0,
   description: "",
-  rating: 0,
   categoryId: "",
   storeId: "",
   shortDescription: "",
   productImages: [],
-  quantity: 0,
+  qtty: 0,
   reviews: [],
-  userId: ""
+  tags: [],
 };
 
 export interface IProductState extends IBaseState {

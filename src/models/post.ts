@@ -10,6 +10,7 @@ export interface IPost {
   publishedAt: Date;
   authorId: string; //foreign key to user table
   categoryId: string; //foreign key to user table
+  tags: string[]
 }
 
 export const emptyPost: IPost = {
@@ -20,7 +21,8 @@ export const emptyPost: IPost = {
   imageUrl: "",
   publishedAt: new Date(),
   authorId: "",
-  categoryId: ""
+  categoryId: "",
+  tags: []
 };
 
 

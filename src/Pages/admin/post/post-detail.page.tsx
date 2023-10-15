@@ -11,9 +11,10 @@ import {  FiEdit } from "react-icons/fi";
 
 const AdminPostDetailPage: React.FC = () => {
   const { isLoading } = useAuth();
-  const { setContent, setTitle, setShow } = useModalContext();
+  const { setContent, setTitle, setShow, setWidth } = useModalContext();
 
   const editPost = () => {
+    setWidth("60rem")
     setTitle("Edit new post");
     setContent(<PostForm formMode={UpdateMode.EDIT} />);
     setShow(true);

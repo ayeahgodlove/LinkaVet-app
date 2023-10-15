@@ -13,9 +13,10 @@ import { fetchPostsAsync } from "redux/post.slice";
 const AdminPostPage: React.FC = () => {
   const { isLoading } = useAuth();
   const dispatch = useDispatch();
-  const { setContent, setTitle, setShow } = useModalContext();
+  const { setContent, setTitle, setShow, setWidth } = useModalContext();
 
   const createPost = () => {
+    setWidth("60rem")
     setContent(<PostForm formMode={UpdateMode.ADD} />);
     setTitle("Create new post");
     setShow(true);

@@ -36,10 +36,6 @@ const ProductDetailComponent: React.FC = () => {
             label: "Category",
             value: product.categoryId,
           },
-          {
-            label: "Author",
-            value: product.userId,
-          },
         ]}
         renderItem={(item) => (
           <List.Item>

@@ -7,6 +7,7 @@ import { storeService } from "../services/store.service";
 import { useToken } from "./auth/token.hook";
 import { IStore } from "models/store";
 import { addStoreSuccess, editStoreSuccess, fetchStoresAsync, setActiveStore } from "redux/store.slice";
+import { useAuth } from "./auth/auth.hook";
 
 const useStore = () => {
   const stores = useSelector<IRootState, IStore[]>((state) => state.store.stores);
@@ -57,6 +58,14 @@ const useStore = () => {
       });
   };
 
+  const { user } = useAuth();
+  const getUserStore = useCallback(() => {
+    const storeData = stores.find(s => s.userId === user.id);
+    if(!storeData) {
+      return;
+    }
+    return storeData;
+  }, [])
   useEffect(() => {
     // loadStores();
   }, [store, stores, isLoading, initialFetch, loadStores]);
@@ -69,6 +78,7 @@ const useStore = () => {
     addStore,
     editStore,
     setStore,
+    getUserStore
   };
 };
 
