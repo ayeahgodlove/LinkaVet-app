@@ -7,9 +7,6 @@ export interface IPayment {
   orderNo: string;
   amount: number;
   status: string;
-  createdAt: Date;
-  updatedAt: Date;
-  deletedAt: Date;
 }
 
 export const emptyPayment: IPayment = {
@@ -18,9 +15,6 @@ export const emptyPayment: IPayment = {
   orderNo: "",
   amount: 0,
   status: "",
-  createdAt: new Date(),
-  updatedAt: new Date(),
-  deletedAt: new Date(),
 };
 
 export interface IPaymentState extends IBaseState {

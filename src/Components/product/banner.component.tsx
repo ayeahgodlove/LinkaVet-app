@@ -57,7 +57,7 @@ const settings: Settings = {
   centerPadding: "60px",
   dots: true,
   speed: 500,
-  slidesToShow: 3,
+  slidesToShow: 2,
   slidesToScroll: 3,
   initialSlide: 0,
   arrows: true,

@@ -64,10 +64,10 @@ export const ProductForm: React.FC<Props> = ({ formMode }) => {
     formData.append("shortDescription", values.shortDescription);
     formData.append("description", values.description);
     formData.append("categoryId", values.categoryId);
-    values.tags.forEach((tag) => {
-      formData.append("tags", tag);
-    });
-
+    // values.tags.forEach((tag) => {
+    formData.append("tags", JSON.stringify(values.tags));
+    // });
+    console.log("tags: ", values.tags);
     formData.append("amount", values.amount.toString());
     formData.append("qtty", values.qtty.toString());
     formData.append("storeId", `${getUserStore()?.id}`);

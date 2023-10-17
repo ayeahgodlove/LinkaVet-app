@@ -10,10 +10,10 @@ export interface IProduct {
   categoryId: string;
   storeId: string;
   shortDescription: string;
-  productImages: string[];
+  productImages: any[];
   qtty: number;
-  reviews: string[];
-  tags: string[];
+  reviews: any[];
+  tags: any[];
 }
 
 export const emptyProduct: IProduct = {

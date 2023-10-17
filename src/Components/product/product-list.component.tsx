@@ -1,32 +1,36 @@
 import { Card, Col, List, Typography, Input, Space, Button } from "antd";
 import React, { useEffect, useState } from "react";
-import ProductCard from "./product-card.component";
-import { Link } from "react-router-dom";
-import slugify from "slugify";
 import { useProduct } from "hooks/product.hook";
 import { NoContent } from "components/shared/no-content/no-content.component";
 import { ProductService } from "services/product.service";
 import { fetchproductSuccess } from "redux/product.slice";
 import { IProduct } from "models/product.model";
 import search from "utils/search";
-import { FiActivity, FiColumns, FiGrid, FiList } from "react-icons/fi";
+import { FiGrid, FiList } from "react-icons/fi";
 import ButtonGroup from "antd/es/button/button-group";
 import useWindowSize from "hooks/shared/window-resize.hook";
+import GridView from "./product-card-grid.component";
+import ListView from "./product-list-view.component";
 
 const { Search } = Input;
-interface Props {
-  slice?: boolean;
-}
-const ProductList: React.FC<Props> = ({ slice = false }) => {
+
+const ProductList: React.FC = () => {
   const { products } = useProduct();
   const [query, setQuery] = useState<string>("");
+  const [view, setView] = useState("grid");
+
   const { width } = useWindowSize();
 
   const onChange = (query: any) => {
     setQuery(query.target.value);
   };
 
-  console.log("slice: ", slice);
+  const onClickGrid = () => {
+    setView("grid");
+  };
+  const onClickList = () => {
+    setView("list");
+  };
 
   const resultProducts: IProduct[] =
     products && products.length
@@ -46,6 +50,7 @@ const ProductList: React.FC<Props> = ({ slice = false }) => {
   return (
     <>
       <Card
+      bordered={true}
         title={
           <>
             <div
@@ -71,49 +76,30 @@ const ProductList: React.FC<Props> = ({ slice = false }) => {
                     onChange={(product) => onChange(product)}
                   />
                   <ButtonGroup>
-                    <Button type="ghost" icon={<FiList size={25} />} />
-                    {/* <Button type="ghost" icon={<FiColumns size={25} />} /> */}
-                    <Button type="ghost" icon={<FiGrid size={25} />} />
+                    <Button
+                      type={view === 'list' ? "primary" : 'ghost'}
+                      icon={<FiList size={25} />}
+                      onClick={onClickList}
+                    />
+                    <Button
+                           type={view === 'grid' ? "primary" : 'ghost'}
+                      icon={<FiGrid size={25} />}
+                      onClick={onClickGrid}
+                    />
                   </ButtonGroup>
                 </Space>
               </>
             </div>
           </>
         }
-        bodyStyle={{ background: "transparent" }}
+        style={{ marginBottom: 20}}
+        bodyStyle={{ background: "#f4f7fe" }}
         size="small"
       >
-        {products && products.length > 0 ? (
-          <List
-            className="product-list"
-            grid={{
-              gutter: 0,
-              xs: 1,
-              sm: 2,
-              md: 3,
-              lg: 3,
-              xl: 4,
-              xxl: 5,
-            }}
-            dataSource={slice ? products.slice(0, 4) : products}
-            // dataSource={
-            //   resultProducts && resultProducts.length > 0
-            //     ? resultProducts
-            //     : products
-            // }
-            renderItem={(product) => (
-              <Link
-                key={product.id}
-                to={`/products/${slugify(product.name, { lower: true })}`}
-              >
-                <ProductCard product={product} />
-              </Link>
-            )}
-          />
+        {view === "grid" ? (
+          <GridView products={products} resultProducts={resultProducts} />
         ) : (
-          <Col span={24}>
-            <NoContent title="No products to display at the moment" />
-          </Col>
+          <ListView products={products} resultProducts={resultProducts} />
         )}
       </Card>
     </>

@@ -8,6 +8,7 @@ export const API_URL_UPLOADS_EVENTS = "http://localhost:8000/uploads/events";
 export const API_URL_UPLOADS_PROJECTS = "http://localhost:8000/uploads/projects";
 export const  API_URL_UPLOADS_BANNERS = "http://localhost:8000/uploads/banners"
 export const  API_URL_UPLOADS_STORES = "http://localhost:8000/uploads/stores"
+export const  API_URL_UPLOADS_PRODUCTS = "http://localhost:8000/uploads/products"
 
 export const modules = {
     toolbar: [

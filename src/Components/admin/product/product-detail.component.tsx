@@ -1,4 +1,5 @@
-import { Card, Col, List, Row, Typography } from "antd";
+import { Card, Col, List, Row, Typography, Image, Tag } from "antd";
+import { API_URL_UPLOADS_PRODUCTS } from "config/constant";
 import { useProduct } from "hooks/product.hook";
 import React from "react";
 import { format } from "utils/format";
@@ -35,6 +36,29 @@ const ProductDetailComponent: React.FC = () => {
           {
             label: "Category",
             value: product.categoryId,
+          },
+          {
+            label: "Image",
+            value: (
+              <Row gutter={[8, 8]}>
+                {product.productImages.map((image) => (
+                  <Col key={image.id} xs={24} md={6}>
+                    <Card bordered={false}>
+                      <Image
+                        src={`${API_URL_UPLOADS_PRODUCTS}/${image.imageUrl}`}
+                        alt={image.productName}
+                      />
+                    </Card>
+                  </Col>
+                ))}
+              </Row>
+            ),
+          },
+          {
+            label: "Tags",
+            value: product.tags.map((tag) => (
+              <Tag key={tag.id}>{tag.name}</Tag>
+            )),
           },
         ]}
         renderItem={(item) => (

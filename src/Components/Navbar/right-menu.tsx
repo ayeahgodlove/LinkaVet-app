@@ -5,6 +5,7 @@ import {
   BellOutlined,
   InfoCircleTwoTone,
   LogoutOutlined,
+  ShoppingCartOutlined,
   TranslationOutlined,
 } from "@ant-design/icons";
 import { BsSun } from "react-icons/bs";
@@ -28,15 +29,36 @@ const RightMenu = () => {
 
   const items: ItemType[] = [
     {
-      label: (
-        <Link to={"/auth/login"}>
-          Signin
-        </Link>
-      ),
+      label: <Link to={"/auth/login"}>Signin</Link>,
       key: "signin",
       style: {
         display: isAuthenticated ? "none" : "",
       },
+    }, // remember to pass the key prop
+    {
+      label: (
+        <b
+          style={{
+            fontSize: 20,
+            color: "#317610",
+            position: "absolute",
+            right: 5,
+            bottom: 15
+          }}
+        >
+          0
+        </b>
+      ),
+      icon: (
+        <span>
+          <ShoppingCartOutlined
+            className="app-header__icon"
+            size={30}
+            style={{ fontSize: 25 }}
+          />
+        </span>
+      ),
+      key: "shopping-cart",
     }, // remember to pass the key prop
     {
       icon: <BsSun style={{ fontSize: 23 }} />,
@@ -48,16 +70,20 @@ const RightMenu = () => {
       children: [
         {
           label: (
-            <ConfigProvider theme={{ token: {
-              colorPrimary: "#f77908"
-            }}}>
+            <ConfigProvider
+              theme={{
+                token: {
+                  colorPrimary: "#f77908",
+                },
+              }}
+            >
               <Switch
-              defaultChecked={isDarkMode}
-              // size="small"
-              onChange={handleSetTheme}
-              checkedChildren={<BsSun size={18} />}
-              unCheckedChildren={<MdDarkMode size={18} color="#333" />}
-            />
+                defaultChecked={isDarkMode}
+                // size="small"
+                onChange={handleSetTheme}
+                checkedChildren={<BsSun size={18} />}
+                unCheckedChildren={<MdDarkMode size={18} color="#333" />}
+              />
             </ConfigProvider>
           ),
           key: "light",
@@ -174,7 +200,7 @@ const RightMenu = () => {
             fontSize: 14,
           }}
           // src={user?.picture}
-        > 
+        >
           {user?.username?.charAt(0).toUpperCase()}
         </Avatar>
       ),
@@ -216,10 +242,13 @@ const RightMenu = () => {
             {
               label: (
                 <>
-                  <Link to="#" onClick={() => {
-                    logoutUserFunction()
-                    router('/')
-                  }}>
+                  <Link
+                    to="#"
+                    onClick={() => {
+                      logoutUserFunction();
+                      router("/");
+                    }}
+                  >
                     Logout
                   </Link>
                 </>
@@ -241,7 +270,10 @@ const RightMenu = () => {
       theme={isDarkMode ? "dark" : "light"}
       className="right_navigation"
       mode={"horizontal"}
-      style={{ width: isAuthenticated ? "250px" : "200px", background: "inherit" }}
+      style={{
+        width: isAuthenticated ? "300px" : "200px",
+        background: "inherit",
+      }}
       items={items}
     />
   );

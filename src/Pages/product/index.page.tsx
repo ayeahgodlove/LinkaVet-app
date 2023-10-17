@@ -1,7 +1,6 @@
 import { Card, Col, Divider, Row, Typography } from "antd";
 import CategoryList from "components/admin/category/category-list.component";
 import TagList from "components/admin/tag/tag-list.component";
-import BannerIndexComponent from "components/product/banner.component";
 import FilterComponent from "components/product/filter.component";
 import ProductList from "components/product/product-list.component";
 import GeneralAppShell from "layout/app/general-app-shell";
@@ -13,7 +12,7 @@ const ProductPage: React.FC = () => {
       {/* search component */}
       <FilterComponent />
       {/* banner */}
-      <BannerIndexComponent />
+      {/* <BannerIndexComponent /> */}
       {/* Branding Information */}
 
       {/* product list */}

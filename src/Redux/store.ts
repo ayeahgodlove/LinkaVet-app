@@ -25,6 +25,7 @@ import { tokenReducer } from "./auth/token.slice";
 import { subCategoryReducer } from "./sub-category.slice";
 import { bannerReducer } from "./banner.slice";
 import { storeReducer } from "./store.slice";
+import { orderReducer } from "./order.slice";
 
 const middlewares: [any] = [thunkMiddleware];
 
@@ -36,6 +37,7 @@ export const rootReducer = combineReducers({
   document: documentReducer,
   category: categoryReducer,
   subCategory: subCategoryReducer,
+  order: orderReducer,
   payment: paymentReducer,
   review: reviewReducer,
   theme: themeReducer,
@@ -59,6 +61,7 @@ const persistConfig = {
     "order",
     "review",
     "payment",
+    "order",
     "token",
     "post",
     "tag",

@@ -27,7 +27,7 @@ const CategoryList = () => {
   }, []);
   return (
     <>
-      <div style={{ display: "flex", justifyContent: "center" }}>
+      <div style={{ display: "flex"}}>
         <Space size={"small"} wrap>
           {categories.map((category, index) => (
             <>

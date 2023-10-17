@@ -26,8 +26,15 @@
   }
 }
 
-@media screen and (min-width: 768px) {
+.product-list-view-img {
+  background-repeat: "no-repeat";
+  background-size: "cover";
+  background-position: "center center";
+  object-fit: "cover";
+  height: 200px;
+}
 
+@media screen and (min-width: 768px) {
 }
 
 @media screen and (min-width: 991px) {
