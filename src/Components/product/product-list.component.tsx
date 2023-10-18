@@ -1,7 +1,6 @@
-import { Card, Col, List, Typography, Input, Space, Button } from "antd";
+import { Card, Typography, Input, Space, Button } from "antd";
 import React, { useEffect, useState } from "react";
 import { useProduct } from "hooks/product.hook";
-import { NoContent } from "components/shared/no-content/no-content.component";
 import { ProductService } from "services/product.service";
 import { fetchproductSuccess } from "redux/product.slice";
 import { IProduct } from "models/product.model";
