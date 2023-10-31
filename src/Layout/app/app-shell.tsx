@@ -2,9 +2,7 @@ import { Drawer, Layout, Menu, MenuProps } from "antd";
 import React, { useEffect, useState } from "react";
 import { FaBlog, FaRegComments, FaUsersCog } from "react-icons/fa";
 import { TiDocumentText } from "react-icons/ti";
-import {
-  MdOutlineProductionQuantityLimits,
-} from "react-icons/md";
+import { MdOutlineProductionQuantityLimits } from "react-icons/md";
 import { BiCategoryAlt } from "react-icons/bi";
 import Navbar from "components/navbar";
 import "./AppShell.scss";
@@ -17,6 +15,8 @@ import { useAuth } from "hooks/auth/auth.hook";
 import { useDispatch } from "react-redux";
 import { initialDataAsync } from "redux/action/initial.action";
 import { TfiGallery } from "react-icons/tfi";
+import { TbPigMoney } from "react-icons/tb";
+import { AiOutlineShoppingCart } from "react-icons/ai";
 
 const { defaultAlgorithm, darkAlgorithm } = theme;
 
@@ -111,7 +111,16 @@ const items2: MenuProps["items"] = [
       </Link>
     ),
     key: "payments",
-    icon: <FaUsersCog size={21} color="#3498db" />,
+    icon: <TbPigMoney size={21} color="#3498db" />,
+  }, // remember to pass the key prop
+  {
+    label: (
+      <Link to="/admin/orders" style={{ padding: 0 }}>
+        Orders
+      </Link>
+    ),
+    key: "orders",
+    icon: <AiOutlineShoppingCart size={21} color="#3498db" />,
   }, // remember to pass the key prop
 ];
 interface IProps {
@@ -136,7 +145,7 @@ const AppShell: React.FC<IProps> = ({ children }) => {
   };
 
   if (isAuthenticated && user) {
-    setTimeout(() =>   {
+    setTimeout(() => {
       dispatch(initialDataAsync() as any);
     }, 3000);
   }
@@ -147,17 +156,20 @@ const AppShell: React.FC<IProps> = ({ children }) => {
       theme={{
         algorithm: isDarkMode ? darkAlgorithm : defaultAlgorithm,
         token: {
-          colorPrimary: "#3498db",
-          colorLink: "#2980b9",
+          colorPrimary: "#08a30a",
+          colorLink: "#214e0a",
+          fontFamily: "Poppins"
         },
-      }}
+      }} 
     >
       <Layout className="app-shell-layout">
         <Navbar showMenuIcon handleShow={handleShow} />
         <Layout>
           {
             //Display Sidebar when it's admin
-            user && user.roles && user.roles.map((r) => r.name).includes("doctor") ? (
+            user &&
+            user.roles &&
+            user.roles.map((r) => r.name).includes("doctor") ? (
               <>
                 <Sider
                   width={200}

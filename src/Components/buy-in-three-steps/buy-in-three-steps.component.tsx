@@ -9,6 +9,7 @@ import React from "react";
 import { MdOutlinePayments } from "react-icons/md";
 import { FaUsersCog } from "react-icons/fa";
 import "./style.scss";
+import { green } from "@ant-design/colors";
 
 const { Title, Paragraph } = Typography;
 const BuyInThreeSteps: React.FC = () => {
@@ -22,9 +23,6 @@ const BuyInThreeSteps: React.FC = () => {
           borderRadius: 0,
           paddingTop: "8rem",
           paddingBottom: "8rem",
-          // backgroundRepeat: "no-repeat",
-          // background: "url(images/bg-1-removebg-preview.png)",
-          // backgroundPosition: "top right",
         }}
       >
         <Col xs={24} md={24} lg={24}>
@@ -36,7 +34,7 @@ const BuyInThreeSteps: React.FC = () => {
               marginBottom: 0,
             }}
           >
-            <span style={{ color: "#2980b9" }}>Getstarted</span> in 3 Easy Steps
+            <span style={{ color: green.primary}}>Get Sarted</span> in 3 Easy Steps
           </Title>
           <Paragraph style={{ fontSize: 17, textAlign: "center" }}>
             <p>

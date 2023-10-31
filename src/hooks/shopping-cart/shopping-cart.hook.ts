@@ -17,9 +17,14 @@ const useShoppingCart = () => {
 
   const openCart = () => dispatch(shoppingCartActions.openCart);
   const closeCart = () => dispatch(shoppingCartActions.closeCart);
-  
+
   function getItemQuantity(id: string) {
-    return cartItems.find((item) => item.id === id)?.quantity || 0;
+    const quantity = cartItems.find((item) => item.id === id)?.quantity || 0;
+    if (quantity) {
+      return quantity;
+    } else {
+      return 0;
+    }
   }
 
   const increaseCartQuantity = (id: string) =>

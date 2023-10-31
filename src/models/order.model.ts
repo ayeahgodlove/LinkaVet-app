@@ -4,6 +4,7 @@ import { IResponseBase } from "./response-base.model";
 export interface IOrder {
   id: string;
   userId: string;
+  refLine: number;
   productId: string;
   unitPrice: number;
   total: number;
@@ -19,6 +20,7 @@ export const emptyOrder: IOrder = {
   total: 0,
   status: "",
   orderNo: "",
+  refLine: 0
 };
 
 export interface IOrderState extends IBaseState {

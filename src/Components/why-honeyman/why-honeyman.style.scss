@@ -28,10 +28,10 @@
 
 
   &:first-child {
-    background: rgb(52, 152, 219);
+    background: #08a30a;
     background: linear-gradient(
       7deg,
-      rgba(52, 152, 219, 1) 0%,
+      hsl(204, 70%, 53%)
       rgba(39, 174, 96, 1) 100%
     );
   } 

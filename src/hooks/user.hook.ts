@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useCallback, useEffect } from "react";
 import { IRootState } from "redux/store";
-import { IUser } from "models/user.model";
+import { IUser, emptyUser } from "models/user.model";
 import {
   addUserSuccess,
   editUserSuccess,
@@ -56,6 +56,13 @@ const useUser = () => {
         return false;
       });
   };
+  const getUser = (userId: string) => {
+    const user = users.find((p) => p.id === userId);
+    if (!user) {
+      return emptyUser;
+    }
+    return user;
+  };
 
   useEffect(() => {
     // loadUsers();
@@ -69,6 +76,7 @@ const useUser = () => {
     addUser,
     editUser,
     setUser,
+    getUser,
   };
 };
 

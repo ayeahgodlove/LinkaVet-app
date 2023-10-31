@@ -1,7 +1,6 @@
 import {
   Button,
   Card,
-  Carousel,
   Col,
   List,
   Row,
@@ -18,13 +17,11 @@ import {
   CarouselProvider,
   Slider,
   Slide,
-  ButtonBack,
-  ButtonNext,
   Image,
-  DotGroup,
+  Dot,
 } from "pure-react-carousel";
 import "pure-react-carousel/dist/react-carousel.es.css";
-import { FiChevronLeft, FiChevronRight, FiMinus, FiPlus } from "react-icons/fi";
+import {  FiMinus, FiPlus } from "react-icons/fi";
 import "./product-list-view.style.scss";
 import { useShoppingCart } from "hooks/shopping-cart/shopping-cart.hook";
 
@@ -54,64 +51,64 @@ const ListView: React.FC<IProps> = ({ products, resultProducts }) => {
 const ListViewProduct: React.FC<IProp> = ({ product }) => {
   const [slideIndex, setSlideIndex] = useState(0);
   const { getItemQuantity } = useShoppingCart();
-  const quantity = getItemQuantity(product.id);
-  const handlePreviousClick = () => {
-    setSlideIndex((prevSlideIndex) => prevSlideIndex - 1);
-  };
+  // const quantity = getItemQuantity(product.id)
+  let quantity = 1;
 
-  const handleNextClick = () => {
-    setSlideIndex((prevSlideIndex) => prevSlideIndex + 1);
-  };
 
   const addToCartButton = () => {};
 
   return (
     <List.Item key={product.id}>
       <Row gutter={[16, 8]}>
-        <Col xs={24} md={6}>
+        <Col xs={24} md={10}>
           <CarouselProvider
             naturalSlideWidth={10}
             naturalSlideHeight={6}
             totalSlides={product.productImages.length}
-            // isIntrinsicHeight={true}
           >
-            <Slider>
-              {product.productImages.map((image, index) => (
-                <Slide index={index} key={index}>
-                  <Image
-                    style={{
-                      backgroundRepeat: "no-repeat",
-                      backgroundSize: "cover",
-                      backgroundPosition: "center center",
-                      aspectRatio: "1/1",
-                      width: "100%",
-                      height: "250px",
-                      objectFit: "cover",
-                    }}
-                    alt={product.shortDescription}
-                    src={`${API_URL_UPLOADS_PRODUCTS}/${image.imageUrl}`}
-                    hasMasterSpinner={false}
-                  />
-                </Slide>
-              ))}
-            </Slider>
-            <Space style={{ marginTop: 15 }} className="controls">
-              <ButtonBack
-                onClick={handlePreviousClick}
-                className="btn-arrow reverse-arrow"
-              >
-                <FiChevronLeft size={25} />
-              </ButtonBack>
-              <DotGroup className="dot-group" />
-              <ButtonNext onClick={handleNextClick} className="btn-arrow">
-                <FiChevronRight size={25} />
-              </ButtonNext>
-            </Space>
+            <Row gutter={[8, 8]} align={"middle"} justify={"center"}>
+              <Col span={6}>
+                {product.productImages.map((image, index) => {
+                  return (
+                    <Dot slide={index} key={index} className="product-list_dot">
+                      <img
+                        height={80}
+                        width={80}
+                        key={index}
+                        src={`${API_URL_UPLOADS_PRODUCTS}/${image.imageUrl}`}
+                      />
+                    </Dot>
+                  );
+                })}
+              </Col>
+              <Col span={18}>
+                <Slider>
+                  {product.productImages.map((image, index) => (
+                    <Slide index={index} key={index}>
+                      <Image
+                        style={{
+                          backgroundRepeat: "no-repeat",
+                          backgroundSize: "cover",
+                          backgroundPosition: "center center",
+                          aspectRatio: "1/1",
+                          width: "100%",
+                          height: "250px",
+                          objectFit: "cover",
+                        }}
+                        alt={product.shortDescription}
+                        src={`${API_URL_UPLOADS_PRODUCTS}/${image.imageUrl}`}
+                        hasMasterSpinner={false}
+                      />
+                    </Slide>
+                  ))}
+                </Slider>
+              </Col>
+            </Row>
           </CarouselProvider>
         </Col>
         <Col
           xs={24}
-          md={18}
+          md={14}
           style={{
             display: "flex",
             flexDirection: "column",

@@ -26,12 +26,75 @@
   }
 }
 
-@media screen and (min-width: 768px) {
+.post-banner {
+  background: linear-gradient(135deg, #08a30a 1%, #607d8b 100%);
+  position: relative;
+  width: 100%;
+  min-height: 50vh;
+  padding-left: 1rem;
+  padding-right: 1rem;
 
+  .post-banner-text {
+    text-align: center;
+  }
+  .post-column{
+    order: -1;
+  }
+  .post-banner-photo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: none !important;
+    div {
+      height: 175px;
+      width: 175px;
+      background: #fff;
+      border-radius: 20px;
+      margin: 20px;
+      transition: all ease 0.2s;
+
+      img {
+        object-fit: cover;
+        aspect-ratio: 1/1;
+        width: inherit;
+        height: inherit;
+        border-radius: 20px;
+      }
+    }
+    .box {
+      box-shadow: 0px 5px 10px 0px rgba(96, 125, 139, 0.5);
+      // color: rgb(96, 125, 139);
+    }
+    .box:hover {
+      transform: translateY(-5px);
+      box-shadow: 0px 10px 20px 2px rgba(96, 125, 139, 0.25);
+    }
+  }
+
+  //
+  border-bottom: 10px solid #fff;
+}
+
+@media screen and (min-width: 768px) {
+  .post-banner {
+    .post-banner-text {
+      text-align: left;
+    }
+    .post-column{
+      order: 2;
+    }
+    padding: 0 3rem;
+  }
 }
 
 @media screen and (min-width: 991px) {
   .post-list {
     margin: 0 2rem;
+  }
+  .post-banner {
+    .post-column{
+      order: 2;
+    }
+    padding: 0 8rem;
   }
 }

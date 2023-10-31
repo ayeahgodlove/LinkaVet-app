@@ -1,3 +1,4 @@
+import { green } from "@ant-design/colors";
 import {
   Button,
   Card,
@@ -19,7 +20,7 @@ const Subscribe = () => {
     <Card
       bordered={false}
       style={{
-        background: "linear-gradient(7deg, rgba(52, 152, 219, 1), transparent)",
+        background: "linear-gradient(7deg, rgba(8, 163, 10, 1), transparent)",
         borderRadius: 0,
       }}
     >
@@ -68,26 +69,21 @@ const Subscribe = () => {
                 justifyContent: "center",
                 alignItems: "center",
               }}
-              
             >
-              <ConfigProvider
-                theme={{
-                  token: {
-                    colorPrimary: "#3498db",
-                    colorLink: "#2980b9",
-                  },
+              <Button
+                type="default"
+                htmlType="submit"
+                className="login-form-button"
+                size="large"
+                style={{
+                  paddingLeft: 15,
+                  paddingRight: 15,
+                  width: "30.5rem",
                 }}
+                block={true}
               >
-                <Button
-                  type="default"
-                  htmlType="submit"
-                  className="login-form-button"
-                  size="large"
-                  style={{ paddingLeft: 15, paddingRight: 15, display:  "block" }}
-                >
-                  Subscribe Now
-                </Button>
-              </ConfigProvider>
+                Subscribe Now
+              </Button>
             </Form.Item>
           </Form>
         </Col>

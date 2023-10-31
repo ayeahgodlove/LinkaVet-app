@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useCallback, useEffect } from "react";
 import { IRootState } from "redux/store";
-import { IProduct } from "models/product.model";
+import { IProduct, emptyProduct } from "models/product.model";
 import {
   addProductSuccess,
   editProductSuccess,
@@ -60,6 +60,13 @@ const useProduct = () => {
         return false;
       });
   };
+  const getProduct = (productId: string) => {
+    const product = products.find((p) => p.id === productId);
+    if (!product) {
+      return emptyProduct;
+    }
+    return product;
+  };
 
   useEffect(() => {
     // loadProducts();
@@ -73,6 +80,7 @@ const useProduct = () => {
     addProduct,
     editProduct,
     setProduct,
+    getProduct
   };
 };
 

@@ -32,6 +32,10 @@ import WelcomePage from "pages/welcome.page";
 import React from "react";
 import ProductCreatePage from "pages/admin/product/product-create.page";
 import ProductEditPage from "pages/admin/product/product-edit.page";
+import AdminOrderPage from "pages/admin/order/order.page";
+import AdminOrderDetailPage from "pages/admin/order/order-detail.page";
+import AdminPaymentPage from "pages/admin/payment/payment.page";
+import AdminPaymentDetailPage from "pages/admin/payment/payment-detail.page";
 
 export const routes: IRoute[] = [
   {
@@ -168,7 +172,7 @@ export const routes: IRoute[] = [
     exact: true,
     component: <AdminStoreDetailPage />,
   },
-  
+
   {
     path: "/admin/products",
     private: true,
@@ -206,7 +210,7 @@ export const routes: IRoute[] = [
     exact: true,
     component: <AdminDocumentDetailPage />,
   },
-    {
+  {
     path: "/admin/banners",
     private: true,
     exact: true,
@@ -232,6 +236,30 @@ export const routes: IRoute[] = [
     private: true,
     exact: true,
     component: <AdminReviewDetailPage />,
+  },
+  {
+    path: "/admin/orders",
+    private: true,
+    exact: true,
+    component: <AdminOrderPage />,
+  },
+  {
+    path: "/admin/orders/:id",
+    private: true,
+    exact: true,
+    component: <AdminOrderDetailPage />,
+  },
+  {
+    path: "/admin/payments",
+    private: true,
+    exact: true,
+    component: <AdminPaymentPage />,
+  },
+  {
+    path: "/admin/payments/:id",
+    private: true,
+    exact: true,
+    component: <AdminPaymentDetailPage />,
   },
   {
     path: "/admin/users",

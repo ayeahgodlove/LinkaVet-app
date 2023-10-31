@@ -1,5 +1,5 @@
 import { MenuProps } from "antd";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import {
   MdOutlineArticle,
   MdOutlineProductionQuantityLimits,
@@ -10,18 +10,18 @@ import React from "react";
 const GeneralMenuItemsWithIcons: MenuProps["items"] = [
   {
     label: (
-      <Link to="/home" style={{ padding: 0 }}>
+      <NavLink to="/home" style={{ padding: 0 }}>
         Home
-      </Link>
+      </NavLink>
     ),
     key: "home",
     icon: <FiHome size={21} color="#f77908" />,
   },
   {
     label: (
-      <Link to="/products" style={{ padding: 0 }}>
+      <NavLink to="/products" style={{ padding: 0 }}>
         Products
-      </Link>
+      </NavLink>
     ),
     key: "products",
     icon: <MdOutlineProductionQuantityLimits size={21} color="#f77908" />,
@@ -29,18 +29,18 @@ const GeneralMenuItemsWithIcons: MenuProps["items"] = [
 
   {
     label: (
-      <Link to="/posts" style={{ padding: 0 }}>
+      <NavLink to="/posts" style={{ padding: 0 }}>
         Posts
-      </Link>
+      </NavLink>
     ),
     key: "posts",
     icon: <MdOutlineArticle size={21} color="#f77908" />,
   },
   {
     label: (
-      <Link to="/contact-us" style={{ padding: 0 }}>
+      <NavLink to="/contact-us" style={{ padding: 0 }}>
         Contact Us
-      </Link>
+      </NavLink>
     ),
     key: "contact-us",
     icon: <FiPhoneCall size={21} color="#f77908" />,
@@ -50,34 +50,34 @@ const GeneralMenuItemsWithIcons: MenuProps["items"] = [
 const GeneralMenuItemsWithoutIcons: MenuProps["items"] = [
   {
     label: (
-      <Link to="/home" style={{ padding: 0 }}>
+      <NavLink to="/" style={{ padding: 0 }}>
         Home
-      </Link>
+      </NavLink>
     ),
     key: "home",
   },
   {
     label: (
-      <Link to="/products" style={{ padding: 0 }}>
+      <NavLink to="/products" style={{ padding: 0 }}>
         Products
-      </Link>
+      </NavLink>
     ),
     key: "products",
   },
 
   {
     label: (
-      <Link to="/posts" style={{ padding: 0 }}>
+      <NavLink to="/posts" style={{ padding: 0 }}>
         Posts
-      </Link>
+      </NavLink>
     ),
     key: "posts",
   },
   {
     label: (
-      <Link to="/contact-us" style={{ padding: 0 }}>
+      <NavLink to="/contact-us" style={{ padding: 0 }}>
         Contact Us
-      </Link>
+      </NavLink>
     ),
     key: "contact-us",
   },

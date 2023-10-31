@@ -8,7 +8,7 @@ import { GeneralMenuItemsWithIcons } from "components/navbar/menu";
 import { useTheme } from "hooks/shared/theme.hook";
 import { FiArrowUp } from "react-icons/fi";
 import useWindowSize from "hooks/shared/window-resize.hook";
-import TweenOne from "rc-tween-one";
+// import { green } from '@ant-design/colors';
 
 const { Sider, Content } = Layout;
 const { defaultAlgorithm, darkAlgorithm } = theme;
@@ -30,15 +30,16 @@ const GeneralAppShell: React.FC<IProps> = ({ children }) => {
   };
   const onClose = () => {
     setShow(false);
-  };
+  }; 
 
   return (
     <ConfigProvider
       theme={{
         algorithm: isDarkMode ? darkAlgorithm : defaultAlgorithm,
         token: {
-          colorPrimary: "#3498db",
-          colorLink: "#2980b9",
+          colorPrimary: "#08a30a",
+          colorLink: "#214e0a",
+          fontFamily: "Poppins"
         },
       }}
     >

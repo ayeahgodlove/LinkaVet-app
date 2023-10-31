@@ -27,6 +27,13 @@
 .menuCon .ant-menu-item {
   padding: 0px 5px;
 }
+.menuCon .ant-menu-item .ant-menu-title-content a.active {
+  color: #214e0a;
+}
+
+.menuCon .ant-menu-item .ant-menu-title-content a:hover {
+  color: #214e0a;
+}
 
 .menuCon .ant-menu-submenu-title {
   padding: 0;

@@ -73,7 +73,7 @@ const RightMenu = () => {
             <ConfigProvider
               theme={{
                 token: {
-                  colorPrimary: "#f77908",
+                  colorPrimary: "#08a30a",
                 },
               }}
             >
@@ -83,6 +83,7 @@ const RightMenu = () => {
                 onChange={handleSetTheme}
                 checkedChildren={<BsSun size={18} />}
                 unCheckedChildren={<MdDarkMode size={18} color="#333" />}
+                
               />
             </ConfigProvider>
           ),
@@ -195,7 +196,7 @@ const RightMenu = () => {
         <Avatar
           style={{
             color: "#fff",
-            backgroundColor: "#3498db",
+            backgroundColor: "#08a30a",
             fontWeight: "bold",
             fontSize: 14,
           }}
