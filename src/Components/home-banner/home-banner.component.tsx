@@ -6,49 +6,21 @@ import {
   ConfigProvider,
   Row,
   Space,
-  Typography,
 } from "antd";
 import "./home-banner.style.scss";
 import "rc-texty/assets/index.css";
 import TweenOne from "rc-tween-one";
 import Texty from "rc-texty";
 import { FiChevronRight } from "react-icons/fi";
+import { useTween } from "hooks/shared/tween.hook";
 
 export const HomeBanner: React.FC = () => {
-  const { Title, Paragraph } = Typography;
   const [show, setShow] = useState(true);
 
-  const geInterval = (e) => {
-    switch (e.index) {
-      case 0:
-        return 0;
-      case 1:
-        return 150;
-      case 2:
-      case 3:
-      case 4:
-      case 5:
-      case 6:
-        return 150 + 450 + (e.index - 2) * 10;
-      default:
-        return 150 + 450 + (e.index - 6) * 150;
-    }
-  };
-  const getEnter = (e) => {
-    const t = {
-      opacity: 0,
-      scale: 0.8,
-      y: "-100%",
-    };
-    if (e.index >= 2 && e.index <= 6) {
-      return { ...t, y: "-30%", duration: 150 };
-    }
-    return t;
-  };
-
-  const getSplit = (e) => {
-    const t = e.split(" ");
-    const c: any[] = [];
+  const { getEnter, getInterval} = useTween();
+  const getSplit = (props:any) => {
+    const t = props.split(" ");
+    const c: React.ReactElement[] = [];
     t.forEach((str, i) => {
       c.push(<span key={`${str}-${i}`}>{str}</span>);
       if (i < t.length - 1) {
@@ -57,7 +29,6 @@ export const HomeBanner: React.FC = () => {
     });
     return c;
   };
-
   useEffect(() => {
     setShow(true);
   }, [show]);
@@ -134,7 +105,7 @@ export const HomeBanner: React.FC = () => {
                 type="mask-top"
                 delay={400}
                 enter={getEnter}
-                interval={geInterval}
+                interval={getInterval}
                 component={TweenOne}
                 componentProps={{
                   animation: [
@@ -179,7 +150,7 @@ export const HomeBanner: React.FC = () => {
               <Texty
                 className="content sub-header"
                 type="bottom"
-                split={getSplit}
+                split={getSplit as any}
                 delay={2200}
                 interval={30}
               >

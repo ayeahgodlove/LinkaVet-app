@@ -1,4 +1,4 @@
-import { Col, List, Row, Typography } from "antd";
+import { Col, Row, Typography } from "antd";
 import { useReview } from "hooks/review.hook";
 import React from "react";
 import ReviewList from "./review-list.component";

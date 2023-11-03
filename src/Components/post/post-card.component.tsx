@@ -1,4 +1,4 @@
-import { Button, Card, List } from "antd";
+import { Button, Card, List, Typography } from "antd";
 import React from "react";
 import "./post.style.scss";
 import { RiHeartFill } from "react-icons/ri";
@@ -20,7 +20,12 @@ const PostCard: React.FC<IProp> = ({ post }) => {
         bordered={false}
         style={{ padding: 0 }}
         bodyStyle={{ paddingTop: 10 }}
-        cover={<img alt={post.title} src={`http://localhost:8000/uploads/posts/${post.imageUrl}`} />}
+        cover={
+          <img
+            alt={post.title}
+            src={`http://localhost:8000/uploads/posts/${post.imageUrl}`}
+          />
+        }
         className="post-card"
       >
         <div
@@ -31,7 +36,17 @@ const PostCard: React.FC<IProp> = ({ post }) => {
           }}
         >
           <div>
-            <Meta title={post.title} description={<RaterComponent />} />
+            <Meta
+              title={post.title}
+              description={
+                <div
+                  dangerouslySetInnerHTML={{
+                    __html: post.content.slice(50 , 400),
+                  }}
+                />
+              }
+            />
+            <RaterComponent />
           </div>
         </div>
         <Button

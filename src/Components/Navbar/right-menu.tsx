@@ -25,6 +25,9 @@ const RightMenu = () => {
     console.log(language);
   };
 
+  const redirectToCart = () => {
+    router("/shopping-cart")
+  }
   const { logoutUserFunction, isAuthenticated, user } = useAuth();
 
   const items: ItemType[] = [
@@ -43,7 +46,7 @@ const RightMenu = () => {
             color: "#317610",
             position: "absolute",
             right: 5,
-            bottom: 15
+            bottom: 15,
           }}
         >
           0
@@ -59,39 +62,30 @@ const RightMenu = () => {
         </span>
       ),
       key: "shopping-cart",
+      onClick: redirectToCart
     }, // remember to pass the key prop
     {
-      icon: <BsSun style={{ fontSize: 23 }} />,
-      label: "",
+      label: (
+        <ConfigProvider
+          theme={{
+            token: {
+              colorPrimary: "#08a30a",
+            },
+          }}
+        >
+          <Switch
+            defaultChecked={isDarkMode}
+            // size="small"
+            onChange={handleSetTheme}
+            checkedChildren={<BsSun size={18} />}
+            unCheckedChildren={<MdDarkMode size={18} color="#333" />}
+          />
+        </ConfigProvider>
+      ),
       key: "theme",
       style: {
         padding: 0,
       },
-      children: [
-        {
-          label: (
-            <ConfigProvider
-              theme={{
-                token: {
-                  colorPrimary: "#08a30a",
-                },
-              }}
-            >
-              <Switch
-                defaultChecked={isDarkMode}
-                // size="small"
-                onChange={handleSetTheme}
-                checkedChildren={<BsSun size={18} />}
-                unCheckedChildren={<MdDarkMode size={18} color="#333" />}
-                
-              />
-            </ConfigProvider>
-          ),
-          key: "light",
-          style: {},
-          // onClick: () => handleSetTheme()
-        },
-      ],
     }, // remember to pass the key prop
     {
       label: "",

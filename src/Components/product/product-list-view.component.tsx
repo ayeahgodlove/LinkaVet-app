@@ -1,12 +1,4 @@
-import {
-  Button,
-  Card,
-  Col,
-  List,
-  Row,
-  Space,
-  Typography,
-} from "antd";
+import { Button, Card, Col, List, Row, Space, Typography } from "antd";
 import { IProduct } from "models/product.model";
 import React, { useState } from "react";
 import "./product.style.scss";
@@ -21,7 +13,7 @@ import {
   Dot,
 } from "pure-react-carousel";
 import "pure-react-carousel/dist/react-carousel.es.css";
-import {  FiMinus, FiPlus } from "react-icons/fi";
+import { FiMinus, FiPlus } from "react-icons/fi";
 import "./product-list-view.style.scss";
 import { useShoppingCart } from "hooks/shopping-cart/shopping-cart.hook";
 
@@ -50,12 +42,13 @@ const ListView: React.FC<IProps> = ({ products, resultProducts }) => {
 };
 const ListViewProduct: React.FC<IProp> = ({ product }) => {
   const [slideIndex, setSlideIndex] = useState(0);
-  const { getItemQuantity } = useShoppingCart();
-  // const quantity = getItemQuantity(product.id)
-  let quantity = 1;
-
-
-  const addToCartButton = () => {};
+  const {
+    getItemQuantity,
+    increaseCartQuantity,
+    removeFromCart,
+    decreaseCartQuantity,
+  } = useShoppingCart();
+  const quantity = getItemQuantity(product.id);
 
   return (
     <List.Item key={product.id}>
@@ -141,7 +134,7 @@ const ListViewProduct: React.FC<IProp> = ({ product }) => {
                   type="default"
                   size="middle"
                   style={{ borderRadius: 15 }}
-                  onClick={addToCartButton}
+                  onClick={() => increaseCartQuantity(product.id)}
                 >
                   <Space
                     style={{
@@ -171,16 +164,27 @@ const ListViewProduct: React.FC<IProp> = ({ product }) => {
                       gap: "0.5rem",
                     }}
                   >
-                    <Button icon={<FiMinus />} />
+                    <Button
+                      icon={<FiMinus />}
+                      size="small"
+                      onClick={() => decreaseCartQuantity(product.id)}
+                    />
                     <div>
                       <Typography.Title level={4} style={{ display: "inline" }}>
                         {quantity}
                       </Typography.Title>{" "}
                       in cart
                     </div>
-                    <Button icon={<FiPlus />} />
+                    <Button
+                      icon={<FiPlus />}
+                      size="small"
+                      onClick={() => increaseCartQuantity(product.id)}
+                    />
                   </div>
-                  <Button size="small">
+                  <Button
+                    size="small"
+                    onClick={() => removeFromCart(product.id)}
+                  >
                     <Space
                       style={{
                         display: "flex",

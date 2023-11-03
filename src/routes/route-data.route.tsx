@@ -36,6 +36,7 @@ import AdminOrderPage from "pages/admin/order/order.page";
 import AdminOrderDetailPage from "pages/admin/order/order-detail.page";
 import AdminPaymentPage from "pages/admin/payment/payment.page";
 import AdminPaymentDetailPage from "pages/admin/payment/payment-detail.page";
+import ShoppingCartPage from "pages/shopping-cart/shopping-cart.page";
 
 export const routes: IRoute[] = [
   {
@@ -74,7 +75,18 @@ export const routes: IRoute[] = [
     exact: true,
     component: <ProductDetailPage />,
   },
-
+  {
+    path: "/shopping-cart",
+    private: false,
+    exact: true,
+    component: <ShoppingCartPage />,
+  },
+  {
+    path: "/orders",
+    private: false,
+    exact: true,
+    component: <ShoppingCartPage />,
+  },
   {
     path: "/posts",
     private: false,

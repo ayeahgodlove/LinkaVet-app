@@ -1,5 +1,5 @@
 import React from "react";
-import { Spin } from "antd";
+import { ConfigProvider, Spin } from "antd";
 import "./with-loading.css";
 
 function LoadingMessage() {
@@ -14,9 +14,18 @@ function LoadingMessage() {
         justifyContent: "center",
       }}
     >
-      <Spin tip="Wait a moment..." size="large" style={{ width: 200 }}>
-        <div className="content" style={{ width: 200 }} />
-      </Spin>
+      <ConfigProvider
+        theme={{
+          token: {
+            colorPrimary: "#317610",
+            colorLink: "#2980b9",
+          },
+        }}
+      >
+        <Spin tip="Wait a moment..." size="large" style={{ width: 200 }}>
+          <div className="loading-content" style={{ width: 200 }} />
+        </Spin>
+      </ConfigProvider>
     </div>
   );
 }

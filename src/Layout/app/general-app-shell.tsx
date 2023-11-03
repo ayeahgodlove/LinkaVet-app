@@ -1,5 +1,5 @@
-import { Drawer, Layout, Menu } from "antd";
-import React, {  useState } from "react";
+import { Divider, Drawer, Layout, Menu, Typography } from "antd";
+import React, { useCallback, useEffect, useState } from "react";
 import { ConfigProvider, theme, FloatButton } from "antd";
 
 import Navbar from "components/navbar";
@@ -9,6 +9,12 @@ import { useTheme } from "hooks/shared/theme.hook";
 import { FiArrowUp } from "react-icons/fi";
 import useWindowSize from "hooks/shared/window-resize.hook";
 // import { green } from '@ant-design/colors';
+import Footer from "rc-footer";
+import { CategoryService } from "services/category.service";
+import { ICategory } from "models/category.model";
+import { TagService } from "services/tag.service";
+import { ITag } from "models/tag.model";
+import 'rc-footer/assets/index.css';
 
 const { Sider, Content } = Layout;
 const { defaultAlgorithm, darkAlgorithm } = theme;
@@ -21,6 +27,9 @@ const GeneralAppShell: React.FC<IProps> = ({ children }) => {
   const [show, setShow] = useState(false);
   const { isDarkMode } = useTheme();
   const { height } = useWindowSize();
+  const [categories, setCategories] = useState<ICategory[]>([]);
+  const [tags, setTags] = useState<ITag[]>([]);
+
   const handleShow = () => {
     setShow(true);
   };
@@ -30,7 +39,23 @@ const GeneralAppShell: React.FC<IProps> = ({ children }) => {
   };
   const onClose = () => {
     setShow(false);
-  }; 
+  };
+
+  const getCategories = useCallback(async () => {
+    const response = await CategoryService.list();
+    setCategories(response.data)
+  }, []);
+
+  const getTags = useCallback(async () => {
+    const response = await TagService.list();
+    setTags(response.data)
+  }, [])
+
+
+  useEffect(() => {
+    getCategories();
+    getTags();
+  }, []);
 
   return (
     <ConfigProvider
@@ -39,13 +64,11 @@ const GeneralAppShell: React.FC<IProps> = ({ children }) => {
         token: {
           colorPrimary: "#08a30a",
           colorLink: "#214e0a",
-          fontFamily: "Poppins"
+          fontFamily: "Poppins",
         },
       }}
     >
       <Layout className="app-shell-layout">
-       
-
         <Navbar showMenuIcon handleShow={handleShow} />
         <Layout>
           <Drawer
@@ -84,6 +107,101 @@ const GeneralAppShell: React.FC<IProps> = ({ children }) => {
               {children}
             </Content>
             <FloatButton.BackTop icon={<FiArrowUp />} visibilityHeight={400} />
+
+            <Footer
+              className="app-footer"
+              style={{
+                color: isDarkMode ? "#c4dcec" : "#c4dcec",
+              }}
+              theme={isDarkMode ? "dark" : "light"}
+              columnLayout="space-between"
+              columns={[
+                {
+                  title: <Typography.Title level={3}>FAQs</Typography.Title>,
+                  items: [
+                    {
+                      title: "Discount",
+                      url: "/fags/discount",
+                    },
+                    {
+                      title: "Wish list",
+                      url: "/fags/wish-list",
+                    },
+                    {
+                      title: "How to buy",
+                      url: "/fags/how-to-buy",
+                    },
+                    {
+                      title: "Contact us",
+                      url: "/fags/contact-us",
+                    },
+                    {
+                      title: "Purchase fees",
+                      url: "/fags/purchase-fees",
+                    },
+                  ],
+                },
+                {
+                  title: <Typography.Title level={3}>Browse by Categories</Typography.Title>,
+                  items: [
+                    ...categories.map(c => {
+                      return {
+                        title: c.name,
+                        url: `/browse/?category=${c.name}`
+                      }
+                    }),
+                  ]
+                },
+                {
+                  title: <Typography.Title level={3}>Browse by Tags</Typography.Title>,
+                  items: [
+                    ...tags.map(c => {
+                      return {
+                        title: c.name,
+                        url: `/browse/?tag=${c.name}`
+                      }
+                    }),
+                  ]
+                },
+                {
+                  title: <Typography.Title level={3}>About Us</Typography.Title>,
+                  items: [
+                    {
+                      title: "Privacy Policy",
+                      url: "/about-us/privacy-policy",
+                    },
+                    {
+                      title: "Address",
+                      description: "Buea, South West, Cameroon"
+                    },
+                    {
+                      title: "Telephone Line 1",
+                      description: "tel:+237-673-687-549"
+                    },
+                    {
+                      title: "Telephone Line 2",
+                      description: "tel:+237-680-800-549"
+                    },
+                    {
+                      title: "Contact at LinkaVet",
+                      url: "mailto:ayeahgodlove5@gmail.com",
+                    },
+                  ],
+                },
+              ]}
+              bottom={
+                <>
+                  <Typography.Paragraph style={{ textAlign: "center" }}>
+                    Made by Cumi{" "}
+                    {/* <div
+                      dangerouslySetInnerHTML={{
+                        __html: "&amp;",
+                      }}
+                    /> */}
+                  </Typography.Paragraph>
+                </>
+              }
+            />
           </Layout>
         </Layout>
       </Layout>

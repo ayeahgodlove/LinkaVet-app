@@ -18,7 +18,7 @@
     right: 0;
     .add-to-fav {
       overflow: visible;
-      color: rgb(55, 17, 17);
+      color: #08a30a;
       // stroke: #f3f3f3;
       // stroke-width: 2;
       outline-color: #f3f3f3;
@@ -30,14 +30,19 @@
   background: linear-gradient(135deg, #08a30a 1%, #607d8b 100%);
   position: relative;
   width: 100%;
-  min-height: 50vh;
+  min-height: 65vh;
   padding-left: 1rem;
   padding-right: 1rem;
 
+  .post-content {
+    padding: 20px 0;
+    background: rgba(0, 0, 0, 0.01);
+    border-radius: 4px;
+  }
   .post-banner-text {
     text-align: center;
   }
-  .post-column{
+  .post-column {
     order: -1;
   }
   .post-banner-photo {
@@ -46,12 +51,13 @@
     align-items: center;
     box-shadow: none !important;
     div {
-      height: 175px;
-      width: 175px;
+      height: 180px;
+      width: 180px;
       background: #fff;
       border-radius: 20px;
       margin: 20px;
       transition: all ease 0.2s;
+      transform: translateY(10px);
 
       img {
         object-fit: cover;
@@ -72,15 +78,42 @@
   }
 
   //
-  border-bottom: 10px solid #fff;
+  // border-bottom: 10px solid #fff;
+  border: 25px solid #fff;
 }
 
+.post-detail-container {
+  height: 65vh;
+  border: 5px solid #fff;
+
+  .post-detail-img-container {
+    position: relative;
+
+    .ant-image {
+      height: 60vh;
+      width: 100%;
+    }
+    .overlay {
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 100;
+      background: linear-gradient(135deg, #08a30a 1%, #607d8b 100%);
+    }
+    .post-detail-img {
+      height: inherit;
+    }
+  }
+}
 @media screen and (min-width: 768px) {
   .post-banner {
     .post-banner-text {
       text-align: left;
     }
-    .post-column{
+    .post-column {
       order: 2;
     }
     padding: 0 3rem;
@@ -92,7 +125,7 @@
     margin: 0 2rem;
   }
   .post-banner {
-    .post-column{
+    .post-column {
       order: 2;
     }
     padding: 0 8rem;

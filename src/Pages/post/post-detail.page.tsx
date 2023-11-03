@@ -1,4 +1,4 @@
-import { Card, Col, Row } from "antd";
+import { Card, Col, Image, Row } from "antd";
 import PageBreadCrumbs from "components/shared/page-breadcrumb/page-breadcrumb.component";
 import { useCategory } from "hooks/category.hook";
 import { usePost } from "hooks/post.hook";
@@ -14,10 +14,27 @@ const postDetailPage: React.FC = () => {
 
   return (
     <GeneralAppShell>
-      <Row align={"middle"} justify={"center"} style={{ marginTop: "2rem" }}>
+      <Row className="post-detail-container">
+        <Col xs={24} md={24} className="post-detail-img-container">
+          <Image
+            style={{
+              objectFit: "cover",
+              overflow: "hidden",
+            }}
+            preview={false}
+            alt={post.title}
+            src={`http://localhost:8000/uploads/posts/${post.imageUrl}`}
+            className="post-detail-img"
+        
+          />
+          <div className="overlay"></div>
+        </Col>
         <Col lg={23}>
           <PageBreadCrumbs items={["Pages", "Post", "Details"]} />
         </Col>
+      </Row>
+      {/* <Row align={"middle"} justify={"center"} style={{ marginTop: "2rem" }}>
+        
         <Col lg={23}>
           <Card size="small">
             <h1 style={{ fontSize: 30, textDecoration: "underline" }}>
@@ -59,7 +76,7 @@ const postDetailPage: React.FC = () => {
             </div>
           </Card>
         </Col>
-      </Row>
+      </Row> */}
     </GeneralAppShell>
   );
 };

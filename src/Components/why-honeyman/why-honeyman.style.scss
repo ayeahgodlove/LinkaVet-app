@@ -26,38 +26,30 @@
   );
   clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
 
-
   &:first-child {
-    background: #08a30a;
-    background: linear-gradient(
-      7deg,
-      hsl(204, 70%, 53%)
-      rgba(39, 174, 96, 1) 100%
-    );
-  } 
+    background: linear-gradient(7deg, rgba(8, 163, 10, 1), transparent);
+    box-shadow:1px 3px 8px !important;
+  }
 
   &:nth-child(2) {
-    background: rgb(52, 152, 219);
     background: linear-gradient(
       7deg,
-      rgba(52, 152, 219, 1) 0%,
+      rgb(124, 208, 126) 0%,
       rgba(151, 81, 11, 1) 100%
     );
   }
 
   &:nth-child(3) {
-    background: rgb(52, 152, 219);
     background: linear-gradient(
       7deg,
-      rgba(52, 152, 219, 1) 0%,
+      rgb(43, 60, 71) 0%,
       rgba(39, 174, 96, 1) 100%
     );
   }
   &:nth-child(4) {
-    background: rgb(52, 152, 219);
     background: linear-gradient(
       7deg,
-      rgba(52, 152, 219, 1) 0%,
+      rgb(73, 76, 78) 0%,
       rgba(151, 81, 11, 1) 100%
     );
   }

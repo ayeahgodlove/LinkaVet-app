@@ -1,16 +1,18 @@
 import { useProduct } from "hooks/product.hook";
 import { useLocalStorage } from "hooks/shared/local-storage.hook";
+import { IProduct } from "models/product.model";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  ShoppingCartState,
+  CartItem,
   shoppingCartActions,
 } from "redux/shared/shopping-cart.slice";
+import { IRootState } from "redux/store";
 
 const useShoppingCart = () => {
-  const isOpen = useSelector((state: ShoppingCartState) => state.isOpen);
-  const cartItems = useSelector((state: ShoppingCartState) => state.cartItems);
-  const cartQuantity = useSelector(
-    (state: ShoppingCartState) => state.cartQuantity
+  const isOpen = useSelector<IRootState, boolean>((state) => state.shoppingCart.isOpen);
+  const cartItems = useSelector<IRootState, CartItem[]>((state) => state.shoppingCart.cartItems);
+  const cartQuantity = useSelector<IRootState, number>(
+    (state) => state.shoppingCart.cartQuantity
   );
 
   const dispatch = useDispatch();
@@ -34,6 +36,18 @@ const useShoppingCart = () => {
   const removeFromCart = (id: string) =>
     dispatch(shoppingCartActions.removeFromCart(id));
 
+    function findMatchingProducts(array1: IProduct[], array2: CartItem[]) {
+      const matchingProducts: IProduct[] = [];
+    
+      for (const product of array1) {
+        if (array2.find(item => item.id === product.id)) {
+          matchingProducts.push(product);
+        }
+      }
+    
+      return matchingProducts;
+    }
+
   return {
     isOpen,
     cartItems,
@@ -44,6 +58,7 @@ const useShoppingCart = () => {
     increaseCartQuantity,
     decreaseCartQuantity,
     removeFromCart,
+    findMatchingProducts
   };
 };
 

@@ -8,7 +8,7 @@ import { MdOutlineConnectWithoutContact } from "react-icons/md";
 import { useTheme } from "hooks/shared/theme.hook";
 
 const { Title, Paragraph } = Typography;
-export const WhyHoneyMan = () => {
+export const WhyLinkaVet = () => {
   const { width } = useWindowSize();
   const { isDarkMode } = useTheme();
   return (

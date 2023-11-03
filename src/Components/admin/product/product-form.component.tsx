@@ -14,7 +14,6 @@ import { useForm } from "antd/es/form/Form";
 import { FormErrorComponent } from "components/shared/form-error/form-error.component";
 import { modules } from "config/constant";
 import { useModalContext } from "context/app-modal.context";
-import { useAuth } from "hooks/auth/auth.hook";
 import { useCategory } from "hooks/category.hook";
 import { useProduct } from "hooks/product.hook";
 import { useFormErrors } from "hooks/shared/form-error.hook";

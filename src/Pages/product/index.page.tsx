@@ -1,7 +1,7 @@
 import { Card, Col, Divider, Row, Typography } from "antd";
 import CategoryList from "components/admin/category/category-list.component";
 import TagList from "components/admin/tag/tag-list.component";
-import FilterComponent from "components/product/filter.component";
+import BannerIndexComponent from "components/product/product-banner.component";
 import ProductList from "components/product/product-list.component";
 import GeneralAppShell from "layout/app/general-app-shell";
 import React from "react";
@@ -9,10 +9,9 @@ import React from "react";
 const ProductPage: React.FC = () => {
   return (
     <GeneralAppShell>
-      {/* search component */}
-      <FilterComponent />
       {/* banner */}
-      {/* <BannerIndexComponent /> */}
+      <BannerIndexComponent />
+
       {/* Branding Information */}
 
       {/* product list */}
@@ -36,8 +35,8 @@ const ProductPage: React.FC = () => {
             <Divider style={{ margin: "10px 0" }} />
             {/* Categories display */}
             <CategoryList />
-            
-            <Divider style={{ margin:"25px 0"}} />
+
+            <Divider style={{ margin: "25px 0" }} />
             <Typography.Text style={{ marginBottom: 0, marginTop: 5 }}>
               Filter By
             </Typography.Text>
