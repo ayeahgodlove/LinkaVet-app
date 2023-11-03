@@ -14,11 +14,12 @@ import { ItemType } from "antd/es/menu/hooks/useItems";
 import { useTheme } from "hooks/shared/theme.hook";
 import { MdDarkMode } from "react-icons/md";
 import { useAuth } from "hooks/auth/auth.hook";
+import { useShoppingCart } from "hooks/shopping-cart/shopping-cart.hook";
 
 const RightMenu = () => {
   const [language, setLanguage] = useState("en");
   const { handleSetTheme, isDarkMode } = useTheme();
-
+  const {cartQuantity} = useShoppingCart();
   const router = useNavigate();
   const toggleLanguage = (key: string) => {
     setLanguage(key);
@@ -49,7 +50,7 @@ const RightMenu = () => {
             bottom: 15,
           }}
         >
-          0
+          {cartQuantity}
         </b>
       ),
       icon: (

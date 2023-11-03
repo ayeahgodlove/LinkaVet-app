@@ -18,13 +18,18 @@ interface IProp {
 interface IProps {
   products: IProduct[];
   resultProducts: IProduct[];
+  classProp?: boolean;
 }
-const GridView: React.FC<IProps> = ({ products, resultProducts }) => {
+const GridView: React.FC<IProps> = ({
+  products,
+  resultProducts,
+  classProp = false,
+}) => {
   return (
     <>
       {products && products.length > 0 ? (
         <List
-          className="product-list"
+          className={classProp ? "" : "product-list"}
           grid={{
             gutter: 0,
             xs: 1,
@@ -112,7 +117,7 @@ export const GridProductCard: React.FC<IProp> = ({ product }) => {
               alignItems: "center",
             }}
           >
-            <div style={{ width: 120}}>
+            <div style={{ width: 120 }}>
               <Meta title={product.name} description={<RaterComponent />} />
             </div>
 

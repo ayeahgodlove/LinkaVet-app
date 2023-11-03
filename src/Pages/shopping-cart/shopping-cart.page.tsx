@@ -1,4 +1,4 @@
-import { Card, Col } from "antd";
+import { Card, Col, Row, Typography } from "antd";
 import GridView, {
   GridProductCard,
 } from "components/product/product-card-grid.component";
@@ -16,13 +16,23 @@ const ShoppingCartPage: React.FC = () => {
 
   return (
     <GeneralAppShell>
-      <Col xs={22} md={20} lg={18} style={{ margin: "3rem auto" }}>
-        {cartItems && cartItems.length > 0 ? (
-          <GridView products={matchingProducts} resultProducts={[]} />
-        ) : (
-          <NoContent title="Your shopping cart is empty at the moment" />
-        )}
-      </Col>
+      <Row gutter={[8, 16]} style={{ marginTop: 50, padding: "0 1rem" }}>
+        <Col span={24}>
+          <Typography.Title level={4} style={{ textAlign: "center", opacity: 0.89 }}>
+            Product item currently in shopping-cart
+          </Typography.Title>
+        </Col>
+        <Col xs={22} md={16}>
+          {cartItems && cartItems.length > 0 ? (
+            <GridView products={matchingProducts} resultProducts={[]} />
+          ) : (
+            <NoContent title="Your shopping cart is empty at the moment" />
+          )}
+        </Col>
+        <Col xs={22} md={8}>
+          <Card bordered={false}></Card>
+        </Col>
+      </Row>
     </GeneralAppShell>
   );
 };
