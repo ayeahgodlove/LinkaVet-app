@@ -15,6 +15,7 @@ import { ICategory } from "models/category.model";
 import { TagService } from "services/tag.service";
 import { ITag } from "models/tag.model";
 import 'rc-footer/assets/index.css';
+import { Link } from "react-router-dom";
 
 const { Sider, Content } = Layout;
 const { defaultAlgorithm, darkAlgorithm } = theme;
@@ -192,7 +193,7 @@ const GeneralAppShell: React.FC<IProps> = ({ children }) => {
               bottom={
                 <>
                   <Typography.Paragraph style={{ textAlign: "center" }}>
-                    Made by Cumi{" "}
+                    Made by Cumi{" "} <Link to={"/dashboard"}>Admin Area</Link>
                     {/* <div
                       dangerouslySetInnerHTML={{
                         __html: "&amp;",
