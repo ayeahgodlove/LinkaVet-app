@@ -165,22 +165,12 @@ export const GridProductCard: React.FC<IProp> = ({ product }) => {
                       size="small"
                       onClick={() => decreaseCartQuantity(product.id)}
                     />
-                    <div>
-                      <Typography.Title level={4} style={{ display: "inline" }}>
+                    <small>
+                      <Typography.Title level={5} style={{ display: "inline" }}>
                         {quantity}
                       </Typography.Title>{" "}
                       in cart
-                    </div>
-                    <Button
-                      icon={<FiPlus />}
-                      size="small"
-                      onClick={() => increaseCartQuantity(product.id)}
-                    />
-                  </div>
-                  <Button
-                    size="small"
-                    onClick={() => removeFromCart(product.id)}
-                  >
+                    </small>
                     <Space
                       style={{
                         display: "flex",
@@ -189,10 +179,20 @@ export const GridProductCard: React.FC<IProp> = ({ product }) => {
                       }}
                       size={"small"}
                     >
-                      <DeleteOutlined />
-                      <span>Remove</span>
+                      <Button
+                        icon={<FiPlus />}
+                        size="small"
+                        onClick={() => increaseCartQuantity(product.id)}
+                      />
+                      <Button
+                        size="small"
+                        type="primary"
+                        onClick={() => removeFromCart(product.id)}
+                      >
+                        <DeleteOutlined />
+                      </Button>
                     </Space>
-                  </Button>
+                  </div>
                 </div>
               )}
             </div>

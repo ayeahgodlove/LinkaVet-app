@@ -19,13 +19,19 @@ import { useShoppingCart } from "hooks/shopping-cart/shopping-cart.hook";
 
 interface IProp {
   product: IProduct;
+  showSlides?: boolean;
 }
 
 interface IProps {
   products: IProduct[];
   resultProducts: IProduct[];
+  showSlides?: boolean;
 }
-const ListView: React.FC<IProps> = ({ products, resultProducts }) => {
+const ListView: React.FC<IProps> = ({
+  products,
+  resultProducts,
+  showSlides = false,
+}) => {
   return (
     <List
       itemLayout="horizontal"
@@ -34,13 +40,13 @@ const ListView: React.FC<IProps> = ({ products, resultProducts }) => {
       }
       renderItem={(item) => (
         <Card key={item.id} bordered={false} bodyStyle={{ padding: 0 }}>
-          <ListViewProduct product={item} />
+          <ListViewProduct product={item} showSlides={showSlides} />
         </Card>
       )}
     />
   );
 };
-const ListViewProduct: React.FC<IProp> = ({ product }) => {
+const ListViewProduct: React.FC<IProp> = ({ product, showSlides = false }) => {
   const [slideIndex, setSlideIndex] = useState(0);
   const {
     getItemQuantity,
@@ -60,21 +66,27 @@ const ListViewProduct: React.FC<IProp> = ({ product }) => {
             totalSlides={product.productImages.length}
           >
             <Row gutter={[8, 8]} align={"middle"} justify={"center"}>
-              <Col span={6}>
-                {product.productImages.map((image, index) => {
-                  return (
-                    <Dot slide={index} key={index} className="product-list_dot">
-                      <img
-                        height={80}
-                        width={80}
+              {!showSlides && (
+                <Col span={6}>
+                  {product.productImages.map((image, index) => {
+                    return (
+                      <Dot
+                        slide={index}
                         key={index}
-                        src={`${API_URL_UPLOADS_PRODUCTS}/${image.imageUrl}`}
-                      />
-                    </Dot>
-                  );
-                })}
-              </Col>
-              <Col span={18}>
+                        className="product-list_dot"
+                      >
+                        <img
+                          height={80}
+                          width={80}
+                          key={index}
+                          src={`${API_URL_UPLOADS_PRODUCTS}/${image.imageUrl}`}
+                        />
+                      </Dot>
+                    );
+                  })}
+                </Col>
+              )}
+              <Col span={!showSlides ? 18 : 24}>
                 <Slider>
                   {product.productImages.map((image, index) => (
                     <Slide index={index} key={index}>
@@ -108,6 +120,7 @@ const ListViewProduct: React.FC<IProp> = ({ product }) => {
             justifyContent: "flex-start",
           }}
         >
+          <Typography.Title level={5}>{product.name}</Typography.Title>
           <div
             dangerouslySetInnerHTML={{
               __html: product.description,
@@ -175,16 +188,6 @@ const ListViewProduct: React.FC<IProp> = ({ product }) => {
                       </Typography.Title>{" "}
                       in cart
                     </div>
-                    <Button
-                      icon={<FiPlus />}
-                      size="small"
-                      onClick={() => increaseCartQuantity(product.id)}
-                    />
-                  </div>
-                  <Button
-                    size="small"
-                    onClick={() => removeFromCart(product.id)}
-                  >
                     <Space
                       style={{
                         display: "flex",
@@ -193,10 +196,20 @@ const ListViewProduct: React.FC<IProp> = ({ product }) => {
                       }}
                       size={"small"}
                     >
-                      <DeleteOutlined />
-                      <span>Remove</span>
+                      <Button
+                        icon={<FiPlus />}
+                        size="small"
+                        onClick={() => increaseCartQuantity(product.id)}
+                      />
+                      <Button
+                        size="small"
+                        type="primary"
+                        onClick={() => removeFromCart(product.id)}
+                      >
+                        <DeleteOutlined />
+                      </Button>
                     </Space>
-                  </Button>
+                  </div>
                 </div>
               )}
             </Col>

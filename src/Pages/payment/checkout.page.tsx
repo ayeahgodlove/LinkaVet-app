@@ -1,18 +1,138 @@
-import { Button, Card, Col, Form, Input, Row, Typography } from "antd";
+import {
+  Button,
+  Card,
+  Col,
+  Divider,
+  Form,
+  Input,
+  Radio,
+  RadioChangeEvent,
+  Row,
+  Space,
+  Tooltip,
+  Typography,
+} from "antd";
 import GeneralAppShell from "layout/app/general-app-shell";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./checkout.style.scss";
+import { useShoppingCart } from "hooks/shopping-cart/shopping-cart.hook";
+import { useProduct } from "hooks/product.hook";
+import { ProcessPaymentService } from "services/process-payment.service";
+import { IInitPayment } from "models/init-payment.model";
 
 export const CheckoutPage = () => {
   const [form] = Form.useForm();
-  const onFinish = (values) => {
-    console.log(values);
+  const [mode, setMode] = useState("mtn");
+
+  const { products } = useProduct();
+  const { cartItems, findMatchingProducts } = useShoppingCart();
+  const matchingProducts = findMatchingProducts(products, cartItems);
+  const totalAmount =
+    matchingProducts.map((p) => p.amount).reduce((a, b) => a + b) || 0;
+  const onFinish = async (values) => {
+    const obj: IInitPayment = {
+      amount: `${totalAmount}`,
+      operator: mode,
+      telephone: values.telephone,
+      name: values.name,
+      email: values.email,
+      address: values.address,
+    };
+    await ProcessPaymentService.initPayment(obj)
+      .then((response) => {
+        console.log("transaction initiated: ", response);
+      })
+      .catch((error) => {
+        console.log("error: ", error);
+      });
   };
+
+  const onChange = (event: RadioChangeEvent) => {
+    event.preventDefault();
+    setMode(event.target.value);
+  };
+
+  useEffect(() => {}, [mode]);
+
   return (
     <GeneralAppShell>
       <Row className="checkout-container">
         <Col xs={24} md={14} className="checkout-form">
           <Typography.Title level={2}>Checkout</Typography.Title>
+          <Divider style={{ marginBottom: 10 }} />
+          <Typography.Paragraph style={{ marginBottom: 10 }}>
+            <span style={{ color: "red" }}>*</span>Pay through mobile money
+          </Typography.Paragraph>
+          <Radio.Group
+            onChange={onChange}
+            value={mode}
+            style={{ display: "block" }}
+          >
+            <Radio value={"mtn"}>MTN momo</Radio>
+            <Radio value={"orange"}>Orange Money</Radio>
+            <Radio value={"bank-card"}>Bank Cards</Radio>
+          </Radio.Group>
+
+          <Space size={"middle"} className="momo-grid" align="center">
+            {mode === "mtn" ? (
+              <Tooltip
+                title={<span style={{ color: "#333" }}>MTN momo</span>}
+                color="#f8cf11"
+              >
+                <Card
+                  style={{ borderRadius: 0, cursor: "pointer" }}
+                  bordered={false}
+                  bodyStyle={{ padding: 5 }}
+                  className="momo-card"
+                >
+                  <img
+                    src={"/momo/momo.png"}
+                    alt="mtn momo"
+                    height={120}
+                    width={120}
+                    style={{ borderRadius: 0 }}
+                  />
+                </Card>
+              </Tooltip>
+            ) : mode === "orange" ? (
+              <Tooltip title={"Orange money"} color="#f50">
+                <Card
+                  style={{ borderRadius: 0, cursor: "pointer" }}
+                  bordered={false}
+                  bodyStyle={{ padding: 5 }}
+                  className="momo-card"
+                >
+                  <img
+                    src={"/momo/orange-momo.jpeg"}
+                    alt="mtn momo"
+                    height={120}
+                    width={120}
+                    style={{ borderRadius: 0 }}
+                  />
+                </Card>
+              </Tooltip>
+            ) : (
+              <Tooltip
+                title={<span style={{ color: "#333" }}>Stripe Payments</span>}
+                color="#e6e6e6"
+              >
+                <Card
+                  style={{ borderRadius: 0, cursor: "pointer" }}
+                  bordered={false}
+                  bodyStyle={{ padding: 5 }}
+                  className="momo-card"
+                >
+                  <img
+                    src={"/momo/stripe.png"}
+                    alt="mtn momo"
+                    height={130}
+                    width={200}
+                    style={{ borderRadius: 0 }}
+                  />
+                </Card>
+              </Tooltip>
+            )}
+          </Space>
           <Form
             form={form}
             name="checkout-form"
@@ -58,7 +178,6 @@ export const CheckoutPage = () => {
         </Col>
         <Col xs={24} md={10} className="checkout-summary">
           <Typography.Title level={3}>Order details summary</Typography.Title>
-
         </Col>
       </Row>
     </GeneralAppShell>

@@ -1,6 +1,6 @@
 import { useProduct } from "hooks/product.hook";
 import { useLocalStorage } from "hooks/shared/local-storage.hook";
-import { IProduct } from "models/product.model";
+import { IProduct, emptyProduct } from "models/product.model";
 import { useDispatch, useSelector } from "react-redux";
 import {
   CartItem,
@@ -38,7 +38,13 @@ const useShoppingCart = () => {
 
     function findMatchingProducts(array1: IProduct[], array2: CartItem[]) {
       const matchingProducts: IProduct[] = [];
-    
+
+      if (array1.length === 0 || array2.length === 0) {
+        matchingProducts.push({
+          ...emptyProduct
+        })
+        return matchingProducts;
+      }
       for (const product of array1) {
         if (array2.find(item => item.id === product.id)) {
           matchingProducts.push(product);

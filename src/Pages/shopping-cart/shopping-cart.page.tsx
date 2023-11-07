@@ -1,5 +1,6 @@
 import { Button, Card, Col, Divider, Row, Typography } from "antd";
 import GridView from "components/product/product-card-grid.component";
+import ListView from "components/product/product-list-view.component";
 import { NoContent } from "components/shared/no-content/no-content.component";
 import { useProduct } from "hooks/product.hook";
 import { useShoppingCart } from "hooks/shopping-cart/shopping-cart.hook";
@@ -19,7 +20,7 @@ const ShoppingCartPage: React.FC = () => {
   };
   return (
     <GeneralAppShell>
-      <div style={{ padding: "0 2rem" }}>
+      <div style={{ padding: "0 2rem", marginBottom: 50 }}>
         <Row gutter={[8, 16]} style={{ marginTop: 50, padding: "0 1rem" }}>
           <Col span={24}>
             <Typography.Title
@@ -31,13 +32,13 @@ const ShoppingCartPage: React.FC = () => {
             <Typography.Paragraph
               style={{ fontWeight: "bold", marginBottom: 0 }}
             >
-              {cartItems.length} in Cart
+              {cartItems.length || 0} in Cart
             </Typography.Paragraph>
             <Divider style={{ marginBottom: 0, marginTop: 0 }} />
           </Col>
           <Col xs={22} md={16}>
             {cartItems && cartItems.length > 0 ? (
-              <GridView products={matchingProducts} resultProducts={[]} />
+              <ListView products={matchingProducts} showSlides={true} resultProducts={[]} />
             ) : (
               <NoContent title="Your shopping cart is empty at the moment" />
             )}
@@ -59,7 +60,7 @@ const ShoppingCartPage: React.FC = () => {
                   >
                     {matchingProducts
                       .map((p) => p.amount)
-                      .reduce((a, b) => a + b)}{" "}
+                      .reduce((a, b) => a + b) || 0}{" "}
                     {" XAF"}
                   </Typography.Title>
                 </>
