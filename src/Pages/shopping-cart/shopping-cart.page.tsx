@@ -7,14 +7,18 @@ import { useShoppingCart } from "hooks/shopping-cart/shopping-cart.hook";
 import GeneralAppShell from "layout/app/general-app-shell";
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { PiEqualsLight } from "react-icons/pi";
+import { TiTimes } from "react-icons/ti";
+import CheckoutSummaryComponent from "components/product/checkout-summary.component";
 
 const ShoppingCartPage: React.FC = () => {
-  const { cartItems, findMatchingProducts } = useShoppingCart();
+  const { cartItems, findMatchingProducts, cartQuantity } = useShoppingCart();
   const { products } = useProduct();
   const router = useNavigate();
 
   const matchingProducts = findMatchingProducts(products, cartItems);
 
+  console.log(matchingProducts);
   const handleCheckout = () => {
     router("/payment/checkout");
   };
@@ -38,34 +42,17 @@ const ShoppingCartPage: React.FC = () => {
           </Col>
           <Col xs={22} md={16}>
             {cartItems && cartItems.length > 0 ? (
-              <ListView products={matchingProducts} showSlides={true} resultProducts={[]} />
+              <ListView
+                products={matchingProducts}
+                showSlides={true}
+                resultProducts={[]}
+              />
             ) : (
               <NoContent title="Your shopping cart is empty at the moment" />
             )}
           </Col>
           <Col xs={22} md={8}>
-            <Card
-              bordered={false}
-              title={
-                <>
-                  <Typography.Title
-                    style={{ marginBottom: 0, opacity: 0.78 }}
-                    level={5}
-                  >
-                    Total Amount:{" "}
-                  </Typography.Title>
-                  <Typography.Title
-                    style={{ marginBottom: 0, marginTop: 0 }}
-                    level={3}
-                  >
-                    {matchingProducts
-                      .map((p) => p.amount)
-                      .reduce((a, b) => a + b) || 0}{" "}
-                    {" XAF"}
-                  </Typography.Title>
-                </>
-              }
-            >
+            <Card bordered={false} title={<CheckoutSummaryComponent />}>
               <Button
                 type="primary"
                 onClick={handleCheckout}

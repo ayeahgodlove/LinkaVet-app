@@ -19,19 +19,25 @@ import { useShoppingCart } from "hooks/shopping-cart/shopping-cart.hook";
 import { useProduct } from "hooks/product.hook";
 import { ProcessPaymentService } from "services/process-payment.service";
 import { IInitPayment } from "models/init-payment.model";
+import BackButton from "components/shared/back-button.component";
+import CheckoutSummaryComponent from "components/product/checkout-summary.component";
 
 export const CheckoutPage = () => {
   const [form] = Form.useForm();
   const [mode, setMode] = useState("mtn");
+  const [loading, setLoading] = useState(false);
 
   const { products } = useProduct();
-  const { cartItems, findMatchingProducts } = useShoppingCart();
+  const { cartItems, findMatchingProducts, cartQuantity } = useShoppingCart();
   const matchingProducts = findMatchingProducts(products, cartItems);
   const totalAmount =
     matchingProducts.map((p) => p.amount).reduce((a, b) => a + b) || 0;
-  const onFinish = async (values) => {
+
+  const onFinish = async (values: any) => {
+    setLoading(true);
     const obj: IInitPayment = {
-      amount: `${totalAmount}`,
+      // amount: `${totalAmount}`,
+      amount: `5`,
       operator: mode,
       telephone: values.telephone,
       name: values.name,
@@ -45,6 +51,7 @@ export const CheckoutPage = () => {
       .catch((error) => {
         console.log("error: ", error);
       });
+    setLoading(false);
   };
 
   const onChange = (event: RadioChangeEvent) => {
@@ -58,6 +65,7 @@ export const CheckoutPage = () => {
     <GeneralAppShell>
       <Row className="checkout-container">
         <Col xs={24} md={14} className="checkout-form">
+          <BackButton title="Shopping Cart" />
           <Typography.Title level={2}>Checkout</Typography.Title>
           <Divider style={{ marginBottom: 10 }} />
           <Typography.Paragraph style={{ marginBottom: 10 }}>
@@ -140,6 +148,29 @@ export const CheckoutPage = () => {
             onFinish={onFinish}
           >
             <Form.Item
+              label="Telephone"
+              name="telephone"
+              rules={[
+                { required: true, message: "Please input your telephone!" },
+              ]}
+            >
+              <Input size="large" />
+            </Form.Item>
+
+            <Form.Item
+              label="Email"
+              name="email"
+              rules={[
+                {
+                  type: "email",
+                  message: "The input is not a valid email!",
+                },
+                { required: true, message: "Please input your email!" },
+              ]}
+            >
+              <Input size="large" />
+            </Form.Item>
+            <Form.Item
               label="Name"
               name="name"
               rules={[{ required: true, message: "Please input your name!" }]}
@@ -170,14 +201,24 @@ export const CheckoutPage = () => {
               <Input.TextArea />
             </Form.Item>
             <Form.Item>
-              <Button type="primary" block htmlType="submit" size="large">
+              <Button
+                type="primary"
+                loading={loading}
+                block
+                htmlType="submit"
+                size="large"
+              >
                 Place Order
               </Button>
             </Form.Item>
           </Form>
         </Col>
         <Col xs={24} md={10} className="checkout-summary">
-          <Typography.Title level={3}>Order details summary</Typography.Title>
+          <Typography.Title level={3}>
+            Order details summary
+          </Typography.Title>
+          {/* summary details */}
+          <CheckoutSummaryComponent />
         </Col>
       </Row>
     </GeneralAppShell>

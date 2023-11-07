@@ -14,12 +14,16 @@
       }
     }
   }
+
+  .checkout-summary {
+    padding: 0.6rem 3rem;
+  }
 }
 
 @media screen and (min-width: 768px) {
   .checkout-container {
     .checkout-form {
-      padding: 0.6rem 5.5rem;
+      padding: 1.5rem 5.5rem;
     }
   }
 }

@@ -19,7 +19,7 @@ import { useShoppingCart } from "hooks/shopping-cart/shopping-cart.hook";
 const RightMenu = () => {
   const [language, setLanguage] = useState("en");
   const { handleSetTheme, isDarkMode } = useTheme();
-  const {cartItems} = useShoppingCart();
+  const {cartQuantity} = useShoppingCart();
   const router = useNavigate();
   const toggleLanguage = (key: string) => {
     setLanguage(key);
@@ -50,7 +50,7 @@ const RightMenu = () => {
             bottom: 15,
           }}
         >
-          {cartItems.length}
+          {cartQuantity}
         </b>
       ),
       icon: (
