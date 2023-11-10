@@ -1,9 +1,9 @@
-import { IInitPayment, IInitPaymentResponse } from "models/init-payment.model";
+import { IInitPayment, IInitPaymentResponse, IInitTransactionResponse } from "models/init-payment.model";
 import { ITransactionHistoryResponses } from "models/transaction.model";
 import { requestType } from "services";
 
 export const ProcessPaymentService = {
-  initPayment: (initPayment: IInitPayment): Promise<IInitPaymentResponse> =>
+  initPayment: (initPayment: IInitPayment): Promise<IInitTransactionResponse> =>
     requestType.post(`/api/process-payments`, initPayment),
   transactionStatus: (reference: string): Promise<IInitPaymentResponse> =>
     requestType.get(`/api/process-payments/${reference}`),

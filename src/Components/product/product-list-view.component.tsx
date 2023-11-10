@@ -1,9 +1,8 @@
-import { Button, Card, Col, List, Row, Space, Typography } from "antd";
+import { Card, Col, List, Row, Typography } from "antd";
 import { IProduct } from "models/product.model";
 import React, { useState } from "react";
 import "./product.style.scss";
 import RaterComponent from "components/shared/rate.component";
-import { DeleteOutlined, PlusOutlined } from "@ant-design/icons";
 import { API_URL_UPLOADS_PRODUCTS } from "config/constant";
 import {
   CarouselProvider,
@@ -13,9 +12,9 @@ import {
   Dot,
 } from "pure-react-carousel";
 import "pure-react-carousel/dist/react-carousel.es.css";
-import { FiMinus, FiPlus } from "react-icons/fi";
 import "./product-list-view.style.scss";
 import { useShoppingCart } from "hooks/shopping-cart/shopping-cart.hook";
+import ProductAddToCart from "./product-add-to-cart.component";
 
 interface IProp {
   product: IProduct;
@@ -47,15 +46,6 @@ const ListView: React.FC<IProps> = ({
   );
 };
 const ListViewProduct: React.FC<IProp> = ({ product, showSlides = false }) => {
-  const [slideIndex, setSlideIndex] = useState(0);
-  const {
-    getItemQuantity,
-    increaseCartQuantity,
-    removeFromCart,
-    decreaseCartQuantity,
-  } = useShoppingCart();
-  const quantity = getItemQuantity(product.id);
-
   return (
     <List.Item key={product.id}>
       <Row gutter={[16, 8]}>
@@ -142,76 +132,7 @@ const ListViewProduct: React.FC<IProp> = ({ product, showSlides = false }) => {
               <p style={{ marginBottom: 5 }}>
                 <b>{"$" + product.amount}</b>
               </p>
-              {quantity === 0 ? (
-                <Button
-                  type="default"
-                  size="middle"
-                  style={{ borderRadius: 15 }}
-                  onClick={() => increaseCartQuantity(product.id)}
-                >
-                  <Space
-                    style={{
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                    }}
-                  >
-                    <PlusOutlined />
-                    <span>Add To Cart</span>
-                  </Space>
-                </Button>
-              ) : (
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    flexDirection: "column",
-                    gap: "0.5rem",
-                  }}
-                >
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "flex-end",
-                      gap: "0.5rem",
-                    }}
-                  >
-                    <Button
-                      icon={<FiMinus />}
-                      size="small"
-                      onClick={() => decreaseCartQuantity(product.id)}
-                    />
-                    <div>
-                      <Typography.Title level={4} style={{ display: "inline" }}>
-                        {quantity}
-                      </Typography.Title>{" "}
-                      in cart
-                    </div>
-                    <Space
-                      style={{
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                      }}
-                      size={"small"}
-                    >
-                      <Button
-                        icon={<FiPlus />}
-                        size="small"
-                        onClick={() => increaseCartQuantity(product.id)}
-                      />
-                      <Button
-                        size="small"
-                        type="primary"
-                        onClick={() => removeFromCart(product.id)}
-                      >
-                        <DeleteOutlined />
-                      </Button>
-                    </Space>
-                  </div>
-                </div>
-              )}
+              <ProductAddToCart product={product} />
             </Col>
           </Row>
         </Col>

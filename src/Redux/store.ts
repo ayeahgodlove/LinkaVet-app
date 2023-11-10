@@ -27,6 +27,7 @@ import { bannerReducer } from "./banner.slice";
 import { storeReducer } from "./store.slice";
 import { orderReducer } from "./order.slice";
 import { shoppingCartReducer } from "./shared/shopping-cart.slice";
+import { initTransactionReducer } from "./init-transaction.slice";
 
 const middlewares: [any] = [thunkMiddleware];
 
@@ -47,7 +48,8 @@ export const rootReducer = combineReducers({
   token: tokenReducer,
   banner: bannerReducer,
   store: storeReducer,
-  shoppingCart: shoppingCartReducer
+  shoppingCart: shoppingCartReducer,
+  initTransaction: initTransactionReducer
 });
 
 const persistConfig = {
@@ -68,7 +70,8 @@ const persistConfig = {
     "post",
     "tag",
     "store",
-    "shoppingCart"
+    "shoppingCart",
+    "initTransaction"
   ], // Specify the reducers you want to persist
 };
 

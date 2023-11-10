@@ -11,6 +11,7 @@ import {
   Space,
   Tooltip,
   Typography,
+  message,
 } from "antd";
 import GeneralAppShell from "layout/app/general-app-shell";
 import React, { useEffect, useState } from "react";
@@ -18,17 +19,27 @@ import "./checkout.style.scss";
 import { useShoppingCart } from "hooks/shopping-cart/shopping-cart.hook";
 import { useProduct } from "hooks/product.hook";
 import { ProcessPaymentService } from "services/process-payment.service";
-import { IInitPayment } from "models/init-payment.model";
+import {
+  IInitPayment,
+  IInitTransaction,
+  emptyInitPayment,
+  emptyInitTransaction,
+} from "models/init-payment.model";
 import BackButton from "components/shared/back-button.component";
 import CheckoutSummaryComponent from "components/product/checkout-summary.component";
+import { useNavigate } from "react-router-dom";
+import { useInitTransaction } from "hooks/shopping-cart/init-transaction.hook";
 
-export const CheckoutPage = () => {
+export const PageCheckoutPage = () => {
   const [form] = Form.useForm();
   const [mode, setMode] = useState("mtn");
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<any>(null);
 
+  const navigate = useNavigate();
   const { products } = useProduct();
   const { cartItems, findMatchingProducts, cartQuantity } = useShoppingCart();
+  const { setInitTransaction } = useInitTransaction();
   const matchingProducts = findMatchingProducts(products, cartItems);
   const totalAmount =
     matchingProducts.map((p) => p.amount).reduce((a, b) => a + b) || 0;
@@ -44,13 +55,23 @@ export const CheckoutPage = () => {
       email: values.email,
       address: values.address,
     };
-    await ProcessPaymentService.initPayment(obj)
+    const feedback = await ProcessPaymentService.initPayment(obj)
       .then((response) => {
-        console.log("transaction initiated: ", response);
+        setInitTransaction(response.data);
+        return true;
       })
       .catch((error) => {
         console.log("error: ", error);
+        setError(error);
+        return false;
       });
+
+    if (feedback) {
+      message.success("Payment Successful!");
+      navigate("/payment-feedback");
+    } else {
+      message.error(`Error: ${error.message}`);
+    }
     setLoading(false);
   };
 
@@ -214,9 +235,7 @@ export const CheckoutPage = () => {
           </Form>
         </Col>
         <Col xs={24} md={10} className="checkout-summary">
-          <Typography.Title level={3}>
-            Order details summary
-          </Typography.Title>
+          <Typography.Title level={3}>Order details summary</Typography.Title>
           {/* summary details */}
           <CheckoutSummaryComponent />
         </Col>

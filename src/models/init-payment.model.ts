@@ -19,6 +19,19 @@ export const emptyInitPayment: IInitPayment = {
   address: "",
 };
 
+export interface IInitTransaction {
+  reference: string;
+  ussd_code: string;
+  operator: string;
+  initiated: boolean;
+}
+export const emptyInitTransaction: IInitTransaction = {
+  reference: "",
+  ussd_code: "",
+  operator: "",
+  initiated: false,
+};
+
 export interface IInitPaymentState extends IBaseState {
   readonly initPayments: IInitPayment[];
   readonly initPayment: IInitPayment;
@@ -26,4 +39,11 @@ export interface IInitPaymentState extends IBaseState {
 
 export interface IInitPaymentResponse extends IResponseBase {
   data: IInitPayment;
+}
+
+export interface IInitTransactionResponse extends IResponseBase {
+  data: IInitTransaction;
+}
+export interface IInitTransactionState extends IBaseState {
+  readonly initTransaction: IInitTransaction;
 }
