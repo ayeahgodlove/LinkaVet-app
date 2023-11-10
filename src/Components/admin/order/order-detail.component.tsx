@@ -23,7 +23,7 @@ const OrderDetailComponent: React.FC = () => {
           },
           {
             label: "USERNAME",
-            value: getUser(order.userId).username,
+            value: getUser(order.userId!).username,
           },
           {
             label: "UNIT PRICE",

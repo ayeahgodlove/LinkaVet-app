@@ -27,7 +27,7 @@ export const useOrderColumn = () => {
       dataIndex: "user",
       key: "user",
       filtered: true,
-      render: (_, record) => getUser(record.userId).username,
+      render: (_, record) => getUser(record.userId!).username,
     },
     {
       title: "UNIT PRICE",

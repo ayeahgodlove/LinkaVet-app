@@ -17,7 +17,7 @@ const PaymentDetailComponent: React.FC = () => {
           },
           {
             label: "USERNAME",
-            value: getUser(payment.userId).username,
+            value: getUser(payment?.userId!).username,
           },
           {
             label: "AMOUNT",
