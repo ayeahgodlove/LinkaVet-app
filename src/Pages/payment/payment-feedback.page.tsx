@@ -1,4 +1,4 @@
-import { Alert, Card, Col, List, Row, Typography } from "antd";
+import { Alert, Card, Col, List, Row, Typography, message } from "antd";
 import BackButton from "components/shared/back-button.component";
 import { useInitTransaction } from "hooks/shopping-cart/init-transaction.hook";
 import GeneralAppShell from "layout/app/general-app-shell";
@@ -14,6 +14,9 @@ import { useOrder } from "hooks/order.hook";
 import { emptyOrder } from "models/order.model";
 import { useAuth } from "hooks/auth/auth.hook";
 import { generateOrderNumber } from "utils/order-no";
+import { useProduct } from "hooks/product.hook";
+import { useShoppingCart } from "hooks/shopping-cart/shopping-cart.hook";
+import { emptyPayment } from "models/payment.model";
 
 const PaymentFeedbackPage = () => {
   const [payResp, setPayResp] = useState<IInitPaymentResponse>({
@@ -26,9 +29,12 @@ const PaymentFeedbackPage = () => {
   const [retryCount, setRetryCount] = useState(0);
 
   const { initTransaction } = useInitTransaction();
-  const {addPayment} = usePayment();
-  const {addOrder} = useOrder();
-  const { user} = useAuth();
+  const { addPayment } = usePayment();
+  const { addOrder, order } = useOrder();
+  const { user } = useAuth();
+  const { products } = useProduct();
+  const { cartItems, findMatchingProducts } = useShoppingCart();
+  const matchingProducts = findMatchingProducts(products, cartItems);
 
   const getTransactionStatus = useCallback(async (reference: string) => {
     await ProcessPaymentService.transactionStatus(reference)
@@ -40,10 +46,24 @@ const PaymentFeedbackPage = () => {
           }, 1000);
         }
         const feedback = await addOrder({
-            ...emptyOrder,
-            userId: user.id,
-            orderNo: generateOrderNumber(),
-        })
+          ...emptyOrder,
+          userId: user.id,
+          orderNo: generateOrderNumber(),
+          products: matchingProducts.map((m) => m.id),
+          status: "PAID",
+          totalAmount: matchingProducts.reduce((a, b) => a + b.amount, 0),
+          totalQtty: matchingProducts.reduce((a,b) => a+b.qtty, 0)
+        });
+        
+        if(feedback) {
+          const response = await addPayment({
+            ...emptyPayment,
+            amount: order.totalAmount,
+            orderNo: order.orderNo,
+            status: order.status,
+          })
+          message.success("Payment successful!")
+        }
         return resp;
       })
       .catch((error: any) => {
@@ -52,7 +72,6 @@ const PaymentFeedbackPage = () => {
         return error;
       });
   }, []);
-  
 
   useEffect(() => {
     if (retryCount > 3) {
@@ -66,7 +85,11 @@ const PaymentFeedbackPage = () => {
 
   return (
     <GeneralAppShell>
-      <Row className="payment-feedback-container" align={"middle"} justify={"center"}>
+      <Row
+        className="payment-feedback-container"
+        align={"middle"}
+        justify={"center"}
+      >
         <Col xs={24} md={14} className="payment-feedback">
           <BackButton title="Transaction Feedback" />
           <div
@@ -116,9 +139,7 @@ const PaymentFeedbackPage = () => {
                   />
                 </List.Item>
               </List>
-              {
-                error && <Alert message={error.message} />
-              }
+              {error && <Alert message={error.message} />}
             </Card>
           </div>
         </Col>

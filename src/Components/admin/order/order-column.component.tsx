@@ -1,10 +1,8 @@
 import { ColumnsType } from "antd/es/table";
-import { useProduct } from "hooks/product.hook";
 import { useUser } from "hooks/user.hook";
 import { IOrder } from "models/order.model";
 
 export const useOrderColumn = () => {
-  const { getProduct } = useProduct();
   const { getUser } = useUser();
 
   const orderTableColumns: ColumnsType<IOrder> = [
@@ -14,13 +12,6 @@ export const useOrderColumn = () => {
       key: "id",
       // width: '20rem',
       filtered: true,
-    },
-    {
-      title: "PRODUCT",
-      dataIndex: "product",
-      key: "product",
-      filtered: true,
-      render: (_, record) => getProduct(record.productId).name,
     },
     {
       title: "USERNAME",

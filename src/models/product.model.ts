@@ -14,6 +14,7 @@ export interface IProduct {
   qtty: number;
   reviews: any[];
   tags: any[];
+  orders: any[];
 }
 
 export const emptyProduct: IProduct = {
@@ -28,6 +29,7 @@ export const emptyProduct: IProduct = {
   qtty: 0,
   reviews: [],
   tags: [],
+  orders: []
 };
 
 export interface IProductState extends IBaseState {
@@ -35,6 +37,9 @@ export interface IProductState extends IBaseState {
   readonly product: IProduct;
 }
 
+export interface IProductResponses extends IResponseBase {
+  data: IProduct[];
+}
 export interface IProductResponse extends IResponseBase {
   data: IProduct;
 }

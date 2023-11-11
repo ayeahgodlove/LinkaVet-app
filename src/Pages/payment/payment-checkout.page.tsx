@@ -57,6 +57,7 @@ export const PageCheckoutPage = () => {
     };
     const feedback = await ProcessPaymentService.initPayment(obj)
       .then((response) => {
+        debugger
         setInitTransaction(response.data);
         return true;
       })

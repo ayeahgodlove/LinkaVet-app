@@ -7,4 +7,4 @@ export const CategoryService = {
     create: (user: ICategory): Promise<ICategoryResponse> => requestType.post(`/api/categories`, user),
     update: (user: ICategory): Promise<ICategoryResponse> => requestType.put(`/api/categories`, user),
     delete: (user: ICategory): Promise<ICategoryResponse> => requestType.del(`/api/categories`, user),
-}
+} 

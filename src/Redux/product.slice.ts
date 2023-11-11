@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { ProductService } from "services/product.service";
-import { IProductState, emptyProduct, IProduct } from "../models/product.model";
+import { IProductState, emptyProduct, IProduct, IProductResponses } from "../models/product.model";
 
 export const initialState: IProductState = {
   products: [],
@@ -10,7 +10,7 @@ export const initialState: IProductState = {
   initialFetch: true,
 };
 
-export const fetchProductsAsync = createAsyncThunk<IProduct[], void>(
+export const fetchProductsAsync = createAsyncThunk<IProductResponses, void>(
   "product/fetchProductsAsync",
   async (_, thunkApi) => {
     try {
@@ -56,7 +56,7 @@ export const productSlice = createSlice({
     builder.addCase(fetchProductsAsync.fulfilled, (state, action) => {
       state.isLoading = false;
       state.initialFetch = false;
-      state.products = action.payload;
+      state.products = action.payload.data;
     });
     builder.addCase(fetchProductsAsync.rejected, (state, action) => {
       state.isLoading = false;

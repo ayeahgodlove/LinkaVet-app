@@ -1,8 +1,8 @@
-import { IProduct, IProductResponse } from "models/product.model";
+import { IProduct, IProductResponse, IProductResponses } from "models/product.model";
 import { requestType } from "services";
 
 export const ProductService = {
-  list: (): Promise<IProduct[]> => requestType.get("/api/products"),
+  list: (): Promise<IProductResponses> => requestType.get("/api/products"),
   details: (code: string): Promise<IProductResponse> =>
     requestType.get(`/api/products/${code}`),
   create: (user: FormData): Promise<IProductResponse> =>

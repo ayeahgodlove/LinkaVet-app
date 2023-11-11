@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { OrderService } from "services/order.service";
-import { IOrderState, emptyOrder, IOrder } from "../models/order.model";
+import { IOrderState, emptyOrder, IOrder, IOrderResponses } from "../models/order.model";
 
 export const initialState: IOrderState = {
   orders: [],
@@ -10,7 +10,7 @@ export const initialState: IOrderState = {
   initialFetch: true,
 };
 
-export const fetchOrdersAsync = createAsyncThunk<IOrder[], void>(
+export const fetchOrdersAsync = createAsyncThunk<IOrderResponses, void>(
   "order/fetchOrdersAsync",
   async (_, thunkApi) => {
     try {
@@ -56,7 +56,7 @@ export const orderSlice = createSlice({
     builder.addCase(fetchOrdersAsync.fulfilled, (state, action) => {
       state.isLoading = false;
       state.initialFetch = false;
-      state.orders = action.payload;
+      state.orders = action.payload.data;
     });
     builder.addCase(fetchOrdersAsync.rejected, (state, action) => {
       state.isLoading = false;

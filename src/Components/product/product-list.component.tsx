@@ -39,7 +39,7 @@ const ProductList: React.FC = () => {
   useEffect(() => {
     const getProducts = async () => {
       const products = await ProductService.list();
-      fetchproductSuccess(products);
+      fetchproductSuccess(products.data);
       return products;
     };
 
