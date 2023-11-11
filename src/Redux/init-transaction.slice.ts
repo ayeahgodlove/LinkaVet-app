@@ -1,6 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import {
+  emptyInitPayment,
   emptyInitTransaction,
+  IInitPayment,
   IInitTransaction,
   IInitTransactionState,
 } from "models/init-payment.model";
@@ -8,6 +10,7 @@ import {
 export const initialState: IInitTransactionState = {
   errors: "",
   initTransaction: emptyInitTransaction,
+  initPayment: emptyInitPayment,
   isLoading: false,
   initialFetch: true,
 };
@@ -22,10 +25,13 @@ export const initTransactionSlice = createSlice({
     ) => {
       state.initTransaction = action.payload;
     },
+    setInitPayment: (state, action: PayloadAction<IInitPayment>) => {
+      state.initPayment = action.payload
+    }
   },
 });
 
-export const { setActiveInitTransaction } = initTransactionSlice.actions;
+export const { setActiveInitTransaction, setInitPayment } = initTransactionSlice.actions;
 
 const reducer = initTransactionSlice.reducer;
 

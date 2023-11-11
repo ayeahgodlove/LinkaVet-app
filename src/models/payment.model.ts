@@ -5,6 +5,10 @@ export interface IPayment {
   id: string;
   userId?: string;
   orderNo: string;
+  email:string;
+  username:string;
+  cellPhone:string;
+  address: string;
   amount: number;
   status: string;
 }
@@ -14,6 +18,10 @@ export const emptyPayment: IPayment = {
   orderNo: "",
   amount: 0,
   status: "",
+  email: "",
+  username: "",
+  cellPhone: "",
+  address: ""
 };
 
 export interface IPaymentState extends IBaseState {

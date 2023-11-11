@@ -8,6 +8,10 @@ export interface IOrder {
   totalAmount: number;
   status: string;
   orderNo: string;
+  email:string;
+  username:string;
+  cellPhone:string;
+  address: string;
   products: any[];
 }
 
@@ -17,7 +21,11 @@ export const emptyOrder: IOrder = {
   orderNo: "",
   products: [],
   totalQtty: 0,
-  totalAmount: 0
+  totalAmount: 0,
+  email: "",
+  username: "",
+  cellPhone: "",
+  address: ""
 };
 
 export interface IOrderState extends IBaseState {

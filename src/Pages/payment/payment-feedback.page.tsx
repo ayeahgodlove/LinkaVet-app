@@ -12,11 +12,11 @@ import "./payment-feedback.style.scss";
 import { usePayment } from "hooks/payment.hook";
 import { useOrder } from "hooks/order.hook";
 import { emptyOrder } from "models/order.model";
-import { useAuth } from "hooks/auth/auth.hook";
 import { generateOrderNumber } from "utils/order-no";
 import { useProduct } from "hooks/product.hook";
 import { useShoppingCart } from "hooks/shopping-cart/shopping-cart.hook";
 import { emptyPayment } from "models/payment.model";
+import { OrderService } from "services/order.service";
 
 const PaymentFeedbackPage = () => {
   const [payResp, setPayResp] = useState<IInitPaymentResponse>({
@@ -28,50 +28,65 @@ const PaymentFeedbackPage = () => {
   const [error, setError] = useState<any>();
   const [retryCount, setRetryCount] = useState(0);
 
-  const { initTransaction } = useInitTransaction();
+  const { initTransaction, initPayment } = useInitTransaction();
   const { addPayment } = usePayment();
-  const { addOrder, order } = useOrder();
-  const { user } = useAuth();
+  const { order, setOrder } = useOrder();
   const { products } = useProduct();
   const { cartItems, findMatchingProducts } = useShoppingCart();
   const matchingProducts = findMatchingProducts(products, cartItems);
 
-  const getTransactionStatus = useCallback(async (reference: string) => {
-    await ProcessPaymentService.transactionStatus(reference)
-      .then(async (resp) => {
-        setPayResp(resp);
-        if (!resp.success) {
-          setTimeout(() => {
-            setRetryCount(retryCount + 1);
-          }, 1000);
-        }
-        const feedback = await addOrder({
-          ...emptyOrder,
-          userId: user.id,
-          orderNo: generateOrderNumber(),
-          products: matchingProducts.map((m) => m.id),
-          status: "PAID",
-          totalAmount: matchingProducts.reduce((a, b) => a + b.amount, 0),
-          totalQtty: matchingProducts.reduce((a,b) => a+b.qtty, 0)
-        });
-        
-        if(feedback) {
-          const response = await addPayment({
-            ...emptyPayment,
-            amount: order.totalAmount,
-            orderNo: order.orderNo,
-            status: order.status,
+  const getTransactionStatus = useCallback(
+    async (reference: string) => {
+      await ProcessPaymentService.transactionStatus(reference)
+        .then(async (resp) => {
+          setPayResp(resp);
+          if (!resp.success) {
+            setTimeout(() => {
+              setRetryCount(retryCount + 1);
+            }, 1000);
+          }
+          await OrderService.create({
+            ...emptyOrder,
+            orderNo: generateOrderNumber(),
+            products: matchingProducts.map((m) => m.id),
+            status: "PAID",
+            totalAmount: matchingProducts.reduce((a, b) => a + b.amount, 0),
+            totalQtty: matchingProducts.reduce((a, b) => a + b.qtty, 0),
+            address:initPayment.address,
+            cellPhone: initPayment.telephone,
+            email: initPayment.email,
+            username: initPayment.name
           })
-          message.success("Payment successful!")
-        }
-        return resp;
-      })
-      .catch((error: any) => {
-        console.error(error);
-        setError(error);
-        return error;
-      });
-  }, []);
+            .then(async (resp) => {
+              setOrder(resp.data);
+              const response = await addPayment({
+                ...emptyPayment,
+                amount: resp.data.totalAmount,
+                orderNo: resp.data.orderNo,
+                status: resp.data.status,
+                address:initPayment.address,
+                cellPhone: initPayment.telephone,
+                email: initPayment.email,
+                username: initPayment.name
+              });
+              if (response) {
+                message.success("Payment successful!");
+              } else {
+                message.error("Payment failed!");
+              }
+            })
+            .catch((err) => console.log(err));
+
+          return resp;
+        })
+        .catch((error: any) => {
+          console.error(error);
+          setError(error);
+          return error;
+        });
+    },
+    [order]
+  );
 
   useEffect(() => {
     if (retryCount > 3) {
@@ -81,7 +96,7 @@ const PaymentFeedbackPage = () => {
     }
 
     getTransactionStatus(initTransaction.reference);
-  }, [retryCount]);
+  }, [retryCount, order]);
 
   return (
     <GeneralAppShell>
@@ -105,37 +120,43 @@ const PaymentFeedbackPage = () => {
                 <List.Item>
                   <List.Item.Meta
                     title={"Username"}
-                    description={payResp.data.name}
+                    description={order.orderNo}
                   />
                 </List.Item>
                 <List.Item>
                   <List.Item.Meta
                     title={"Amount"}
-                    description={payResp.data.amount + " XAF"}
+                    description={initPayment.amount + " XAF"}
                   />
                 </List.Item>
                 <List.Item>
                   <List.Item.Meta
                     title={"Address"}
-                    description={payResp.data.address}
+                    description={initPayment.address}
                   />
                 </List.Item>
                 <List.Item>
                   <List.Item.Meta
                     title={"Email"}
-                    description={payResp.data.email}
+                    description={initPayment.email}
                   />
                 </List.Item>
                 <List.Item>
                   <List.Item.Meta
                     title={"Telephone"}
-                    description={payResp.data.telephone}
+                    description={initPayment.telephone}
+                  />
+                </List.Item>
+                <List.Item>
+                  <List.Item.Meta
+                    title={"Adress"}
+                    description={initPayment.address}
                   />
                 </List.Item>
                 <List.Item>
                   <List.Item.Meta
                     title={"Operator"}
-                    description={payResp.data.operator}
+                    description={initTransaction.operator}
                   />
                 </List.Item>
               </List>

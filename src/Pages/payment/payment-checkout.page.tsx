@@ -21,9 +21,6 @@ import { useProduct } from "hooks/product.hook";
 import { ProcessPaymentService } from "services/process-payment.service";
 import {
   IInitPayment,
-  IInitTransaction,
-  emptyInitPayment,
-  emptyInitTransaction,
 } from "models/init-payment.model";
 import BackButton from "components/shared/back-button.component";
 import CheckoutSummaryComponent from "components/product/checkout-summary.component";
@@ -39,7 +36,7 @@ export const PageCheckoutPage = () => {
   const navigate = useNavigate();
   const { products } = useProduct();
   const { cartItems, findMatchingProducts, cartQuantity } = useShoppingCart();
-  const { setInitTransaction } = useInitTransaction();
+  const { setInitTransaction, setActiveInitPayment } = useInitTransaction();
   const matchingProducts = findMatchingProducts(products, cartItems);
   const totalAmount =
     matchingProducts.map((p) => p.amount).reduce((a, b) => a + b) || 0;
@@ -66,6 +63,8 @@ export const PageCheckoutPage = () => {
         setError(error);
         return false;
       });
+
+      setActiveInitPayment(obj);
 
     if (feedback) {
       message.success("Payment Successful!");

@@ -46,4 +46,5 @@ export interface IInitTransactionResponse extends IResponseBase {
 }
 export interface IInitTransactionState extends IBaseState {
   readonly initTransaction: IInitTransaction;
+  readonly initPayment: IInitPayment;
 }
