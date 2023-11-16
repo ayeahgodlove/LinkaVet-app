@@ -17,7 +17,7 @@ const PostPage: React.FC = () => {
         </Col>
       </Row>
       <PostList />
-    </GeneralAppShell>
+    </GeneralAppShell> 
   );
 };
 

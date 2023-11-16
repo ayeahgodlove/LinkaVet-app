@@ -1,9 +1,11 @@
-import { Button, Card, List, Typography } from "antd";
+import { Button, Card, List } from "antd";
 import React from "react";
 import "./post.style.scss";
 import { RiHeartFill } from "react-icons/ri";
 import RaterComponent from "components/shared/rate.component";
 import { IPost } from "models/post";
+import { Link } from "react-router-dom";
+import slugify from "slugify";
 
 const { Meta } = Card;
 interface IProp {
@@ -37,11 +39,15 @@ const PostCard: React.FC<IProp> = ({ post }) => {
         >
           <div>
             <Meta
-              title={post.title}
+              title={
+                <Link to={`/posts/${slugify(post.title, { lower: true })}`}>
+                  {post.title}
+                </Link>
+              }
               description={
                 <div
                   dangerouslySetInnerHTML={{
-                    __html: post.content.slice(50 , 400),
+                    __html: post.content.slice(50, 400),
                   }}
                 />
               }

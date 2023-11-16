@@ -1,6 +1,6 @@
 import { Card, Col, List, Row, Typography } from "antd";
 import { IProduct } from "models/product.model";
-import React, { useState } from "react";
+import React from "react";
 import "./product.style.scss";
 import RaterComponent from "components/shared/rate.component";
 import { API_URL_UPLOADS_PRODUCTS } from "config/constant";
@@ -13,8 +13,10 @@ import {
 } from "pure-react-carousel";
 import "pure-react-carousel/dist/react-carousel.es.css";
 import "./product-list-view.style.scss";
-import { useShoppingCart } from "hooks/shopping-cart/shopping-cart.hook";
+// import { useShoppingCart } from "hooks/shopping-cart/shopping-cart.hook";
 import ProductAddToCart from "./product-add-to-cart.component";
+import { Link } from "react-router-dom";
+import slugify from "slugify";
 
 interface IProp {
   product: IProduct;
@@ -110,7 +112,11 @@ const ListViewProduct: React.FC<IProp> = ({ product, showSlides = false }) => {
             justifyContent: "flex-start",
           }}
         >
-          <Typography.Title level={5}>{product.name}</Typography.Title>
+          <Typography.Title level={5}>
+            <Link to={`/products/${slugify(product.name, { lower: true })}`}>
+              {product.name}
+            </Link>
+          </Typography.Title>
           <div
             dangerouslySetInnerHTML={{
               __html: product.description,

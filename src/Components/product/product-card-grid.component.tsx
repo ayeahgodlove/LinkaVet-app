@@ -7,6 +7,8 @@ import RaterComponent from "components/shared/rate.component";
 import { API_URL_UPLOADS_PRODUCTS } from "config/constant";
 import { NoContent } from "components/shared/no-content/no-content.component";
 import ProductAddToCart from "./product-add-to-cart.component";
+import { Link } from "react-router-dom";
+import slugify from "slugify";
 
 const { Meta } = Card;
 interface IProp {
@@ -106,7 +108,16 @@ export const GridProductCard: React.FC<IProp> = ({ product }) => {
             }}
           >
             <div style={{ width: 120 }}>
-              <Meta title={product.name} description={<RaterComponent />} />
+              <Meta
+                title={
+                  <Link
+                    to={`/products/${slugify(product.name, { lower: true })}`}
+                  >
+                    {product.name}
+                  </Link>
+                }
+                description={<RaterComponent />}
+              />
             </div>
 
             <div style={{ textAlign: "right" }}>

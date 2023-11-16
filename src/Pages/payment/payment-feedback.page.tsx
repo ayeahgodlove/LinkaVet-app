@@ -67,7 +67,8 @@ const PaymentFeedbackPage = () => {
                 address:initPayment.address,
                 cellPhone: initPayment.telephone,
                 email: initPayment.email,
-                username: initPayment.name
+                username: initPayment.name,
+                
               });
               if (response) {
                 message.success("Payment successful!");

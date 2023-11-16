@@ -1,8 +1,6 @@
 import { Col, List } from "antd";
 import React from "react";
 import PostCard from "./post-card.component";
-import { Link } from "react-router-dom";
-import slugify from "slugify";
 import { usePost } from "hooks/post.hook";
 import { NoContent } from "components/shared/no-content/no-content.component";
 
@@ -28,14 +26,7 @@ const PostList: React.FC<Props> = ({ slice = false }) => {
           dataSource={slice ? posts.slice(0, 4) : posts}
           renderItem={(post) => {
             setPost(post);
-            return (
-              <Link
-                key={post.id}
-                to={`/posts/${slugify(post.title, { lower: true })}`}
-              >
-                <PostCard post={post} />
-              </Link>
-            );
+            return <PostCard post={post} key={post.id} />;
           }}
         />
       ) : (

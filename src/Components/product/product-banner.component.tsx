@@ -9,17 +9,22 @@ import {
   Row,
   Space,
   Typography,
+  Image,
 } from "antd";
-import { API_URL_UPLOADS_BANNERS } from "config/constant";
+import {
+  API_URL_UPLOADS_BANNERS,
+  API_URL_UPLOADS_PRODUCTS,
+} from "config/constant";
 import "./product-banner.style.scss";
 import TweenOne from "rc-tween-one";
 import Texty from "rc-texty";
 import { useTween } from "hooks/shared/tween.hook";
 import { FiSearch } from "react-icons/fi";
 import ProductFilterComponent from "./product-filter.component";
+import { useProduct } from "hooks/product.hook";
 
 const { Title, Paragraph } = Typography;
-const BannerIndexComponent = () => {
+const ProductBannerComponent = () => {
   const [banners, setBanners] = useState<IBanner[]>([]);
   const { getEnter, getInterval } = useTween();
 
@@ -163,4 +168,37 @@ const BannerIndexComponent = () => {
   );
 };
 
-export default BannerIndexComponent;
+export default ProductBannerComponent;
+
+export const ProductBanner = () => {
+  const { product } = useProduct();
+
+  return (
+    <Row
+      justify={"center"}
+      align={"middle"}
+      style={{ marginTop: 10, marginBottom: 10 }}
+    >
+      <Col xs={23} md={23.5}>
+        <Card
+          bordered={false}
+          style={{ boxShadow: "none" }}
+          bodyStyle={{ padding: 0 }}
+          className="product-banner-2"
+        >
+          <Carousel autoplay dotPosition={"right"}>
+            {product.productImages.map((image) => (
+              <div key={image.id}>
+                <img
+                  alt={image.title}
+                  src={`${API_URL_UPLOADS_PRODUCTS}/${image.imageUrl}`}
+                />
+              </div>
+            ))}
+          </Carousel>
+          <div className="overlay"></div>
+        </Card>
+      </Col>
+    </Row>
+  );
+};

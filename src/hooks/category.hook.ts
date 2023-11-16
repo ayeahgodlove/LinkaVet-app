@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useCallback, useEffect } from "react";
 import { IRootState } from "redux/store";
-import { ICategory } from "models/category.model";
+import { ICategory, emptyCategory } from "models/category.model";
 import {
   addCategorySuccess,
   editCategorySuccess,
@@ -58,6 +58,14 @@ const useCategory = () => {
       });
   };
 
+  const getCategory = useCallback((categoryId: string) => {
+      const category = categories.find(c => c.id === categoryId);
+
+      if(!category) {
+        return emptyCategory;
+      }
+      return category;
+  }, []) 
   useEffect(() => {
     // loadCategories();
   }, [category, categories, isLoading, initialFetch, loadCategories]);
@@ -70,6 +78,7 @@ const useCategory = () => {
     addCategory,
     editCategory,
     setCategory,
+    getCategory
   };
 };
 
