@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { PaymentService } from "services/payment.service";
-import { IPaymentState, emptyPayment, IPayment } from "../models/payment.model";
+import { IPaymentState, emptyPayment, IPayment, IPaymentResponses } from "../models/payment.model";
 
 export const initialState: IPaymentState = {
   payments: [],
@@ -10,7 +10,7 @@ export const initialState: IPaymentState = {
   initialFetch: true,
 };
 
-export const fetchPaymentsAsync = createAsyncThunk<IPayment[], void>(
+export const fetchPaymentsAsync = createAsyncThunk<IPaymentResponses, void>(
   "payment/fetchPaymentsAsync",
   async (_, thunkApi) => {
     try {
@@ -56,7 +56,7 @@ export const paymentSlice = createSlice({
     builder.addCase(fetchPaymentsAsync.fulfilled, (state, action) => {
       state.isLoading = false;
       state.initialFetch = false;
-      state.payments = action.payload;
+      state.payments = action.payload.data;
     });
     builder.addCase(fetchPaymentsAsync.rejected, (state, action) => {
       state.isLoading = false;

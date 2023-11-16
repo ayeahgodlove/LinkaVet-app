@@ -1,5 +1,6 @@
 import { Avatar, Button, Card, Col, Image, List, Row, Typography } from "antd";
 import CommentComponent from "components/comment/comment.component";
+import BackButton from "components/shared/back-button.component";
 import PageBreadCrumbs from "components/shared/page-breadcrumb/page-breadcrumb.component";
 import { SpinnerComponent } from "components/shared/spinner";
 import { useCategory } from "hooks/category.hook";
@@ -16,9 +17,7 @@ const postDetailPage: React.FC = () => {
   const { categories } = useCategory();
   const { loadComments, comments, errors } = useComment();
   const [commentId, setCommentId] = useState("");
-  const [select, setSelect] = useState(false);
   const handleReplyComment = (parentId: string) => {
-    setSelect(true);
     setCommentId(parentId);
   };
   const inputRef = useRef<any>(null);
@@ -29,7 +28,7 @@ const postDetailPage: React.FC = () => {
     }
   };
 
-  const lists = comments.map((c) => {
+  const parentLists = comments.map((c) => {
     return {
       id: c.id,
       username: getUser(c.userId).firstname + " " + getUser(c.userId).lastname,
@@ -37,9 +36,24 @@ const postDetailPage: React.FC = () => {
       content: c.content,
       publishDate: c.publishedAt,
       parentComment: c.parent_id,
-      replies: c.replies,
+      replies: comments
+        .filter((comment) => comment.parent_id === c.id)
+        .map((t) => {
+          return {
+            id: t.id,
+            username:
+              getUser(t.userId).firstname + " " + getUser(t.userId).lastname,
+            email: getUser(t.userId).email,
+            content: t.content,
+            publishDate: t.publishedAt,
+            parentComment: t.parent_id,
+          };
+        }),
     };
   });
+
+  // const childList= commn
+
   const load = useCallback(async () => {
     await loadComments(post.id);
   }, []);
@@ -48,43 +62,33 @@ const postDetailPage: React.FC = () => {
   }, []);
   return (
     <GeneralAppShell>
-      <Row className="post-detail-container">
-        <Col xs={24} md={24} className="post-detail-img-container">
-          <Image
-            style={{
-              objectFit: "cover",
-              overflow: "hidden",
-            }}
-            preview={false}
-            alt={post.title}
-            src={`http://localhost:8000/uploads/posts/${post.imageUrl}`}
-            className="post-detail-img"
-          />
-          <div className="overlay"></div>
-        </Col>
-        <Col lg={23}>
-          <PageBreadCrumbs items={["Pages", "Post", "Details"]} />
-        </Col>
-      </Row>
       <Row align={"middle"} justify={"center"} style={{ marginTop: "2rem" }}>
+        <Col span={23}>
+          <PageBreadCrumbs items={["Pages", "Post", "Details"]} />
+          <BackButton title="Post" />
+        </Col>
         <Col lg={23}>
           <Card size="small">
-            <h1 style={{ fontSize: 30, textDecoration: "underline" }}>
-              {post.title}
-            </h1>
             <div style={{ display: "flex", justifyContent: "flex-start" }}>
               <img
                 alt={post.title}
                 src={`http://localhost:8000/uploads/posts/${post.imageUrl}`}
-                width={400}
-                height={400}
-                style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                style={{
+                  width: "100%",
+                  maxHeight: "65vh",
+                  height: "100%",
+                  objectFit: "cover",
+                }}
               />
             </div>
+
             <div
               className="text"
               style={{ paddingLeft: "2rem", color: "#333" }}
             >
+              <Typography.Title level={3} style={{ marginTop: 30 }}>
+                {post.title}
+              </Typography.Title>
               <p>
                 <div
                   dangerouslySetInnerHTML={{
@@ -115,7 +119,11 @@ const postDetailPage: React.FC = () => {
             >
               <Col xs={23} md={18} lg={15}>
                 {/* comment form */}
-                <CommentComponent parentId={undefined} post={post} />
+                <CommentComponent
+                  parentId={commentId}
+                  post={post}
+                  inputRef={inputRef}
+                />
                 {errors.length > 0 ? (
                   <SpinnerComponent message={""} height={""} />
                 ) : (
@@ -124,7 +132,7 @@ const postDetailPage: React.FC = () => {
                     // loading={initLoading}
                     itemLayout="horizontal"
                     // loadMore={loadMore}
-                    dataSource={lists}
+                    dataSource={parentLists}
                     renderItem={(item: any) => (
                       <List.Item
                         actions={[
@@ -150,14 +158,6 @@ const postDetailPage: React.FC = () => {
                           }
                           description={item.content}
                         />
-                        {select && (
-                          <CommentComponent
-                            post={post}
-                            parentId={
-                              commentId.length > 0 ? commentId : undefined
-                            }
-                          />
-                        )}
                       </List.Item>
                     )}
                   />

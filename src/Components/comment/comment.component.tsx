@@ -14,11 +14,14 @@ const { TextArea } = Input;
 type IProp = {
   post: IPost;
   parentId?: string | undefined;
+  inputRef?: any;
 };
-const CommentComponent: React.FC<IProp> = ({ post, parentId }) => {
+const CommentComponent: React.FC<IProp> = ({ post, parentId, inputRef }) => {
   const { addComment } = useComment();
   const [loading, setLoading] = useState(false);
   const [form] = Form.useForm();
+
+  console.log("Hello id: ", parentId);
 
   const onFinish = async (values) => {
     setLoading(true);
@@ -47,6 +50,7 @@ const CommentComponent: React.FC<IProp> = ({ post, parentId }) => {
         <TextArea
           rows={3}
           placeholder="Compose your comment here..."
+          ref={inputRef}
         />
       </Form.Item>
       <Form.Item>

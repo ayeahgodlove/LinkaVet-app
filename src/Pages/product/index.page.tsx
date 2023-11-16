@@ -1,12 +1,17 @@
-import { Card, Col, Divider, Row, Typography } from "antd";
+import { Card, Col, Divider, FloatButton, Row, Typography } from "antd";
 import CategoryList from "components/admin/category/category-list.component";
 import TagList from "components/admin/tag/tag-list.component";
 import BannerIndexComponent from "components/product/product-banner.component";
 import ProductList from "components/product/product-list.component";
+import { useShoppingCart } from "hooks/shopping-cart/shopping-cart.hook";
 import GeneralAppShell from "layout/app/general-app-shell";
 import React from "react";
+import { FiShoppingCart } from "react-icons/fi";
+import { useNavigate } from "react-router-dom";
 
 const ProductPage: React.FC = () => {
+  const router = useNavigate();
+  const { cartQuantity } = useShoppingCart();
   return (
     <GeneralAppShell>
       {/* banner */}
@@ -49,6 +54,14 @@ const ProductPage: React.FC = () => {
           </Card>
         </Col>
       </Row>
+      {cartQuantity > 0 && (
+        <FloatButton
+          tooltip={<span>{cartQuantity} in the Shopping Cart</span>}
+          icon={<FiShoppingCart />}
+          type="primary"
+          onClick={() => router("/shopping-cart")}
+        />
+      )}
     </GeneralAppShell>
   );
 };

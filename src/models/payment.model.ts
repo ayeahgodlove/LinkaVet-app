@@ -32,3 +32,6 @@ export interface IPaymentState extends IBaseState {
 export interface IPaymentResponse extends IResponseBase {
   data: IPayment
 }
+export interface IPaymentResponses extends IResponseBase {
+  data: IPayment[]
+}

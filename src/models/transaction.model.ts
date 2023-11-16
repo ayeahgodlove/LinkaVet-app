@@ -1,47 +1,43 @@
 import { IBaseState } from "./base-state.model";
 import { IResponseBase } from "./response-base.model";
 
-export interface ITransactionHistory {
-  datetime: Date;
-  code: string;
-  operator_tx_code: string;
-  operator: string;
-  phone_number: string;
-  description: string;
-  external_user: string;
+export enum TRANSACTION_STATUS {
+  PENDING,
+  SUCCESSFUL,
+  FAILED,
+}
+export interface ITransactionVm {
+  reference: string;
+  status: TRANSACTION_STATUS;
   amount: number;
-  charge_amount: number;
-  debit: number;
-  credit: number;
-  status: string;
-  reference_uuid: string;
+  currency: string;
+  operator: string;
+  code: string;
+  operator_reference: string;
+  description: string;
 }
 
-export const emptyTransactionHistory: ITransactionHistory = {
-  datetime: new Date(),
+
+export const emptyTransactionVm: ITransactionVm = {
   code: "",
-  operator_tx_code: "",
   operator: "",
-  phone_number: "",
   description: "",
-  external_user: "",
   amount: 0,
-  charge_amount: 0,
-  debit: 0,
-  credit: 0,
-  status: "",
-  reference_uuid: "",
+  reference: "",
+  status: TRANSACTION_STATUS.PENDING,
+  currency: "",
+  operator_reference: ""
 };
 
-export interface ITransactionHistoryState extends IBaseState {
-  readonly transactionHistories: ITransactionHistory[];
-  readonly transactionHistory: ITransactionHistory;
+export interface ITransactionVmState extends IBaseState {
+  readonly transactionHistories: ITransactionVm[];
+  readonly transactionVm: ITransactionVm;
 }
 
-export interface ITransactionHistoryResponse extends IResponseBase {
-  data: ITransactionHistory;
+export interface ITransactionVmResponse extends IResponseBase {
+  data: ITransactionVm;
 }
 
-export interface ITransactionHistoryResponses extends IResponseBase {
-  data: ITransactionHistory[];
+export interface ITransactionVmResponses extends IResponseBase {
+  data: ITransactionVm[];
 }
