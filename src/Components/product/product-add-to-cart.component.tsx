@@ -7,9 +7,10 @@ import { FiMinus, FiPlus } from "react-icons/fi";
 
 interface IProp {
   product: IProduct;
+  primary?: boolean;
 }
 
-const ProductAddToCart: React.FC<IProp> = ({ product }) => {
+const ProductAddToCart: React.FC<IProp> = ({ product, primary = false }) => {
   const {
     getItemQuantity,
     increaseCartQuantity,
@@ -21,7 +22,7 @@ const ProductAddToCart: React.FC<IProp> = ({ product }) => {
     <>
       {quantity === 0 ? (
         <Button
-          type="default"
+          type={primary ? "primary" : "default"}
           size="middle"
           style={{ borderRadius: 15 }}
           onClick={() => increaseCartQuantity(product.id)}
