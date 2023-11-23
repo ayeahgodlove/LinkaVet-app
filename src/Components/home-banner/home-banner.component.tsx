@@ -58,7 +58,7 @@ export const HomeBanner: React.FC = () => {
             />
           </div>
         </Col>
-        <Col xs={20} md={13} lg={13}>
+        <Col xs={24} md={13} lg={13}>
           {show && (
             <div className="combined">
               <div className="combined-shape">

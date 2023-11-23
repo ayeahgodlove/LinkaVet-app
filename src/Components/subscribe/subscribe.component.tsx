@@ -9,6 +9,7 @@ import {
   Row,
   Typography,
 } from "antd";
+import useWindowSize from "hooks/shared/window-resize.hook";
 import React from "react";
 
 const { Title, Paragraph } = Typography;
@@ -16,6 +17,7 @@ const Subscribe = () => {
   const onFinish = (values: any) => {
     console.log(values);
   };
+  const { width } = useWindowSize();
   return (
     <Card
       bordered={false}
@@ -65,9 +67,8 @@ const Subscribe = () => {
 
             <Form.Item
               style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
+                display: "block",
+                width: "100%",
               }}
             >
               <Button
@@ -76,9 +77,11 @@ const Subscribe = () => {
                 className="login-form-button"
                 size="large"
                 style={{
+                  display: "block",
                   paddingLeft: 15,
                   paddingRight: 15,
-                  width: "30.5rem",
+                  width: "100%",
+                  // width: width > 768 ? "30.5rem" : "100%",
                 }}
                 block={true}
               >

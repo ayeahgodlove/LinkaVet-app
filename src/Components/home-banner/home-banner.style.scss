@@ -21,7 +21,7 @@
 
 //tweet
 .combined-wrapper {
-  padding: 7.5rem 0 !important;
+  padding: 2rem 0 !important;
   background: linear-gradient(135deg, #08a30a 1%, #607d8b 100%);
   position: relative;
   width: 100%;
@@ -35,7 +35,7 @@
   bottom: 0;
 
   .content {
-    padding: 50px;
+    padding: 20px;
     background: rgba(0, 0, 0, 0.05);
     border-radius: 4px;
   }
@@ -80,7 +80,6 @@
 }
 .sub-header {
   font-size: 25px;
-  font-weight: bold;
 }
 @media screen and (min-width: 768px) {
   .banner__text {
@@ -95,5 +94,19 @@
   .gallery {
     // fix overflow
     margin-top: auto;
+  }
+
+  .combined-wrapper {
+    padding: 7.5rem 0 !important;
+  }
+
+  .combined {
+    .content {
+      padding: 50px;
+    }
+  }
+
+  .sub-header {
+    font-weight: bold;
   }
 }

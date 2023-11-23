@@ -25,7 +25,7 @@ const BuyInThreeSteps: React.FC = () => {
           paddingBottom: "8rem",
         }}
       >
-        <Col xs={24} md={24} lg={24}>
+        <Col span={22}>
           <Title
             style={{
               textAlign: "center",
@@ -55,7 +55,7 @@ const BuyInThreeSteps: React.FC = () => {
             <></>
           )}
         </Col>
-        <Col xs={24} md={24} lg={20}>
+        <Col xs={20} md={20}>
           <Steps
             direction={width < 768 ? "vertical" : "horizontal"}
             style={{ marginTop: 50 }}
