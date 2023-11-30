@@ -7,7 +7,7 @@ import {
 import thunkMiddleware from "redux-thunk";
 import loggerMiddleware from "redux-logger";
 import { persistStore, persistReducer } from "redux-persist";
-import sessionStorage from 'redux-persist/lib/storage/session'
+import sessionStorage from "redux-persist/lib/storage/session";
 
 import { productReducer } from "./product.slice";
 import { userReducer } from "./user.slice";
@@ -20,7 +20,7 @@ import { reviewReducer } from "./review.slice";
 import { authReducer } from "./auth/auth.slice";
 import { postReducer } from "./post.slice";
 import { documentReducer } from "./document.slice";
-import { tagReducer } from "./tag.slice"; 
+import { tagReducer } from "./tag.slice";
 import { tokenReducer } from "./auth/token.slice";
 import { subCategoryReducer } from "./sub-category.slice";
 import { bannerReducer } from "./banner.slice";
@@ -29,6 +29,10 @@ import { orderReducer } from "./order.slice";
 import { shoppingCartReducer } from "./shared/shopping-cart.slice";
 import { initTransactionReducer } from "./init-transaction.slice";
 import { commentReducer } from "./comment.slice";
+import { courseReducer } from "./lms/course.slice";
+import { lessonReducer } from "./lms/lesson.slice";
+import { enrollmentReducer } from "./lms/enrollment.slice";
+import { quizReducer } from "./lms/quiz.slice";
 
 const middlewares: [any] = [thunkMiddleware];
 
@@ -51,7 +55,12 @@ export const rootReducer = combineReducers({
   store: storeReducer,
   shoppingCart: shoppingCartReducer,
   initTransaction: initTransactionReducer,
-  comment: commentReducer
+  comment: commentReducer,
+  // lms
+  course: courseReducer,
+  lesson: lessonReducer,
+  enrollment: enrollmentReducer,
+  quiz: quizReducer,
 });
 
 const persistConfig = {
@@ -74,7 +83,11 @@ const persistConfig = {
     "store",
     "shoppingCart",
     "initTransaction",
-    "comment"
+    "comment",
+    "course",
+    "lesson",
+    "enrollment",
+    "quiz",
   ], // Specify the reducers you want to persist
 };
 
