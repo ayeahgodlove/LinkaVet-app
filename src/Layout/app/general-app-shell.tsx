@@ -4,7 +4,6 @@ import { ConfigProvider, theme, FloatButton } from "antd";
 
 import Navbar from "components/navbar";
 import "./AppShell.scss";
-import { GeneralMenuItemsWithIcons } from "components/navbar/menu";
 import { useTheme } from "hooks/shared/theme.hook";
 import { FiArrowUp } from "react-icons/fi";
 import useWindowSize from "hooks/shared/window-resize.hook";
@@ -14,8 +13,9 @@ import { CategoryService } from "services/category.service";
 import { ICategory } from "models/category.model";
 import { TagService } from "services/tag.service";
 import { ITag } from "models/tag.model";
-import 'rc-footer/assets/index.css';
+import "rc-footer/assets/index.css";
 import { Link } from "react-router-dom";
+import { useAppShellMenus } from "./app-shell-menus";
 
 const { Sider, Content } = Layout;
 const { defaultAlgorithm, darkAlgorithm } = theme;
@@ -31,6 +31,8 @@ const GeneralAppShell: React.FC<IProps> = ({ children }) => {
   const [categories, setCategories] = useState<ICategory[]>([]);
   const [tags, setTags] = useState<ITag[]>([]);
 
+  const { GeneralMenuItemsWithIcons } = useAppShellMenus();
+
   const handleShow = () => {
     setShow(true);
   };
@@ -44,14 +46,13 @@ const GeneralAppShell: React.FC<IProps> = ({ children }) => {
 
   const getCategories = useCallback(async () => {
     const response = await CategoryService.list();
-    setCategories(response.data)
+    setCategories(response.data);
   }, []);
 
   const getTags = useCallback(async () => {
     const response = await TagService.list();
-    setTags(response.data)
-  }, [])
-
+    setTags(response.data);
+  }, []);
 
   useEffect(() => {
     getCategories();
@@ -143,29 +144,39 @@ const GeneralAppShell: React.FC<IProps> = ({ children }) => {
                   ],
                 },
                 {
-                  title: <Typography.Title level={3}>Browse by Categories</Typography.Title>,
+                  title: (
+                    <Typography.Title level={3}>
+                      Browse by Categories
+                    </Typography.Title>
+                  ),
                   items: [
-                    ...categories.map(c => {
+                    ...categories.map((c) => {
                       return {
                         title: c.name,
-                        url: `/browse/?category=${c.name}`
-                      }
+                        url: `/browse/?category=${c.name}`,
+                      };
                     }),
-                  ]
+                  ],
                 },
                 {
-                  title: <Typography.Title level={3}>Browse by Tags</Typography.Title>,
+                  title: (
+                    <Typography.Title level={3}>
+                      Browse by Tags
+                    </Typography.Title>
+                  ),
                   items: [
-                    ...tags.map(c => {
+                    ...tags.map((c) => {
                       return {
                         title: c.name,
-                        url: `/browse/?tag=${c.name}`
-                      }
+                        url: `/browse/?tag=${c.name}`,
+                      };
                     }),
-                  ]
+                  ],
                 },
                 {
-                  title: <Typography.Title level={3}>About Us</Typography.Title>,
+                  title: (
+                    <Typography.Title level={3}>About Us</Typography.Title>
+                  ),
                   items: [
                     {
                       title: "Privacy Policy",
@@ -173,15 +184,15 @@ const GeneralAppShell: React.FC<IProps> = ({ children }) => {
                     },
                     {
                       title: "Address",
-                      description: "Buea, South West, Cameroon"
+                      description: "Buea, South West, Cameroon",
                     },
                     {
                       title: "Telephone Line 1",
-                      description: "tel:+237-673-687-549"
+                      description: "tel:+237-673-687-549",
                     },
                     {
                       title: "Telephone Line 2",
-                      description: "tel:+237-680-800-549"
+                      description: "tel:+237-680-800-549",
                     },
                     {
                       title: "Contact at LinkaVet",
@@ -193,7 +204,7 @@ const GeneralAppShell: React.FC<IProps> = ({ children }) => {
               bottom={
                 <>
                   <Typography.Paragraph style={{ textAlign: "center" }}>
-                    Made by Cumi{" "} <Link to={"/dashboard"}>Admin Area</Link>
+                    Made by Cumi <Link to={"/dashboard"}>Admin Area</Link>
                     {/* <div
                       dangerouslySetInnerHTML={{
                         __html: "&amp;",

@@ -42,7 +42,7 @@ const QuizTable: React.FC = () => {
 
   const getQuizs = useCallback(async (): Promise<IQuiz[]> => {
     setLoading(true);
-    const response = await fetch(`${API_URL}/api/quizs`);
+    const response = await fetch(`${API_URL}/api/quizes`);
     const { data } = await response.json();
     return data;
   }, []);

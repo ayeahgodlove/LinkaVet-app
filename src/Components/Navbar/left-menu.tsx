@@ -1,10 +1,11 @@
 import React from "react";
 import { Menu } from "antd";
-import { GeneralMenuItemsWithoutIcons } from "./menu";
 import { useTheme } from "hooks/shared/theme.hook";
+import { useAppShellMenus } from "layout/app/app-shell-menus";
 
 const LeftMenu = () => {
   const { isDarkMode } = useTheme();
+  const { GeneralMenuItemsWithoutIcons } = useAppShellMenus();
   return (
     <>
       <Menu
