@@ -2,7 +2,12 @@ import { Drawer, Layout, Menu, MenuProps } from "antd";
 import React, { useEffect, useState } from "react";
 import { FaBlog, FaRegComments, FaUsersCog } from "react-icons/fa";
 import { TiDocumentText } from "react-icons/ti";
-import { MdOutlineProductionQuantityLimits } from "react-icons/md";
+import {
+  MdOutlineLibraryBooks,
+  MdOutlineProductionQuantityLimits,
+  MdOutlineQuiz,
+  MdPlayLesson,
+} from "react-icons/md";
 import { BiCategoryAlt } from "react-icons/bi";
 import Navbar from "components/navbar";
 import "./AppShell.scss";
@@ -15,7 +20,7 @@ import { useAuth } from "hooks/auth/auth.hook";
 import { useDispatch } from "react-redux";
 import { initialDataAsync } from "redux/action/initial.action";
 import { TfiGallery } from "react-icons/tfi";
-import { TbPigMoney } from "react-icons/tb";
+import { TbPigMoney, TbPlugConnected } from "react-icons/tb";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 
 const { defaultAlgorithm, darkAlgorithm } = theme;
@@ -122,6 +127,50 @@ const items2: MenuProps["items"] = [
     key: "orders",
     icon: <AiOutlineShoppingCart size={21} color="#3498db" />,
   }, // remember to pass the key prop
+  // lms module
+  {
+    label: "LMS",
+    key: "lms",
+    icon: <FaRegComments size={21} color="#3498db" />,
+    children: [
+      {
+        label: (
+          <Link to="/admin/courses" style={{ padding: 0 }}>
+            Courses
+          </Link>
+        ),
+        key: "courses",
+        icon: <MdOutlineLibraryBooks size={21} color="#3498db" />,
+      },
+      {
+        label: (
+          <Link to="/admin/lessons" style={{ padding: 0 }}>
+            Lessons
+          </Link>
+        ),
+        key: "lessons",
+        icon: <MdPlayLesson size={21} color="#3498db" />,
+      },
+      {
+        label: (
+          <Link to="/admin/enrollments" style={{ padding: 0 }}>
+            Enrollments
+          </Link>
+        ),
+        key: "enrollments",
+        icon: <TbPlugConnected size={21} color="#3498db" />,
+      },
+      {
+        label: (
+          <Link to="/admin/quizes" style={{ padding: 0 }}>
+            Quizes
+          </Link>
+        ),
+        key: "quizes",
+        icon: <MdOutlineQuiz size={21} color="#3498db" />,
+      },
+    ],
+  },
 ];
 interface IProps {
   children: any;
@@ -158,9 +207,9 @@ const AppShell: React.FC<IProps> = ({ children }) => {
         token: {
           colorPrimary: "#08a30a",
           colorLink: "#214e0a",
-          fontFamily: "Poppins"
+          fontFamily: "Poppins",
         },
-      }} 
+      }}
     >
       <Layout className="app-shell-layout">
         <Navbar showMenuIcon handleShow={handleShow} />

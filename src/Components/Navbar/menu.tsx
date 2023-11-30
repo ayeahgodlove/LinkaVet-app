@@ -2,6 +2,7 @@ import { MenuProps } from "antd";
 import { NavLink } from "react-router-dom";
 import {
   MdOutlineArticle,
+  MdOutlineLibraryBooks,
   MdOutlineProductionQuantityLimits,
 } from "react-icons/md";
 import { FiHome, FiPhoneCall } from "react-icons/fi";
@@ -35,6 +36,15 @@ const GeneralMenuItemsWithIcons: MenuProps["items"] = [
     ),
     key: "posts",
     icon: <MdOutlineArticle size={21} color="#f77908" />,
+  },
+  {
+    label: (
+      <NavLink to="/courses" style={{ padding: 0 }}>
+        Courses
+      </NavLink>
+    ),
+    key: "courses",
+    icon: <MdOutlineLibraryBooks size={21} color="#f77908" />,
   },
   {
     label: (
@@ -75,6 +85,14 @@ const GeneralMenuItemsWithoutIcons: MenuProps["items"] = [
   },
   {
     label: (
+      <NavLink to="/courses" style={{ padding: 0 }}>
+        Courses
+      </NavLink>
+    ),
+    key: "courses",
+  },
+  {
+    label: (
       <NavLink to="/contact-us" style={{ padding: 0 }}>
         Contact Us
       </NavLink>
@@ -82,7 +100,4 @@ const GeneralMenuItemsWithoutIcons: MenuProps["items"] = [
     key: "contact-us",
   },
 ];
-export {
-  GeneralMenuItemsWithIcons,
-  GeneralMenuItemsWithoutIcons
-}
+export { GeneralMenuItemsWithIcons, GeneralMenuItemsWithoutIcons };

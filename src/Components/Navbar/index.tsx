@@ -30,7 +30,15 @@ const Navbar: React.FC<IProps> = ({ showMenuIcon = false, handleShow }) => {
       }}
     >
       <Header
-        style={{ background: isDarkMode ? "" : "#fff", position: "sticky"}}
+        style={{
+          background: isDarkMode ? "" : "#fff",
+          position: "sticky",
+          top: 0,
+          zIndex: 1,
+          width: "100%",
+          display: "flex",
+          alignItems: "center",
+        }}
         className="menuBar header-box-shadow"
       >
         <div className="logo">

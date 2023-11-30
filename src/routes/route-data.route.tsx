@@ -39,6 +39,16 @@ import AdminPaymentDetailPage from "pages/admin/payment/payment-detail.page";
 import ShoppingCartPage from "pages/shopping-cart/shopping-cart.page";
 import { PageCheckoutPage } from "pages/payment/payment-checkout.page";
 import PaymentFeedbackPage from "pages/payment/payment-feedback.page";
+import AdminCoursePage from "pages/admin/lms/course/course.page";
+import AdminCourseDetailPage from "pages/admin/lms/course/course-detail.page";
+import AdminLessonPage from "pages/admin/lms/lesson/lesson.page";
+import AdminLessonDetailPage from "pages/admin/lms/lesson/lesson-detail.page";
+import AdminEnrollmentPage from "pages/admin/lms/enrollment/enrollment.page";
+import AdminEnrollmentDetailPage from "pages/admin/lms/enrollment/enrollment-detail.page";
+import AdminQuizPage from "pages/admin/lms/quiz/quiz.page";
+import AdminQuizDetailPage from "pages/admin/lms/quiz/quiz-detail.page";
+import CoursePage from "pages/course/index.page";
+import CourseDetailPage from "pages/course/course-detail.page";
 
 export const routes: IRoute[] = [
   {
@@ -93,7 +103,7 @@ export const routes: IRoute[] = [
     path: "/payment-feedback",
     private: false,
     exact: true,
-    component: <PaymentFeedbackPage />
+    component: <PaymentFeedbackPage />,
   },
   {
     path: "/orders",
@@ -112,6 +122,18 @@ export const routes: IRoute[] = [
     private: false,
     exact: true,
     component: <PostDetailPage />,
+  },
+  {
+    path: "/courses",
+    private: false,
+    exact: true,
+    component: <CoursePage />,
+  },
+  {
+    path: "/courses/:title",
+    private: false,
+    exact: true,
+    component: <CourseDetailPage />,
   },
 
   /**
@@ -251,6 +273,58 @@ export const routes: IRoute[] = [
 
   // admin section
   // private routes
+  // course module
+  {
+    path: "/admin/courses",
+    private: true,
+    exact: true,
+    component: <AdminCoursePage />,
+  },
+  {
+    path: "/admin/courses/:id",
+    private: true,
+    exact: true,
+    component: <AdminCourseDetailPage />,
+  },
+  {
+    path: "/admin/lessons",
+    private: true,
+    exact: true,
+    component: <AdminLessonPage />,
+  },
+  {
+    path: "/admin/lessons/:id",
+    private: true,
+    exact: true,
+    component: <AdminLessonDetailPage />,
+  },
+  {
+    path: "/admin/enrollments",
+    private: true,
+    exact: true,
+    component: <AdminEnrollmentPage />,
+  },
+  {
+    path: "/admin/enrollments/:id",
+    private: true,
+    exact: true,
+    component: <AdminEnrollmentDetailPage />,
+  },
+  {
+    path: "/admin/quizes",
+    private: true,
+    exact: true,
+    component: <AdminQuizPage />,
+  },
+  {
+    path: "/admin/quizes/:id",
+    private: true,
+    exact: true,
+    component: <AdminQuizDetailPage />,
+  },
+  // end course module
+
+  // business module
   {
     path: "/admin/reviews",
     private: true,
@@ -287,6 +361,7 @@ export const routes: IRoute[] = [
     exact: true,
     component: <AdminPaymentDetailPage />,
   },
+  // end of business module
   {
     path: "/admin/users",
     private: true,

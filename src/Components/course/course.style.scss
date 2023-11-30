@@ -1,4 +1,4 @@
-.post-card {
+.course-card {
   img {
     height: 250px !important;
     max-width: 100% !important;
@@ -25,12 +25,11 @@
     }
   }
 }
-
-.post-detail-container {
+.course-detail-container {
   height: 65vh;
   border: 5px solid #fff;
 
-  .post-detail-img-container {
+  .course-detail-img-container {
     position: relative;
 
     .ant-image {
@@ -47,14 +46,9 @@
       z-index: 100;
       background: linear-gradient(135deg, #08a30a 1%, #607d8b 100%);
     }
-    .post-detail-img {
+    .course-detail-img {
       height: inherit;
     }
   }
 }
 
-@media screen and (min-width: 991px) {
-  .post-list {
-    margin: 0 2rem;
-  }
-}

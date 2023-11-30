@@ -7,8 +7,18 @@ import { useTween } from "hooks/shared/tween.hook";
 import { API_URL_UPLOADS_BANNERS } from "config/constant";
 import { bannerService } from "services/banner.service";
 import { IBanner } from "models/banner";
+import "./page-banner.scss";
 
-const PostBannerComponent = () => {
+type Props = {
+  title: string;
+  description: string;
+  linkCmd: string;
+};
+const PageBannerComponent: React.FC<Props> = ({
+  title,
+  description,
+  linkCmd,
+}) => {
   const { Title, Paragraph } = Typography;
   const { getEnter, getInterval } = useTween();
   const [banners, setBanners] = useState<IBanner[]>([]);
@@ -36,15 +46,15 @@ const PostBannerComponent = () => {
   }, []);
 
   return (
-    <Row className="post-banner" align={"middle"} justify={"center"}>
+    <Row className="page-banner" align={"middle"} justify={"center"}>
       <Col xs={24} md={16}>
         <Card
           bordered={false}
           style={{ background: "none", boxShadow: "none" }}
-          className="post-banner-text"
+          className="page-banner-text"
         >
           <Title
-            style={{ 
+            style={{
               color: "#f4f4f4",
               textShadow: "0px 5px 10px 0px rgba(177, 202, 215, 0.8)",
               marginBottom: 0,
@@ -83,35 +93,31 @@ const PostBannerComponent = () => {
                 ],
               }}
             >
-              Get excellent articles by professionals
+              {title}
             </Texty>
           </Title>
 
           <Paragraph style={{ fontSize: 16, marginBottom: 0 }}>
             <Texty
-              className="post-content"
+              className="page-content"
               type="bottom"
               split={getSplit as any}
               delay={2200}
               interval={30}
             >
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-              Exercitationem corrupti mollitia quam dolorum nostrum natus?
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-              Temporibus ab illo libero quibusdam ipsa sapiente nobis, dicta
-              quam inventore rerum!
+              {description}
             </Texty>
           </Paragraph>
 
           <Button type="link" htmlType="button">
             <Space align="center">
               <FiSearch size={23} style={{ marginTop: 5 }} />
-              <span>Browse articles</span>
+              <span>{linkCmd}</span>
             </Space>
           </Button>
         </Card>
       </Col>
-      <Col xs={24} md={8} className="post-column">
+      <Col xs={24} md={8} className="page-column">
         <Carousel
           autoplay
           style={{
@@ -124,13 +130,12 @@ const PostBannerComponent = () => {
             <div
               key={image.id}
               style={{ background: "none" }}
-              className="post-banner-photo"
+              className="page-banner-photo"
             >
               <div>
                 <div className="box">
                   <img
                     style={{
-                      // objectFit: "cover",
                       backgroundRepeat: "no-repeat",
                       backgroundSize: "cover",
                       backgroundPosition: "center center",
@@ -149,4 +154,4 @@ const PostBannerComponent = () => {
   );
 };
 
-export default PostBannerComponent;
+export default PageBannerComponent;
