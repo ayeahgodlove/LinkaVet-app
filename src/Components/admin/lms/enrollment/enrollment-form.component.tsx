@@ -1,9 +1,10 @@
-import { Button, Form, Input, message } from "antd";
+import { Button, Form, Select, message } from "antd";
 import { useForm } from "antd/es/form/Form";
 import { FormErrorComponent } from "components/shared/form-error/form-error.component";
 import { useModalContext } from "context/app-modal.context";
+import { useAuth } from "hooks/auth/auth.hook";
+import { useCourse } from "hooks/lms/course.hook";
 import { useEnrollment } from "hooks/lms/enrollment.hook";
-import { useFormErrors } from "hooks/shared/form-error.hook";
 import { useFormInit } from "hooks/shared/form-init.hook";
 import { IEnrollment } from "models/lms/enrollment";
 import { UpdateMode } from "models/shared/update-mode.enum";
@@ -16,8 +17,9 @@ export const EnrollmentForm: React.FC<Props> = ({ formMode }) => {
   const { initFormData } = useFormInit();
   const [form] = useForm();
   const { enrollment, editEnrollment, addEnrollment } = useEnrollment();
-  const { formError } = useFormErrors();
   const { setShow } = useModalContext();
+  const { courses } = useCourse();
+  const { user } = useAuth();
 
   const [hasSubmitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
@@ -38,6 +40,10 @@ export const EnrollmentForm: React.FC<Props> = ({ formMode }) => {
     const obj: IEnrollment = {
       ...enrollment,
       ...values,
+      userId: user.id,
+      enrollmentDate: new Date(),
+      completionDate: new Date(),
+      courseId: values.courseId,
     };
 
     if (formMode === UpdateMode.ADD) {
@@ -77,33 +83,27 @@ export const EnrollmentForm: React.FC<Props> = ({ formMode }) => {
 
       <Form form={form} onFinish={onFinish} layout="vertical">
         <Form.Item
-          name="name"
-          label="Name"
+          name="courseId"
+          label="Course"
           requiredMark
           style={{ marginBottom: 3 }}
           rules={[
             {
               required: true,
-              message: "Name is required",
+              message: "CourseId is required",
             },
           ]}
         >
-          <Input />
+          <Select
+            options={courses.map((c) => {
+              return {
+                value: c.id,
+                label: c.description,
+              };
+            })}
+            style={{ width: "100%", marginBottom: 15 }}
+          />
         </Form.Item>
-        <Form.Item
-          name="description"
-          label="Description"
-          requiredMark
-          rules={[
-            {
-              required: true,
-              message: "Description is required",
-            },
-          ]}
-        >
-          <Input />
-        </Form.Item>
-
         <Button
           type="primary"
           htmlType="submit"

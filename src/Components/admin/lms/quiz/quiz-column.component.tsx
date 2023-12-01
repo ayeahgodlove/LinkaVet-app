@@ -9,7 +9,7 @@ import { UpdateMode } from "models/shared/update-mode.enum";
 
 export const useQuizColumns = () => {
   const { setContent, setShow, setTitle, setWidth } = useModalContext();
-  
+
   const editCommand = () => {
     setTitle("Edit a Quiz");
     setWidth("35rem");
@@ -25,7 +25,7 @@ export const useQuizColumns = () => {
       title: "ID",
       dataIndex: "id",
       key: "id",
-      render: (_, record, index) => <span key={record.id}>{index}</span>,
+      render: (_, record, index) => <span key={record.id}>{index + 1}</span>,
     },
     {
       title: "Question",

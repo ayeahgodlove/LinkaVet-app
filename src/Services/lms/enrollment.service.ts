@@ -10,8 +10,8 @@ export const EnrollmentService = {
     requestType.get("/api/enrollments"),
   details: (code: string): Promise<IEnrollmentResponse> =>
     requestType.get(`/api/enrollments/${code}`),
-  create: (user: IEnrollment): Promise<IEnrollmentResponse> =>
-    requestType.post(`/api/enrollments`, user),
+  create: (enrollment: IEnrollment): Promise<IEnrollmentResponse> =>
+    requestType.post(`/api/enrollments`, enrollment),
   update: (enrollment: IEnrollment): Promise<IEnrollmentResponse> =>
     requestType.put(`/api/enrollments/${enrollment.id}`, enrollment),
   delete: (enrollment: IEnrollment): Promise<IEnrollmentResponse> =>
