@@ -108,7 +108,7 @@ const DashboardPage: React.FC = () => {
   const { width } = useWindowSize();
   const { items } = useTabHeaders(width);
   if (!isAuthenticated || !user) {
-    return <Navigate to={"/"} />;
+    return <Navigate to={"/auth/login"} />;
   }
   return (
     <>
