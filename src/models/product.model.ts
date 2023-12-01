@@ -17,6 +17,10 @@ export interface IProduct {
   orders: any[];
 }
 
+export interface ProductFormData extends FormData {
+  id: string; // Assuming the ID is a string, adjust the type as needed
+}
+
 export const emptyProduct: IProduct = {
   id: "",
   name: "",
@@ -29,7 +33,7 @@ export const emptyProduct: IProduct = {
   qtty: 0,
   reviews: [],
   tags: [],
-  orders: []
+  orders: [],
 };
 
 export interface IProductState extends IBaseState {

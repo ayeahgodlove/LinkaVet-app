@@ -7,7 +7,7 @@ import {
   fetchCoursesAsync,
   setActiveCourse,
 } from "../../redux/lms/course.slice";
-import { ICourse, emptyCourse } from "models/lms/course";
+import { CourseFormData, ICourse, emptyCourse } from "models/lms/course";
 import { useFormErrors } from "hooks/shared/form-error.hook";
 import { CourseService } from "services/lms/course.service";
 
@@ -50,7 +50,7 @@ const useCourse = () => {
     dispatch(setActiveCourse(course));
   };
 
-  const editCourse = async (course: FormData) => {
+  const editCourse = async (course: CourseFormData) => {
     return await CourseService.update(course)
       .then((courseResponse) => {
         dispatch(editCourseSuccess(courseResponse.data));

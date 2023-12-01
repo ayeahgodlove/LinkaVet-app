@@ -8,7 +8,7 @@ import {
   setActivePost,
 } from "../redux/post.slice";
 import { PostService } from "services/post.service";
-import { IPost } from "models/post";
+import { IPost, PostFormData } from "models/post";
 const usePost = () => {
   const posts = useSelector<IRootState, IPost[]>((state) => state.post.posts);
   const isLoading = useSelector<IRootState, boolean>(
@@ -43,7 +43,7 @@ const usePost = () => {
     dispatch(setActivePost(post));
   };
 
-  const editPost = async (post: FormData) => {
+  const editPost = async (post: PostFormData) => {
     return await PostService.update(post)
       .then((postResponse) => {
         dispatch(editPostSuccess(postResponse.data));

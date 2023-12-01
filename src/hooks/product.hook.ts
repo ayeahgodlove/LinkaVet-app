@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useCallback, useEffect } from "react";
 import { IRootState } from "redux/store";
-import { IProduct, emptyProduct } from "models/product.model";
+import { IProduct, ProductFormData, emptyProduct } from "models/product.model";
 import {
   addProductSuccess,
   editProductSuccess,
@@ -48,7 +48,7 @@ const useProduct = () => {
     dispatch(setActiveProduct(product));
   };
 
-  const editProduct = async (product: FormData) => {
+  const editProduct = async (product: ProductFormData) => {
     return await ProductService.update(product)
       .then((productResponse) => {
         dispatch(editProductSuccess(productResponse.data));

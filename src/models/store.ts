@@ -9,12 +9,16 @@ export interface IStore {
   userId: string;
 }
 
+export interface StoreFormData extends FormData {
+  id: string; // Assuming the ID is a string, adjust the type as needed
+}
+
 export const emptyStore: IStore = {
   id: "",
   userId: "",
   name: "",
   location: "",
-  imageBannerUrl: ""
+  imageBannerUrl: "",
 };
 
 export interface IStoreState extends IBaseState {
@@ -29,4 +33,3 @@ export interface IStoreResponse extends IResponseBase {
 export interface IStoreResponses extends IResponseBase {
   data: IStore[];
 }
-

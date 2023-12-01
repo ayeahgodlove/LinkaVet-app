@@ -42,7 +42,7 @@ const AdminLessonDetailPage: React.FC = () => {
     setWidth("60rem");
     setTitle("Edit new lesson");
     setContent(<LessonForm formMode={UpdateMode.EDIT} />);
-    setShow(true);
+    setShow(true); 
   };
 
   const createQuiz = () => {

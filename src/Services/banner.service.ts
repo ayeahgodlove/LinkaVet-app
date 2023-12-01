@@ -8,7 +8,7 @@ export const bannerService = {
   create: async (banner: IBanner): Promise<IBannerResponse> =>
     requestType.post(`/api/banners`, banner),
   update: (banner: IBanner): Promise<IBannerResponse> =>
-    requestType.put(`/api/banners`, banner),
+    requestType.put(`/api/banners/${banner.id}`, banner),
   delete: (banner: IBanner): Promise<IBannerResponse> =>
-    requestType.del(`/api/banners`, banner),
+    requestType.del(`/api/banners/${banner.id}`, banner),
 };

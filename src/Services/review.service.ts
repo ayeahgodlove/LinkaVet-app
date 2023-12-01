@@ -12,7 +12,7 @@ export const ReviewService = {
   create: (review: IReview): Promise<IReviewResponse> =>
     requestType.post(`/api/reviews`, review),
   update: (review: IReview): Promise<IReviewResponse> =>
-    requestType.put(`/api/reviews`, review),
+    requestType.put(`/api/reviews/${review.id}`, review),
   delete: (review: IReview): Promise<IReviewResponse> =>
-    requestType.del(`/api/reviews`, review),
+    requestType.del(`/api/reviews/${review.id}`, review),
 };

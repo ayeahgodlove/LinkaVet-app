@@ -67,7 +67,7 @@ export const LessonForm: React.FC<Props> = ({ formMode }) => {
         setShow(true);
         setSubmitted(true);
       }
-    }
+    } 
 
     if (formMode === UpdateMode.EDIT) {
       const feedback = await editLesson(obj);

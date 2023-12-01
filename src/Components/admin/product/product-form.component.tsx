@@ -21,7 +21,7 @@ import { useFormInit } from "hooks/shared/form-init.hook";
 import { useUpload } from "hooks/shared/upload.hook";
 import { useStore } from "hooks/store.hook";
 import { useTag } from "hooks/tag.hook";
-import { IProduct } from "models/product.model";
+import { IProduct, ProductFormData } from "models/product.model";
 import { UpdateMode } from "models/shared/update-mode.enum";
 import React, { useEffect, useState } from "react";
 import ReactQuill from "react-quill";
@@ -89,8 +89,13 @@ export const ProductForm: React.FC<Props> = ({ formMode }) => {
       }
     }
 
+    const formData2: ProductFormData = {
+      ...formData,
+      id: product.id,
+    };
+
     if (formMode === UpdateMode.EDIT) {
-      const feedback = await editProduct(formData);
+      const feedback = await editProduct(formData2);
       if (feedback) {
         message.success("Product updated successfully!");
         setShow(false);

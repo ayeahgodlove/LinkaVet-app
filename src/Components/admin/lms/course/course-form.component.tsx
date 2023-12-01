@@ -16,7 +16,7 @@ import { useFormInit } from "hooks/shared/form-init.hook";
 import { useUpload } from "hooks/shared/upload.hook";
 import theme from "utils/themeConfig";
 import { useCourse } from "hooks/lms/course.hook";
-import { ICourse, emptyCourse } from "models/lms/course";
+import { CourseFormData, ICourse, emptyCourse } from "models/lms/course";
 
 type Props = {
   formMode: UpdateMode;
@@ -35,6 +35,7 @@ const CourseForm: React.FC<Props> = ({ formMode }) => {
 
   const onFinish = async (values: ICourse) => {
     const formData = new FormData();
+    formData.append("id", course.id);
     formData.append("title", values.title);
     formData.append("description", values.description);
     formData.append("authorId", user.id);
@@ -54,9 +55,13 @@ const CourseForm: React.FC<Props> = ({ formMode }) => {
         setShow(true);
       }
     }
+    const obj1: CourseFormData = {
+      ...formData,
+      id: course.id,
+    };
 
     if (formMode === UpdateMode.EDIT) {
-      const feedback = await editCourse(formData);
+      const feedback = await editCourse(obj1);
       if (feedback) {
         message.success("Course updated successfully!");
         setShow(false);

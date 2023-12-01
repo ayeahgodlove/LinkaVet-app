@@ -5,7 +5,7 @@ import { useFormErrors } from "./shared/form-error.hook";
 import { IRootState } from "../redux/store";
 import { storeService } from "../services/store.service";
 import { useToken } from "./auth/token.hook";
-import { IStore } from "models/store";
+import { IStore, StoreFormData } from "models/store";
 import { addStoreSuccess, editStoreSuccess, fetchStoresAsync, setActiveStore } from "redux/store.slice";
 import { useAuth } from "./auth/auth.hook";
 
@@ -45,7 +45,7 @@ const useStore = () => {
     dispatch(setActiveStore(store));
   };
 
-  const editStore = async (store: FormData) => {
+  const editStore = async (store: StoreFormData) => {
     return await storeService.update(store)
       .then((storeResponse) => {
         dispatch(editStoreSuccess(storeResponse.data));

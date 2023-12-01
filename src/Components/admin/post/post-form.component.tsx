@@ -11,7 +11,7 @@ import { useFormErrors } from "hooks/shared/form-error.hook";
 import { useFormInit } from "hooks/shared/form-init.hook";
 import { useUpload } from "hooks/shared/upload.hook";
 import { useTag } from "hooks/tag.hook";
-import { IPost } from "models/post";
+import { IPost, PostFormData } from "models/post";
 import { UpdateMode } from "models/shared/update-mode.enum";
 import React, { useEffect, useState } from "react";
 import ReactQuill from "react-quill";
@@ -25,7 +25,7 @@ export const PostForm: React.FC<Props> = ({ formMode }) => {
   const [form] = useForm();
   const { post, editPost, addPost } = usePost();
   const { categories } = useCategory();
-  const {tags} = useTag()
+  const { tags } = useTag();
   const { formError } = useFormErrors();
   const { setShow } = useModalContext();
   const { user } = useAuth();
@@ -56,7 +56,7 @@ export const PostForm: React.FC<Props> = ({ formMode }) => {
     values.tags.forEach((tag) => {
       formData.append("tags", tag);
     });
-    
+
     // Append the selected file(s) to the FormData object
     fileList.forEach((file: any) => {
       formData.append("imageUrl", file);
@@ -74,8 +74,12 @@ export const PostForm: React.FC<Props> = ({ formMode }) => {
       }
     }
 
+    const formData2: PostFormData = {
+      ...formData,
+      id: post.id,
+    };
     if (formMode === UpdateMode.EDIT) {
-      const feedback = await editPost(formData);
+      const feedback = await editPost(formData2);
       if (feedback) {
         message.success("Post updated successfully!");
         setShow(false);
@@ -133,7 +137,7 @@ export const PostForm: React.FC<Props> = ({ formMode }) => {
             </Form.Item>
           </Col>
           <Col xs={24} md={12}>
-          <Form.Item
+            <Form.Item
               name="tags"
               label="Select Tags"
               requiredMark

@@ -6,7 +6,11 @@ export interface ICourse {
   title: string;
   description: string;
   courseImage: string;
-  authorId: string
+  authorId: string;
+}
+
+export interface CourseFormData extends FormData {
+  id: string; // Assuming the ID is a string, adjust the type as needed
 }
 
 export const emptyCourse: ICourse = {
@@ -14,7 +18,7 @@ export const emptyCourse: ICourse = {
   title: "",
   description: "",
   courseImage: "",
-  authorId: ""
+  authorId: "",
 };
 
 export interface ICourseState extends IBaseState {
