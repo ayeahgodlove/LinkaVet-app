@@ -46,7 +46,7 @@ const AdminLessonDetailPage: React.FC = () => {
   };
 
   const createQuiz = () => {
-    setWidth("60rem");
+    setWidth("40rem");
     setTitle("Create Quiz");
     setContent(<QuizForm formMode={UpdateMode.ADD} />);
     setShow(true);
@@ -70,9 +70,6 @@ const AdminLessonDetailPage: React.FC = () => {
         <TitleBar
           title={"Lessons"}
           subTitle={"View and edit a lesson"}
-          showButton={true}
-          buttonLabel={"Edit Record"}
-          handleShow={editLesson}
           icon={<FiEdit />}
           showExtra
           extra={

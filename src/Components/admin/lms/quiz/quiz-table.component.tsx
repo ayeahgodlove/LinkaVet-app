@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { Card, Col, Input, Table } from "antd";
-import { useNavigate } from "react-router-dom";
 import { useQuizColumns } from "./quiz-column.component";
 import { NoContent } from "components/shared/no-content/no-content.component";
 import { useModalContext } from "context/app-modal.context";
@@ -13,7 +12,6 @@ import { SpinnerComponent } from "components/shared/spinner";
 import { useQuiz } from "hooks/lms/quiz.hook";
 import { IQuiz } from "models/lms/quiz";
 import { fetchquizSuccess } from "redux/lms/quiz.slice";
-import { useCourse } from "hooks/lms/course.hook";
 
 const { Search } = Input;
 
@@ -21,8 +19,6 @@ const QuizTable: React.FC = () => {
   const { quizs, setQuiz, initialFetch } = useQuiz();
   const { quizTableColumns } = useQuizColumns();
   const { setContent, setShow, setTitle, setWidth } = useModalContext();
-  const { getCourse } = useCourse();
-  const router = useNavigate();
 
   const [query, setQuery] = useState<string>("");
   const [isLoading, setLoading] = useState(false);
@@ -60,7 +56,6 @@ const QuizTable: React.FC = () => {
   // const route = use
   const handleRowClick = (quiz: IQuiz) => {
     setQuiz(quiz);
-    router(`/admin/quizs/${quiz.question}`);
   };
 
   useEffect(() => {

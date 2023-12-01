@@ -1,9 +1,9 @@
-import { Button, Form, Input, message } from "antd";
+import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
+import { Button, Form, Input, InputNumber, message } from "antd";
 import { useForm } from "antd/es/form/Form";
 import { FormErrorComponent } from "components/shared/form-error/form-error.component";
 import { useModalContext } from "context/app-modal.context";
 import { useQuiz } from "hooks/lms/quiz.hook";
-import { useFormErrors } from "hooks/shared/form-error.hook";
 import { useFormInit } from "hooks/shared/form-init.hook";
 import { IQuiz } from "models/lms/quiz";
 import { UpdateMode } from "models/shared/update-mode.enum";
@@ -16,7 +16,6 @@ export const QuizForm: React.FC<Props> = ({ formMode }) => {
   const { initFormData } = useFormInit();
   const [form] = useForm();
   const { quiz, editQuiz, addQuiz } = useQuiz();
-  const { formError } = useFormErrors();
   const { setShow } = useModalContext();
 
   const [hasSubmitted, setSubmitted] = useState(false);
@@ -91,6 +90,84 @@ export const QuizForm: React.FC<Props> = ({ formMode }) => {
           <Input />
         </Form.Item>
 
+        <Form.List
+          name="answers"
+          rules={[
+            {
+              validator: async (_, answers) => {
+                if (!answers || answers.length < 3) {
+                  return Promise.reject(new Error("At least 3 answers"));
+                } else {
+                  return Promise.resolve(); // Resolve the Promise when validation passes
+                }
+              },
+            },
+          ]}
+        >
+          {(fields, { add, remove }, { errors }) => (
+            <>
+              {fields.map((field, index) => (
+                <Form.Item
+                  label={index === 0 ? "Answers" : ""}
+                  required={false}
+                  key={field.key}
+                  style={{ marginBottom: 10 }}
+                >
+                  <div style={{ display: "flex" }}>
+                    <Form.Item
+                      {...field}
+                      validateTrigger={["onChange", "onBlur"]}
+                      rules={[
+                        {
+                          required: true,
+                          whitespace: true,
+                          message: "Please input answer or delete this field.",
+                        },
+                      ]}
+                      style={{ width: "100%"}}
+                    >
+                      <Input placeholder="answer" />
+                    </Form.Item>
+                    {fields.length > 1 ? (
+                      <div style={{ marginLeft: 5}}>
+                        <MinusCircleOutlined
+                          className="dynamic-delete-button"
+                          onClick={() => remove(field.name)}
+                          style={{ fontSize: 20, opacity: 0.6}}
+                        />
+                      </div>
+                    ) : null}
+                  </div>
+                </Form.Item>
+              ))}
+              <Form.Item style={{ marginBottom: 15 }}>
+                <Button
+                  type="dashed"
+                  onClick={() => add()}
+                  icon={<PlusOutlined />}
+                >
+                  Add field
+                </Button>
+                <Form.ErrorList errors={errors} />
+              </Form.Item>
+            </>
+          )}
+        </Form.List>
+
+        <Form.Item
+          name="correctAnswerIndex"
+          label="Correct Answer Index"
+          requiredMark
+          style={{ marginBottom: 10 }}
+          rules={[
+            {
+              required: true,
+              message: "Correct Answer Index is required",
+            },
+          ]}
+        >
+          <InputNumber name="correctAnswerIndex" style={{ width: "100%" }} />
+        </Form.Item>
         <Button
           type="primary"
           htmlType="submit"
