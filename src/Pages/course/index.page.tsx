@@ -24,7 +24,7 @@ const CoursePage: React.FC = () => {
             level={3}
             style={{ textAlign: "center", opacity: 0.8 }}
           >
-            Courses Listings
+            Courses
           </Typography.Title>
           <Divider />
         </Col>

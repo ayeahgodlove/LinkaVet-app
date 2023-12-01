@@ -34,6 +34,7 @@ import {
   FiUsers,
   FiHome,
   FiPhoneCall,
+  FiDatabase,
 } from "react-icons/fi";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import {
@@ -66,6 +67,11 @@ export const useAppShellMenus = () => {
   const { logoutUserFunction, isAuthenticated, user } = useAuth();
 
   const items2: MenuProps["items"] = [
+    {
+      label: "Dashboard",
+      key: "dashboard",
+      icon: <FiDatabase size={21} color="#023202" />,
+    },
     // blog
     {
       label: "Blog",
@@ -182,15 +188,15 @@ export const useAppShellMenus = () => {
           key: "courses",
           icon: <MdOutlineLibraryBooks size={21} color="#08a30a" />,
         },
-        {
-          label: (
-            <Link to="/admin/lessons" style={{ padding: 0 }}>
-              Lessons
-            </Link>
-          ),
-          key: "lessons",
-          icon: <MdPlayLesson size={21} color="#08a30a" />,
-        },
+        // {
+        //   label: (
+        //     <Link to="/admin/lessons" style={{ padding: 0 }}>
+        //       Lessons
+        //     </Link>
+        //   ),
+        //   key: "lessons",
+        //   icon: <MdPlayLesson size={21} color="#08a30a" />,
+        // },
         {
           label: (
             <Link to="/admin/enrollments" style={{ padding: 0 }}>
@@ -200,15 +206,15 @@ export const useAppShellMenus = () => {
           key: "enrollments",
           icon: <TbPlugConnected size={21} color="#08a30a" />,
         },
-        {
-          label: (
-            <Link to="/admin/quizes" style={{ padding: 0 }}>
-              Quizes
-            </Link>
-          ),
-          key: "quizes",
-          icon: <MdOutlineQuiz size={21} color="#08a30a" />,
-        },
+        // {
+        //   label: (
+        //     <Link to="/admin/quizes" style={{ padding: 0 }}>
+        //       Quizes
+        //     </Link>
+        //   ),
+        //   key: "quizes",
+        //   icon: <MdOutlineQuiz size={21} color="#08a30a" />,
+        // },
       ],
     },
     // configurations

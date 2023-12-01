@@ -13,7 +13,7 @@ const CourseList: React.FC<Props> = ({ slice = false }) => {
     <>
       {courses && courses.length > 0 ? (
         <List
-          className="post-list"
+          className="course-list"
           grid={{
             gutter: 0,
             xs: 1,

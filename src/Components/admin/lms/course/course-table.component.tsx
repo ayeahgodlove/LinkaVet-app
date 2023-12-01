@@ -54,7 +54,12 @@ export function CourseTable() {
 
   const handleRowClick = (course: ICourse) => {
     setCourse(course);
-    router(`/admin/courses/${slugify(course.description, "-")}`);
+    router(
+      `/admin/courses/${slugify(course.title, {
+        lower: true,
+        replacement: "-",
+      })}?tab=0`
+    );
   };
 
   const { Paragraph } = Typography;

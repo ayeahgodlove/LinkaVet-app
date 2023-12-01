@@ -35,7 +35,8 @@ const CourseForm: React.FC<Props> = ({ formMode }) => {
 
   const onFinish = async (values: ICourse) => {
     const formData = new FormData();
-    formData.append("name", values.description);
+    formData.append("title", values.title);
+    formData.append("description", values.description);
     formData.append("authorId", user.id);
 
     // Append the selected file(s) to the FormData object
@@ -74,6 +75,17 @@ const CourseForm: React.FC<Props> = ({ formMode }) => {
         initialValues={emptyCourse}
       >
         <Form.Item
+          name={"title"}
+          label="Title"
+          required={true}
+          rules={[
+            { required: true, message: "This field is a required field" },
+          ]}
+          style={{ marginBottom: 10 }}
+        >
+          <Input />
+        </Form.Item>
+        <Form.Item
           name={"description"}
           label="Description"
           required={true}
@@ -82,7 +94,7 @@ const CourseForm: React.FC<Props> = ({ formMode }) => {
           ]}
           style={{ marginBottom: 10 }}
         >
-          <Input />
+          <Input.TextArea rows={3} />
         </Form.Item>
 
         <Form.Item

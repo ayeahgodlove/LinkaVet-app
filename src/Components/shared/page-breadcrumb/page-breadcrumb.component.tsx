@@ -1,7 +1,5 @@
 import { Breadcrumb } from "antd";
 import React from "react";
-// import { useInfoBar } from '../../../hooks/common/info-bar/info-bar.hook'
-// import { useTranslation } from 'react-i18next'
 
 type Props = {
   items: string[];
@@ -23,13 +21,10 @@ const PageBreadCrumbs: React.FunctionComponent<Props> = ({
           fontSize: ".85rem",
           textTransform: "capitalize",
           ...style,
-          color: "#12638F",
         }}
         className={`mt-0 mb-md ${className}`}
       >
-        <Breadcrumb.Item key="default-key">
-          {"Home"}
-        </Breadcrumb.Item>
+        <Breadcrumb.Item key="default-key">{"Home"}</Breadcrumb.Item>
         {items.map((breadCrumb: string, index: number) => (
           <Breadcrumb.Item key={index.toString()}>{breadCrumb}</Breadcrumb.Item>
         ))}

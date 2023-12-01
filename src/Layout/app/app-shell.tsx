@@ -72,6 +72,7 @@ const AppShell: React.FC<IProps> = ({ children }) => {
                   collapsible
                   collapsed={collapsed}
                   onCollapse={handleCollapse}
+                  style={{ background: "#fff" }}
                 >
                   <Menu
                     mode="inline"
@@ -92,6 +93,7 @@ const AppShell: React.FC<IProps> = ({ children }) => {
                     className={`site-layout-background ${
                       show ? "app-shell-sidebar_show" : "app-shell-sidebar_hide"
                     }`}
+                    style={{ background: "#fff" }}
                   >
                     <Menu
                       mode="inline"

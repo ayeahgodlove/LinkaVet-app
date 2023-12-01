@@ -23,7 +23,13 @@ const LessonDetailComponent: React.FC = () => {
           },
           {
             label: "Content",
-            value: lesson.content,
+            value: (
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: lesson.content,
+                }}
+              />
+            ),
           },
           {
             label: "Duration",

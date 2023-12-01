@@ -15,7 +15,7 @@ export interface ILesson {
   keywords: string[];
 
    // Additional properties
-   author?: string;
+   author: string;
    category?: string;
    language?: string;
    targetAudience?: string;
@@ -34,6 +34,7 @@ export const emptyLesson: ILesson = {
   prerequisites: [],
   objectives: [],
   keywords: [],
+  author: ""
 };
 
 export interface ILessonState extends IBaseState {

@@ -13,11 +13,10 @@ export const courseTableColumns: ColumnsType<ICourse> = [
     render: (_, _record, index) => index + 1,
   },
   {
-    title: "Description",
-    dataIndex: "description",
-    key: "description",
+    title: "Title",
+    dataIndex: "title",
+    key: "title",
   },
-
   {
     title: "CourseImage",
     dataIndex: "courseImage",
@@ -27,7 +26,7 @@ export const courseTableColumns: ColumnsType<ICourse> = [
         width={100}
         height={100}
         src={`${API_URL_UPLOADS_COURSES}/${record.courseImage}`}
-        alt={record.description}
+        alt={record.title}
       />
     ),
   },

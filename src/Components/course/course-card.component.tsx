@@ -30,30 +30,17 @@ const CourseCard: React.FC<IProp> = ({ course }) => {
         }
         className="course-card"
       >
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-          }}
-        >
-          <div>
-            <Meta
-              title={
-                <Link to={`/courses/${slugify(course.title, { lower: true })}`}>
-                  {course.title}
-                </Link>
-              }
-              description={
-                <div
-                  dangerouslySetInnerHTML={{
-                    __html: course.description.slice(50, 400),
-                  }}
-                />
-              }
-            />
-            <RaterComponent />
-          </div>
+        <div>
+          <Meta
+            style={{ wordWrap: "break-word" }}
+            title={
+              <Link to={`/courses/${slugify(course.title, { lower: true })}`}>
+                {course.title}
+              </Link>
+            }
+            description={course.description.slice(0, 400)}
+          />
+          <RaterComponent />
         </div>
         <Button
           type="link"

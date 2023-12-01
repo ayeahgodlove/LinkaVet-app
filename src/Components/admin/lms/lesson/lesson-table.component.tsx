@@ -11,11 +11,15 @@ import { useLesson } from "hooks/lms/lesson.hook";
 import { LessonService } from "services/lms/lesson.service";
 import { ILesson } from "models/lms/lesson";
 import { fetchLessonSuccess } from "../../../../redux/lms/lesson.slice";
+import { useModalContext } from "context/app-modal.context";
+import { LessonForm } from "./lesson-form.component";
+import { UpdateMode } from "models/shared/update-mode.enum";
 
 const LessonTable: React.FC = () => {
   const { lessons, setLesson, initialFetch } = useLesson();
   const router = useNavigate();
   const { lessonTableColumns } = useLessonColumn();
+  const { setContent, setShow, setTitle, setWidth } = useModalContext();
 
   const [query, setQuery] = useState<string>("");
   const [isLoading, setLoading] = useState(false);
@@ -43,9 +47,19 @@ const LessonTable: React.FC = () => {
   // const route = use
   const handleRowClick = (lesson: ILesson) => {
     setLesson(lesson);
-    router(`/admin/lessons/${slugify(lesson.title, "-")}`);
-  };
+    router(`/admin/lessons/${slugify(lesson.title, "-")}?tab=0`);
+  }; 
 
+  const createLesson = () => {
+    setTitle("Create a Lesson");
+    setWidth("50rem");
+    setShow(true);
+    setContent(
+      <>
+        <LessonForm formMode={UpdateMode.ADD} />
+      </>
+    );
+  };
   useEffect(() => {
     (async () => {
       const lessonDATas = await getLessons();
@@ -95,7 +109,12 @@ const LessonTable: React.FC = () => {
           />
         </Card>
       ) : (
-        <NoContent title="No data for lesson" buttonLabel="Add Lesson" />
+        <NoContent
+          title="No data for lesson"
+          showButton
+          buttonLabel="Add Lesson"
+          handleClick={createLesson}
+        />
       )}
     </>
   );

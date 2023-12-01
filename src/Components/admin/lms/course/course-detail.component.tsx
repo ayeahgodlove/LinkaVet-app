@@ -11,6 +11,10 @@ const CourseDetailComponent: React.FC = () => {
         size="small"
         dataSource={[
           {
+            label: "Title",
+            value: <strong>{course.title}</strong>,
+          },
+          {
             label: "Description",
             value: course.description,
           },
