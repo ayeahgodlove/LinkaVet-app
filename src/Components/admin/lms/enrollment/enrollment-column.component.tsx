@@ -17,7 +17,7 @@ export const useEnrollmentColumns = () => {
       title: "Course",
       dataIndex: "courseId",
       key: "courseId",
-      render: (_, record) => getCourse(record.courseId).description,
+      render: (_, record) => getCourse(record.courseId).title,
     },
     {
       title: "User",
