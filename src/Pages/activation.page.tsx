@@ -13,7 +13,6 @@ const ActivationPage = () => {
       const activationEmail = async () => {
         try {
           const response = await UserService.activation(activationToken);
-          debugger;
           message.success(response.message);
         } catch (error: any) {
           message.error(error.message);

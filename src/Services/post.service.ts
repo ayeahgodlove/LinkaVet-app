@@ -6,7 +6,6 @@ export const PostService = {
   details: (code: string): Promise<IPostResponse> =>
     requestType.get(`/api/posts/${code}`),
   create: async (post: FormData): Promise<IPostResponse> => {
-    debugger;
     return requestType.post(`/api/posts`, post);
   },
   update: (post: PostFormData): Promise<IPostResponse> =>

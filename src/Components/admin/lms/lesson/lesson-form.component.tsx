@@ -1,3 +1,4 @@
+import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
 import {
   Button,
   Form,
@@ -50,6 +51,7 @@ export const LessonForm: React.FC<Props> = ({ formMode }) => {
     []
   );
 
+  console.log("course: ", course);
   const onFinish = async (values: ILesson) => {
     setSubmitting(true);
     setSubmitted(false);
@@ -179,77 +181,8 @@ export const LessonForm: React.FC<Props> = ({ formMode }) => {
           />
         </Form.Item>
 
-        <Row gutter={[8, 8]}>
-          <Col xs={24} md={12}>
-            <Form.Item
-              name="prerequisites"
-              label="Prerequisites"
-              requiredMark
-              required={true}
-              rules={[
-                {
-                  required: true,
-                  message: "Prerequisites are required",
-                },
-              ]}
-              style={{ marginBottom: 3 }}
-            >
-              <Select
-                mode="tags"
-                style={{ width: "100%" }}
-                placeholder="Type to add prerequisites"
-                options={[]}
-              />
-            </Form.Item>
-          </Col>
-          <Col xs={24} md={12}>
-            <Form.Item
-              name="objectives"
-              label="Objectives"
-              requiredMark
-              required={true}
-              rules={[
-                {
-                  required: true,
-                  message: "Prerequisites are required",
-                },
-              ]}
-              style={{ marginBottom: 3 }}
-            >
-              <Select
-                mode="tags"
-                style={{ width: "100%" }}
-                placeholder="Type to add objectives"
-                options={[]}
-              />
-            </Form.Item>
-          </Col>
-        </Row>
-
-        <Row gutter={[8, 8]}>
-          <Col xs={24} md={6}>
-            <Form.Item
-              name="keywords"
-              label="Keywords"
-              style={{ marginBottom: 3 }}
-              requiredMark
-              required={true}
-              rules={[
-                {
-                  required: true,
-                  message: "Prerequisites are required",
-                },
-              ]}
-            >
-              <Select
-                mode="tags"
-                style={{ width: "100%" }}
-                placeholder="Type to add keywords"
-                options={[]}
-              />
-            </Form.Item>
-          </Col>
-          <Col xs={24} md={6}>
+        <Row gutter={[8, 8]} style={{ marginBottom: 15 }}>
+          <Col xs={24} md={8}>
             <Form.Item
               name="category"
               label="Category"
@@ -267,7 +200,7 @@ export const LessonForm: React.FC<Props> = ({ formMode }) => {
               />
             </Form.Item>
           </Col>
-          <Col xs={24} md={6}>
+          <Col xs={24} md={8}>
             <Form.Item
               name="language"
               label="Language"
@@ -284,7 +217,7 @@ export const LessonForm: React.FC<Props> = ({ formMode }) => {
               />
             </Form.Item>
           </Col>
-          <Col xs={24} md={6}>
+          <Col xs={24} md={8}>
             <Form.Item name="author" label="Author" style={{ marginBottom: 3 }}>
               <Input
                 name="author"
@@ -293,6 +226,204 @@ export const LessonForm: React.FC<Props> = ({ formMode }) => {
               />
             </Form.Item>
           </Col>
+        </Row>
+        <Row gutter={[8, 8]}>
+          <Form.List
+            name="prerequisites"
+            rules={[
+              {
+                validator: async (_, prerequisites) => {
+                  if (!prerequisites || prerequisites.length < 3) {
+                    return Promise.reject(
+                      new Error("At least 3 prerequisites")
+                    );
+                  } else {
+                    return Promise.resolve(); // Resolve the Promise when validation passes
+                  }
+                },
+              },
+            ]}
+          >
+            {(fields, { add, remove }, { errors }) => (
+              <Col xs={24} md={8}>
+                {fields.map((field, index) => (
+                  <Form.Item
+                    label={index === 0 ? "Prerequisites" : ""}
+                    required={false}
+                    key={field.key}
+                    style={{ marginBottom: 10 }}
+                  >
+                    <div style={{ display: "flex" }}>
+                      <Form.Item
+                        {...field}
+                        validateTrigger={["onChange", "onBlur"]}
+                        rules={[
+                          {
+                            required: true,
+                            whitespace: true,
+                            message:
+                              "Please input answer or delete this field.",
+                          },
+                        ]}
+                        style={{ width: "100%", marginBottom: 5 }}
+                      >
+                        <Input placeholder="prerequisite" />
+                      </Form.Item>
+                      {fields.length > 1 ? (
+                        <div style={{ marginLeft: 5 }}>
+                          <MinusCircleOutlined
+                            className="dynamic-delete-button"
+                            onClick={() => remove(field.name)}
+                            style={{ fontSize: 20, opacity: 0.6 }}
+                          />
+                        </div>
+                      ) : null}
+                    </div>
+                  </Form.Item>
+                ))}
+                <Form.Item style={{ marginBottom: 15 }}>
+                  <Button
+                    type="dashed"
+                    onClick={() => add()}
+                    icon={<PlusOutlined />}
+                  >
+                    Add prerequisite
+                  </Button>
+                  <Form.ErrorList errors={errors} />
+                </Form.Item>
+              </Col>
+            )}
+          </Form.List>
+
+          <Form.List
+            name="objectives"
+            rules={[
+              {
+                validator: async (_, objectives) => {
+                  if (!objectives || objectives.length < 3) {
+                    return Promise.reject(new Error("At least 3 objectives"));
+                  } else {
+                    return Promise.resolve(); // Resolve the Promise when validation passes
+                  }
+                },
+              },
+            ]}
+          >
+            {(fields, { add, remove }, { errors }) => (
+              <Col xs={24} md={8}>
+                {fields.map((field, index) => (
+                  <Form.Item
+                    label={index === 0 ? "objectives" : ""}
+                    required={false}
+                    key={field.key}
+                    style={{ marginBottom: 10 }}
+                  >
+                    <div style={{ display: "flex" }}>
+                      <Form.Item
+                        {...field}
+                        validateTrigger={["onChange", "onBlur"]}
+                        rules={[
+                          {
+                            required: true,
+                            whitespace: true,
+                            message:
+                              "Please input answer or delete this field.",
+                          },
+                        ]}
+                        style={{ width: "100%", marginBottom: 5 }}
+                      >
+                        <Input placeholder="objectives" />
+                      </Form.Item>
+                      {fields.length > 1 ? (
+                        <div style={{ marginLeft: 5 }}>
+                          <MinusCircleOutlined
+                            className="dynamic-delete-button"
+                            onClick={() => remove(field.name)}
+                            style={{ fontSize: 20, opacity: 0.6 }}
+                          />
+                        </div>
+                      ) : null}
+                    </div>
+                  </Form.Item>
+                ))}
+                <Form.Item style={{ marginBottom: 15 }}>
+                  <Button
+                    type="dashed"
+                    onClick={() => add()}
+                    icon={<PlusOutlined />}
+                  >
+                    Add objective
+                  </Button>
+                  <Form.ErrorList errors={errors} />
+                </Form.Item>
+              </Col>
+            )}
+          </Form.List>
+
+          <Form.List
+            name="keywords"
+            rules={[
+              {
+                validator: async (_, keywords) => {
+                  if (!keywords || keywords.length < 3) {
+                    return Promise.reject(new Error("At least 3 keywords"));
+                  } else {
+                    return Promise.resolve(); // Resolve the Promise when validation passes
+                  }
+                },
+              },
+            ]}
+          >
+            {(fields, { add, remove }, { errors }) => (
+              <Col xs={24} md={8}>
+                {fields.map((field, index) => (
+                  <Form.Item
+                    label={index === 0 ? "keywords" : ""}
+                    required={false}
+                    key={field.key}
+                    style={{ marginBottom: 10 }}
+                  >
+                    <div style={{ display: "flex" }}>
+                      <Form.Item
+                        {...field}
+                        validateTrigger={["onChange", "onBlur"]}
+                        rules={[
+                          {
+                            required: true,
+                            whitespace: true,
+                            message:
+                              "Please input answer or delete this field.",
+                          },
+                        ]}
+                        style={{ width: "100%", marginBottom: 5 }}
+                      >
+                        <Input placeholder="keywords" />
+                      </Form.Item>
+                      {fields.length > 1 ? (
+                        <div style={{ marginLeft: 5 }}>
+                          <MinusCircleOutlined
+                            className="dynamic-delete-button"
+                            onClick={() => remove(field.name)}
+                            style={{ fontSize: 20, opacity: 0.6 }}
+                          />
+                        </div>
+                      ) : null}
+                    </div>
+                  </Form.Item>
+                ))}
+                <Form.Item style={{ marginBottom: 15 }}>
+                  <Button
+                    type="dashed"
+                    onClick={() => add()}
+                    icon={<PlusOutlined />}
+                  >
+                    Add keyword
+                  </Button>
+                  <Form.ErrorList errors={errors} />
+                </Form.Item>
+              </Col>
+            )}
+          </Form.List>
         </Row>
         <Button
           type="primary"

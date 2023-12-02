@@ -35,7 +35,6 @@ const BannerForm: React.FC<Props> = ({ formMode }) => {
 
   console.log("fileList: ", fileList)
   const onFinish = async (values: any) => {
-    debugger;
     const formData = new FormData();
     formData.append("title", values.title);
     formData.append("subTitle", values.subTitle);
