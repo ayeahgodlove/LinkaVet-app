@@ -9,6 +9,7 @@ export interface ILesson {
   content: string;
   duration: number;
   difficulty: string;
+  courseId: string;
   // dependencies
   prerequisites: string[];
   objectives: string[];
@@ -34,7 +35,8 @@ export const emptyLesson: ILesson = {
   prerequisites: [],
   objectives: [],
   keywords: [],
-  author: ""
+  author: "",
+  courseId: ""
 };
 
 export interface ILessonState extends IBaseState {

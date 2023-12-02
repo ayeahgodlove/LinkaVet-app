@@ -6,7 +6,7 @@ export interface IEnrollment {
   userId: string;
   courseId: string;
   enrollmentDate: Date;
-  completionDate: Date;
+  completionDate: Date; // get duration from course model and create a date from that values
 }
 
 export const emptyEnrollment: IEnrollment = {
@@ -16,7 +16,6 @@ export const emptyEnrollment: IEnrollment = {
   enrollmentDate: new Date(),
   completionDate: new Date(),
 };
-
 
 export interface IEnrollmentState extends IBaseState {
   readonly enrollments: IEnrollment[];

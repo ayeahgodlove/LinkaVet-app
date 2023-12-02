@@ -12,6 +12,7 @@ export interface IQuiz {
   question: string;
   answers: string[];
   correctAnswerIndex: number;
+  lessonId: string;
 }
 
 export const emptyQuiz: IQuiz = {
@@ -19,6 +20,7 @@ export const emptyQuiz: IQuiz = {
   question: "",
   answers: [""],
   correctAnswerIndex: 0,
+  lessonId: "",
 };
 
 export interface IQuizState extends IBaseState {

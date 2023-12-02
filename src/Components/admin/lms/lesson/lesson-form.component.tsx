@@ -15,6 +15,7 @@ import { modules } from "config/constant";
 import { useModalContext } from "context/app-modal.context";
 import { useAuth } from "hooks/auth/auth.hook";
 import { useCategory } from "hooks/category.hook";
+import { useCourse } from "hooks/lms/course.hook";
 import { useLesson } from "hooks/lms/lesson.hook";
 import { useFormErrors } from "hooks/shared/form-error.hook";
 import { useFormInit } from "hooks/shared/form-init.hook";
@@ -34,6 +35,7 @@ export const LessonForm: React.FC<Props> = ({ formMode }) => {
   const { setShow } = useModalContext();
   const { user } = useAuth();
   const { categories } = useCategory();
+  const { course } = useCourse();
 
   const [hasSubmitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
@@ -55,6 +57,7 @@ export const LessonForm: React.FC<Props> = ({ formMode }) => {
       ...lesson,
       ...values,
       authorId: user.id,
+      courseId: course.id,
     };
 
     if (formMode === UpdateMode.ADD) {
@@ -67,7 +70,7 @@ export const LessonForm: React.FC<Props> = ({ formMode }) => {
         setShow(true);
         setSubmitted(true);
       }
-    } 
+    }
 
     if (formMode === UpdateMode.EDIT) {
       const feedback = await editLesson(obj);

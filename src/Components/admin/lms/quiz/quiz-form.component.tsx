@@ -3,6 +3,7 @@ import { Button, Form, Input, InputNumber, message } from "antd";
 import { useForm } from "antd/es/form/Form";
 import { FormErrorComponent } from "components/shared/form-error/form-error.component";
 import { useModalContext } from "context/app-modal.context";
+import { useLesson } from "hooks/lms/lesson.hook";
 import { useQuiz } from "hooks/lms/quiz.hook";
 import { useFormInit } from "hooks/shared/form-init.hook";
 import { IQuiz } from "models/lms/quiz";
@@ -16,6 +17,7 @@ export const QuizForm: React.FC<Props> = ({ formMode }) => {
   const { initFormData } = useFormInit();
   const [form] = useForm();
   const { quiz, editQuiz, addQuiz } = useQuiz();
+  const { lesson } = useLesson();
   const { setShow } = useModalContext();
 
   const [hasSubmitted, setSubmitted] = useState(false);
@@ -37,6 +39,7 @@ export const QuizForm: React.FC<Props> = ({ formMode }) => {
     const obj: IQuiz = {
       ...quiz,
       ...values,
+      lessonId: lesson.id,
     };
 
     if (formMode === UpdateMode.ADD) {
@@ -124,16 +127,16 @@ export const QuizForm: React.FC<Props> = ({ formMode }) => {
                           message: "Please input answer or delete this field.",
                         },
                       ]}
-                      style={{ width: "100%"}}
+                      style={{ width: "100%" }}
                     >
                       <Input placeholder="answer" />
                     </Form.Item>
                     {fields.length > 1 ? (
-                      <div style={{ marginLeft: 5}}>
+                      <div style={{ marginLeft: 5 }}>
                         <MinusCircleOutlined
                           className="dynamic-delete-button"
                           onClick={() => remove(field.name)}
-                          style={{ fontSize: 20, opacity: 0.6}}
+                          style={{ fontSize: 20, opacity: 0.6 }}
                         />
                       </div>
                     ) : null}
