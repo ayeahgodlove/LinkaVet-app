@@ -233,9 +233,9 @@ export const LessonForm: React.FC<Props> = ({ formMode }) => {
             rules={[
               {
                 validator: async (_, prerequisites) => {
-                  if (!prerequisites || prerequisites.length < 3) {
+                  if (!prerequisites || prerequisites.length < 1) {
                     return Promise.reject(
-                      new Error("At least 3 prerequisites")
+                      new Error("At least 1 prerequisites")
                     );
                   } else {
                     return Promise.resolve(); // Resolve the Promise when validation passes
@@ -300,8 +300,8 @@ export const LessonForm: React.FC<Props> = ({ formMode }) => {
             rules={[
               {
                 validator: async (_, objectives) => {
-                  if (!objectives || objectives.length < 3) {
-                    return Promise.reject(new Error("At least 3 objectives"));
+                  if (!objectives || objectives.length < 1) {
+                    return Promise.reject(new Error("At least 1 objectives"));
                   } else {
                     return Promise.resolve(); // Resolve the Promise when validation passes
                   }
@@ -365,8 +365,8 @@ export const LessonForm: React.FC<Props> = ({ formMode }) => {
             rules={[
               {
                 validator: async (_, keywords) => {
-                  if (!keywords || keywords.length < 3) {
-                    return Promise.reject(new Error("At least 3 keywords"));
+                  if (!keywords || keywords.length < 1) {
+                    return Promise.reject(new Error("At least 1 keywords"));
                   } else {
                     return Promise.resolve(); // Resolve the Promise when validation passes
                   }
