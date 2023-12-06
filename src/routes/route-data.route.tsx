@@ -49,6 +49,10 @@ import AdminQuizPage from "pages/admin/lms/quiz/quiz.page";
 import AdminQuizDetailPage from "pages/admin/lms/quiz/quiz-detail.page";
 import CoursePage from "pages/course/index.page";
 import CourseDetailPage from "pages/course/course-detail.page";
+import AdminConsultationPage from "pages/admin/health/consultation/consultation.page";
+import AdminConsultationDetailPage from "pages/admin/health/consultation/consultation-detail.page";
+import AdminAppointmentPage from "pages/admin/health/appointment/appointment.page";
+import AdminAppointmentDetailPage from "pages/admin/health/appointment/appointment-detail.page";
 
 export const routes: IRoute[] = [
   {
@@ -323,6 +327,32 @@ export const routes: IRoute[] = [
     component: <AdminQuizDetailPage />,
   },
   // end course module
+
+  // health
+  {
+    path: "/admin/consultations",
+    private: true,
+    exact: true,
+    component: <AdminConsultationPage />,
+  },
+  {
+    path: "/admin/consultations/:id",
+    private: true,
+    exact: true,
+    component: <AdminConsultationDetailPage />,
+  },
+  {
+    path: "/admin/appointments",
+    private: true,
+    exact: true,
+    component: <AdminAppointmentPage />,
+  },
+  {
+    path: "/admin/appointments/:id",
+    private: true,
+    exact: true,
+    component: <AdminAppointmentDetailPage />,
+  },
 
   // business module
   {

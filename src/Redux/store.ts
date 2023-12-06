@@ -33,6 +33,8 @@ import { courseReducer } from "./lms/course.slice";
 import { lessonReducer } from "./lms/lesson.slice";
 import { enrollmentReducer } from "./lms/enrollment.slice";
 import { quizReducer } from "./lms/quiz.slice";
+import { consultationReducer } from "./health/consultation.slice";
+import { appointmentReducer } from "./health/appointment.slice";
 
 const middlewares: [any] = [thunkMiddleware];
 
@@ -61,6 +63,9 @@ export const rootReducer = combineReducers({
   lesson: lessonReducer,
   enrollment: enrollmentReducer,
   quiz: quizReducer,
+  // health
+  consultation: consultationReducer,
+  appointment: appointmentReducer
 });
 
 const persistConfig = {

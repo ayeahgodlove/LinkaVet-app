@@ -87,7 +87,7 @@ const courseDetailPage: React.FC = () => {
             }
             style={{ marginTop: 15 }}
           >
-            <Collapse defaultActiveKey={0} accordion>
+            <Collapse accordion>
               {lessons.map((lesson, index) => {
                 return (
                   <Collapse.Panel

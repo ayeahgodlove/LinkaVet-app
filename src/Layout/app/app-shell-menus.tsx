@@ -23,6 +23,7 @@ import {
 } from "react-icons/md";
 import {
   BiCategoryAlt,
+  BiHealth,
   BiMoneyWithdraw,
   BiPen,
   BiSolidDashboard,
@@ -49,6 +50,7 @@ import { ItemType } from "antd/es/menu/hooks/useItems";
 import { useTheme } from "hooks/shared/theme.hook";
 import { useShoppingCart } from "hooks/shopping-cart/shopping-cart.hook";
 import { useAuth } from "hooks/auth/auth.hook";
+import { GrScheduleNew } from "react-icons/gr";
 
 export const useAppShellMenus = () => {
   const [language, setLanguage] = useState("en");
@@ -95,6 +97,31 @@ export const useAppShellMenus = () => {
           ),
           key: "documents",
           icon: <TiDocumentText size={21} color="#08a30a" />,
+        },
+      ],
+    },
+    {
+      label: "Health",
+      key: "health",
+      icon: <BiHealth size={21} color="#023202" />,
+      children: [
+        {
+          label: (
+            <Link to="/admin/consultations" style={{ padding: 0 }}>
+              Consultations
+            </Link>
+          ),
+          key: "consultations",
+          icon: <FaBlog size={21} color="#08a30a" />,
+        },
+        {
+          label: (
+            <Link to="/admin/appointments" style={{ padding: 0 }}>
+              Appointments
+            </Link>
+          ),
+          key: "appointments",
+          icon: <GrScheduleNew  size={21} color="#08a30a" />,
         },
       ],
     },
