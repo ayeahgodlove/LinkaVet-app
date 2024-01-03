@@ -7,7 +7,7 @@ import {
   Upload,
   message,
 } from "antd";
-import React from "react";
+import React, { useEffect } from "react";
 import { UploadOutlined } from "@ant-design/icons";
 import { useAuth } from "hooks/auth/auth.hook";
 import { UpdateMode } from "models/shared/update-mode.enum";
@@ -31,9 +31,6 @@ const BannerForm: React.FC<Props> = ({ formMode }) => {
   const { fileList, onChangeUpload, onRemove, beforeUpload, progress } =
     useUpload();
 
-  initFormData(form, formMode, banner);
-
-  console.log("fileList: ", fileList)
   const onFinish = async (values: any) => {
     const formData = new FormData();
     formData.append("title", values.title);
@@ -67,6 +64,9 @@ const BannerForm: React.FC<Props> = ({ formMode }) => {
       }
     }
   };
+  useEffect(() => {
+    initFormData(form, formMode, banner);
+  }, []);
   return (
     <ConfigProvider theme={theme}>
       <Form

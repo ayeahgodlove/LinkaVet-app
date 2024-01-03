@@ -9,6 +9,7 @@ import {
   setActiveProduct,
 } from "../redux/product.slice";
 import { ProductService } from "services/product.service";
+import { useTag } from "./tag.hook";
 
 const useProduct = () => {
   const products = useSelector<IRootState, IProduct[]>(
@@ -25,6 +26,7 @@ const useProduct = () => {
   );
 
   const dispatch = useDispatch();
+  const { tags } = useTag();
 
   const loadProducts = useCallback(() => {
     if (initialFetch) {
@@ -68,6 +70,25 @@ const useProduct = () => {
     return product;
   };
 
+  // const uploadImage = async (product: ProductFormData) => {
+  //   return await ProductService.upload(product)
+  //     .then((resp) => {
+  //       dispatch(uploadProductImage(resp.data));
+  //       return true;
+  //     })
+  //     .catch((err) => {
+  //       setformError(err);
+  //       return false;
+  //     });
+  // };
+
+  const getProductTags = (product: IProduct): string[] => {
+    return product.tags.map((tagId) => {
+      const matchingTag = tags.find((tag) => tag.id === tagId);
+      return matchingTag ? matchingTag.name : "Unknown Tag"; // Handle missing tags
+    });
+  };
+
   useEffect(() => {
     // loadProducts();
   }, [product, products, isLoading, initialFetch, loadProducts]);
@@ -80,7 +101,8 @@ const useProduct = () => {
     addProduct,
     editProduct,
     setProduct,
-    getProduct
+    getProduct,
+    getProductTags
   };
 };
 

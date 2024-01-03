@@ -1,6 +1,12 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { ProductService } from "services/product.service";
-import { IProductState, emptyProduct, IProduct, IProductResponses } from "../models/product.model";
+import {
+  IProductState,
+  emptyProduct,
+  IProduct,
+  IProductResponses,
+  ProductFormData,
+} from "../models/product.model";
 
 export const initialState: IProductState = {
   products: [],
@@ -42,6 +48,13 @@ export const productSlice = createSlice({
         return product.id === action.payload.id ? action.payload : product;
       });
     },
+    // uploadProductImage: (state, action: PayloadAction<IProduct>) => {
+    //   state.products = state.products.map((product) => {
+    //     return product.id === action.payload.id
+    //       ? { ...action.payload, productImages: action.payload.productImages }
+    //       : { ...product, productImages: product.productImages };
+    //   });
+    // },
     addProductSuccess: (state, action: PayloadAction<IProduct>) => {
       state.products = [...state.products, action.payload];
     },
@@ -72,6 +85,7 @@ export const {
   editProductSuccess,
   addProductSuccess,
   setActiveProduct,
+  // uploadProductImage,
 } = productSlice.actions;
 
 const reducer = productSlice.reducer;

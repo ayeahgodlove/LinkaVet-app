@@ -44,8 +44,6 @@ export const ProductForm: React.FC<Props> = ({ formMode }) => {
   const [hasSubmitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
 
-  initFormData(form, formMode, product);
-
   const onChange = (value: string) => {
     console.log(`selected ${value}`);
   };
@@ -66,7 +64,6 @@ export const ProductForm: React.FC<Props> = ({ formMode }) => {
     // values.tags.forEach((tag) => {
     formData.append("tags", JSON.stringify(values.tags));
     // });
-    console.log("tags: ", values.tags);
     formData.append("amount", values.amount.toString());
     formData.append("qtty", values.qtty.toString());
     formData.append("storeId", `${getUserStore()?.id}`);
@@ -78,7 +75,7 @@ export const ProductForm: React.FC<Props> = ({ formMode }) => {
 
     console.log("fileList: ", fileList);
     if (formMode === UpdateMode.ADD) {
-      const feedback = await addProduct(formData);
+      const feedback = await addProduct(formData as any);
       if (feedback) {
         message.success("Product created successfully!");
         setShow(false);
@@ -95,7 +92,7 @@ export const ProductForm: React.FC<Props> = ({ formMode }) => {
     };
 
     if (formMode === UpdateMode.EDIT) {
-      const feedback = await editProduct(formData2);
+      const feedback = await editProduct(formData2 as any);
       if (feedback) {
         message.success("Product updated successfully!");
         setShow(false);
@@ -108,7 +105,9 @@ export const ProductForm: React.FC<Props> = ({ formMode }) => {
     setSubmitting(false);
   };
 
-  useEffect(() => {}, [hasSubmitted]);
+  useEffect(() => {
+    initFormData(form, formMode, product);
+  }, [hasSubmitted]);
 
   return (
     <>

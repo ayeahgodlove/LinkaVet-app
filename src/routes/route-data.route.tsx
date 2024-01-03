@@ -53,6 +53,7 @@ import AdminConsultationPage from "pages/admin/health/consultation/consultation.
 import AdminConsultationDetailPage from "pages/admin/health/consultation/consultation-detail.page";
 import AdminAppointmentPage from "pages/admin/health/appointment/appointment.page";
 import AdminAppointmentDetailPage from "pages/admin/health/appointment/appointment-detail.page";
+import CourseEnrollmentPaymentPage from "pages/course/course-enrollment-payment.page";
 
 export const routes: IRoute[] = [
   {
@@ -139,7 +140,12 @@ export const routes: IRoute[] = [
     exact: true,
     component: <CourseDetailPage />,
   },
-
+  {
+    path: "/courses/:title/enrollment",
+    private: false,
+    exact: true,
+    component: <CourseEnrollmentPaymentPage />,
+  },
   /**
    * dashboard route
    */

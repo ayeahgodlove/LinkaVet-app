@@ -22,8 +22,6 @@ export const TagForm: React.FC<Props> = ({ formMode }) => {
   const [hasSubmitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
 
-  initFormData(form, formMode, tag);
-
   const onClose = useCallback(
     (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
       setSubmitted(false);
@@ -67,7 +65,9 @@ export const TagForm: React.FC<Props> = ({ formMode }) => {
     setSubmitting(false);
   };
 
-  useEffect(() => {}, [hasSubmitted]);
+  useEffect(() => {
+    initFormData(form, formMode, tag);
+  }, [hasSubmitted]);
 
   return (
     <>

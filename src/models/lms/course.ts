@@ -7,6 +7,7 @@ export interface ICourse {
   description: string;
   courseImage: string;
   authorId: string;
+  price: number
 }
 
 export interface CourseFormData extends FormData {
@@ -19,6 +20,7 @@ export const emptyCourse: ICourse = {
   description: "",
   courseImage: "",
   authorId: "",
+  price: 0
 };
 
 export interface ICourseState extends IBaseState {

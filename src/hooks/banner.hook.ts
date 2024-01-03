@@ -6,21 +6,31 @@ import { IRootState } from "../redux/store";
 import { bannerService } from "../services/banner.service";
 import { useToken } from "./auth/token.hook";
 import { IBanner } from "models/banner";
-import { addBannerSuccess, editBannerSuccess, fetchBannersAsync, setActiveBanner } from "redux/banner.slice";
+import {
+  addBannerSuccess,
+  deleteBanner,
+  editBannerSuccess,
+  fetchBannersAsync,
+  setActiveBanner,
+} from "redux/banner.slice";
 
 const useBanner = () => {
-  const banners = useSelector<IRootState, IBanner[]>((state) => state.banner.banners);
+  const banners = useSelector<IRootState, IBanner[]>(
+    (state) => state.banner.banners
+  );
   const isLoading = useSelector<IRootState, boolean>(
     (state) => state.banner.isLoading
   );
   const initialFetch = useSelector<IRootState, boolean>(
     (state) => state.banner.initialFetch
   );
-  const banner = useSelector<IRootState, IBanner>((state) => state.banner.banner);
+  const banner = useSelector<IRootState, IBanner>(
+    (state) => state.banner.banner
+  );
 
   const dispatch = useDispatch();
-  const { setformError } = useFormErrors()
-  const {token} = useToken();
+  const { setformError } = useFormErrors();
+  const { token } = useToken();
 
   const loadBanners = useCallback(() => {
     if (initialFetch) {
@@ -29,30 +39,45 @@ const useBanner = () => {
   }, [dispatch, initialFetch]);
 
   const addBanner = async (banner: IBanner) => {
-    return await bannerService.create(banner)
+    return await bannerService
+      .create(banner)
       .then((bannerResponse) => {
         dispatch(addBannerSuccess(bannerResponse.data));
         return true;
       })
       .catch((error) => {
-        setformError(error)
+        setformError(error);
         return false;
       });
   };
 
+  const delBanner = async (banner: IBanner) => {
+    return await bannerService
+      .delete(banner)
+      .then((resp) => {
+        console.log("resp: ", resp);
+        dispatch(deleteBanner(banner));
+        return true;
+      })
+      .catch((error) => {
+        console.log("error: ", error);
+        return false;
+      });
+  };
   const setBanner = (banner: IBanner) => {
     dispatch(setActiveBanner(banner));
   };
 
   const editBanner = async (banner: IBanner) => {
-    return await bannerService.update(banner)
+    return await bannerService
+      .update(banner)
       .then((bannerResponse) => {
         dispatch(editBannerSuccess(bannerResponse.data));
         setBanner(bannerResponse.data);
         return true;
       })
       .catch((error) => {
-        setformError(error)
+        setformError(error);
         return false;
       });
   };
@@ -69,6 +94,7 @@ const useBanner = () => {
     addBanner,
     editBanner,
     setBanner,
+    delBanner
   };
 };
 

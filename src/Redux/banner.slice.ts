@@ -1,5 +1,10 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { emptyBanner, IBanner, IBannerResponses, IBannerState } from "models/banner";
+import {
+  emptyBanner,
+  IBanner,
+  IBannerResponses,
+  IBannerState,
+} from "models/banner";
 import { bannerService } from "services/banner.service";
 
 export const initialState: IBannerState = {
@@ -48,16 +53,24 @@ export const bannerSlice = createSlice({
     setActiveBanner: (state, action: PayloadAction<IBanner>) => {
       state.banner = action.payload;
     },
+    deleteBanner: (state, action: PayloadAction<IBanner>) => {
+      state.banners = state.banners.filter(
+        (item) => item.id !== action.payload.id
+      ); // Assuming items have an 'id' property
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchBannersAsync.pending, (state) => {
       state.isLoading = true;
     });
-    builder.addCase(fetchBannersAsync.fulfilled, (state, action: PayloadAction<IBannerResponses>) => {
-      state.isLoading = false;
-      state.initialFetch = false;
-      state.banners = action.payload.data;
-    });
+    builder.addCase(
+      fetchBannersAsync.fulfilled,
+      (state, action: PayloadAction<IBannerResponses>) => {
+        state.isLoading = false;
+        state.initialFetch = false;
+        state.banners = action.payload.data;
+      }
+    );
     builder.addCase(fetchBannersAsync.rejected, (state, action) => {
       state.isLoading = false;
       state.errors = action.payload;
@@ -72,6 +85,7 @@ export const {
   editBannerSuccess,
   addBannerSuccess,
   setActiveBanner,
+  deleteBanner,
 } = bannerSlice.actions;
 
 const reducer = bannerSlice.reducer;

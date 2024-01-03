@@ -5,7 +5,7 @@ import React from "react";
 import { format } from "utils/format";
 
 const ProductDetailComponent: React.FC = () => {
-  const { product } = useProduct();
+  const { product, getProductTags } = useProduct();
   return (
     <Card bordered={false} size="small">
       <List
@@ -42,11 +42,11 @@ const ProductDetailComponent: React.FC = () => {
             value: (
               <Row gutter={[8, 8]}>
                 {product.productImages.map((image) => (
-                  <Col key={image.id} xs={24} md={6}>
+                  <Col key={image} xs={24} md={6}>
                     <Card bordered={false}>
                       <Image
-                        src={`${API_URL_UPLOADS_PRODUCTS}/${image.imageUrl}`}
-                        alt={image.productName}
+                        src={`${API_URL_UPLOADS_PRODUCTS}/${image}`}
+                        alt={image}
                       />
                     </Card>
                   </Col>
@@ -56,8 +56,8 @@ const ProductDetailComponent: React.FC = () => {
           },
           {
             label: "Tags",
-            value: product.tags.map((tag) => (
-              <Tag key={tag.id}>{tag.name}</Tag>
+            value: getProductTags(product).map((tag) => (
+              <Tag key={tag}>{tag}</Tag>
             )),
           },
         ]}

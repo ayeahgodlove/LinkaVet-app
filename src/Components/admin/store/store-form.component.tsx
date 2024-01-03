@@ -7,7 +7,7 @@ import {
   Upload,
   message,
 } from "antd";
-import React from "react";
+import React, { useEffect } from "react";
 import { UploadOutlined } from "@ant-design/icons";
 import { useAuth } from "hooks/auth/auth.hook";
 import { UpdateMode } from "models/shared/update-mode.enum";
@@ -30,8 +30,6 @@ const StoreForm: React.FC<Props> = ({ formMode }) => {
   const { initFormData } = useFormInit();
   const { fileList, onChangeUpload, onRemove, beforeUpload, progress } =
     useUpload();
-
-  initFormData(form, formMode, store);
 
   const onFinish = async (values: IStore) => {
     const formData = new FormData();
@@ -70,6 +68,10 @@ const StoreForm: React.FC<Props> = ({ formMode }) => {
       }
     }
   };
+
+  useEffect(() => {
+    initFormData(form, formMode, store);
+  }, []);
   return (
     <ConfigProvider theme={theme}>
       <Form

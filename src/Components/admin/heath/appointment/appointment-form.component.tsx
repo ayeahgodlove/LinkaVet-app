@@ -1,12 +1,5 @@
-import {
-  Button,
-  ConfigProvider,
-  Form,
-  Input,
-  Space,
-  message,
-} from "antd";
-import React from "react";
+import { Button, ConfigProvider, Form, Input, Space, message } from "antd";
+import React, { useEffect } from "react";
 import { UpdateMode } from "models/shared/update-mode.enum";
 import { useModalContext } from "context/app-modal.context";
 import { useFormInit } from "hooks/shared/form-init.hook";
@@ -24,15 +17,10 @@ const AppointmentForm: React.FC<Props> = ({ formMode }) => {
   const { setShow } = useModalContext();
   const { initFormData } = useFormInit();
 
-
-  initFormData(form, formMode, appointment);
-
   const onFinish = async (values: any) => {
-
     const obj: IAppointment = {
       ...values,
-
-    }
+    };
 
     if (formMode === UpdateMode.ADD) {
       const feedback = await addAppointment(obj);
@@ -56,6 +44,10 @@ const AppointmentForm: React.FC<Props> = ({ formMode }) => {
       }
     }
   };
+
+  useEffect(() => {
+    initFormData(form, formMode, appointment);
+  }, []);
   return (
     <ConfigProvider theme={theme}>
       <Form

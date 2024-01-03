@@ -41,8 +41,6 @@ export const LessonForm: React.FC<Props> = ({ formMode }) => {
   const [hasSubmitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
 
-  initFormData(form, formMode, lesson);
-
   const onClose = useCallback(
     (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
       setSubmitted(false);
@@ -51,7 +49,6 @@ export const LessonForm: React.FC<Props> = ({ formMode }) => {
     []
   );
 
-  console.log("course: ", course);
   const onFinish = async (values: ILesson) => {
     setSubmitting(true);
     setSubmitted(false);
@@ -88,7 +85,9 @@ export const LessonForm: React.FC<Props> = ({ formMode }) => {
     setSubmitting(false);
   };
 
-  useEffect(() => {}, [hasSubmitted]);
+  useEffect(() => {
+    initFormData(form, formMode, lesson);
+  }, [hasSubmitted]);
 
   return (
     <>

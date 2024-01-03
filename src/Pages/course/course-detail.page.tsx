@@ -17,12 +17,18 @@ import GeneralAppShell from "layout/app/general-app-shell";
 import React from "react";
 import "./course-detail.style.scss";
 import { FiPlayCircle } from "react-icons/fi";
+import { useNavigate } from "react-router-dom";
+import slugify from "slugify";
 
 const courseDetailPage: React.FC = () => {
   const { course } = useCourse();
   const { getUser } = useUser();
   const { lessons } = useLesson();
+  const navigate = useNavigate()
 
+  const onEnrollCourse = () => {
+    navigate(`/courses/${slugify(course.title, { lower: true })}/enrollment`)
+  }
   return (
     <GeneralAppShell>
       <Row
@@ -141,7 +147,7 @@ const courseDetailPage: React.FC = () => {
                 </Typography.Text>
               </Descriptions.Item>
             </Descriptions>
-            <Button type="primary" block>
+            <Button type="primary" block onClick={onEnrollCourse}>
               Enroll for this course
             </Button>
           </Card>

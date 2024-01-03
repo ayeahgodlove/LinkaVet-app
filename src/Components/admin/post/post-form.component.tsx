@@ -34,8 +34,6 @@ export const PostForm: React.FC<Props> = ({ formMode }) => {
   const [hasSubmitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
 
-  initFormData(form, formMode, post);
-
   const onChange = (value: string) => {
     console.log(`selected ${value}`);
   };
@@ -92,7 +90,9 @@ export const PostForm: React.FC<Props> = ({ formMode }) => {
     setSubmitting(false);
   };
 
-  useEffect(() => {}, [hasSubmitted]);
+  useEffect(() => {
+    initFormData(form, formMode, post);
+  }, [hasSubmitted]);
 
   return (
     <>

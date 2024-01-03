@@ -23,8 +23,6 @@ export const QuizForm: React.FC<Props> = ({ formMode }) => {
   const [hasSubmitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
 
-  initFormData(form, formMode, quiz);
-
   const onClose = useCallback(
     (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
       setSubmitted(false);
@@ -68,7 +66,9 @@ export const QuizForm: React.FC<Props> = ({ formMode }) => {
     setSubmitting(false);
   };
 
-  useEffect(() => {}, [hasSubmitted]);
+  useEffect(() => {
+    initFormData(form, formMode, quiz);
+  }, [hasSubmitted]);
 
   return (
     <>

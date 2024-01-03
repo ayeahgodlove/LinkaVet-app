@@ -14,17 +14,24 @@ import {
   Typography,
   message,
 } from "antd";
+import BackButton from "components/shared/back-button.component";
+import { useCourse } from "hooks/lms/course.hook";
+import { useLesson } from "hooks/lms/lesson.hook";
+import { useUser } from "hooks/user.hook";
 import GeneralAppShell from "layout/app/general-app-shell";
 import React, { useEffect, useState } from "react";
-import "./checkout.style.scss";
-import { ProcessPaymentService } from "services/process-payment.service";
-import { IInitPayment } from "models/init-payment.model";
-import BackButton from "components/shared/back-button.component";
-import CheckoutSummaryComponent from "components/product/checkout-summary.component";
+import "./course-detail.style.scss";
 import { useNavigate } from "react-router-dom";
 import { useInitTransaction } from "hooks/shopping-cart/init-transaction.hook";
+import { IInitPayment } from "models/init-payment.model";
+import { ProcessPaymentService } from "services/process-payment.service";
+import { PiEqualsLight } from "react-icons/pi";
+import { TiTimes } from "react-icons/ti";
 
-export const PageCheckoutPage = () => {
+const CourseEnrollmentPaymentPage: React.FC = () => {
+  const { course } = useCourse();
+  const { getUser } = useUser();
+  const { lessons } = useLesson();
   const [form] = Form.useForm();
   const [mode, setMode] = useState("mtn");
   const [method, setMethod] = useState("MOMO");
@@ -238,9 +245,65 @@ export const PageCheckoutPage = () => {
         <Col xs={24} md={10} className="checkout-summary">
           <Typography.Title level={3}>Order details summary</Typography.Title>
           {/* summary details */}
-          <CheckoutSummaryComponent />
+          <>
+            <>
+              <Typography.Title
+                style={{ marginBottom: 0, opacity: 0.78 }}
+                level={5}
+              >
+                Summary Details:{" "}
+              </Typography.Title>
+              <Typography.Paragraph
+                key={course.id}
+                style={{ display: "flex", alignItems: "center" }}
+              >
+                <span>{course.title}</span> <PiEqualsLight />{" "}
+                <span>Unit Price: {5000 + "XAF"}</span>
+              </Typography.Paragraph>
+            </>
+
+            <Typography.Title
+              style={{ marginBottom: 0, opacity: 0.78 }}
+              level={5}
+            >
+              Total Amount:{" "}
+            </Typography.Title>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "flex-start",
+              }}
+            >
+              <Typography.Text
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                }}
+              >
+                <span>Unit Price</span> <TiTimes /> <span>Quantity</span>
+              </Typography.Text>
+
+              <Typography.Title
+                style={{
+                  marginBottom: 0,
+                  marginTop: 0,
+                  display: "flex",
+                  alignItems: "center",
+                }}
+                level={4}
+              >
+                <PiEqualsLight />{" "}
+                <span>
+                  {course.price} {" XAF"}
+                </span>
+              </Typography.Title>
+            </div>
+          </>
         </Col>
       </Row>
     </GeneralAppShell>
   );
 };
+
+export default CourseEnrollmentPaymentPage;

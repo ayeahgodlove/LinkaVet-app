@@ -1,12 +1,5 @@
-import {
-  Button,
-  ConfigProvider,
-  Form,
-  Input,
-  Space,
-  message,
-} from "antd";
-import React from "react";
+import { Button, ConfigProvider, Form, Input, Space, message } from "antd";
+import React, { useEffect } from "react";
 import { UpdateMode } from "models/shared/update-mode.enum";
 import { useModalContext } from "context/app-modal.context";
 import { useFormInit } from "hooks/shared/form-init.hook";
@@ -23,8 +16,6 @@ const ConsultationForm: React.FC<Props> = ({ formMode }) => {
   const { addConsultation, editConsultation, consultation } = useConsultation();
   const { setShow } = useModalContext();
   const { initFormData } = useFormInit();
-
-  initFormData(form, formMode, consultation);
 
   const onFinish = async (values: any) => {
     const obj: IConsultation = {
@@ -53,6 +44,10 @@ const ConsultationForm: React.FC<Props> = ({ formMode }) => {
       }
     }
   };
+
+  useEffect(() => {
+    initFormData(form, formMode, consultation);
+  }, []);
   return (
     <ConfigProvider theme={theme}>
       <Form

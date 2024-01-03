@@ -24,8 +24,6 @@ export const EnrollmentForm: React.FC<Props> = ({ formMode }) => {
   const [hasSubmitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
 
-  initFormData(form, formMode, enrollment);
-
   const onClose = useCallback(
     (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
       setSubmitted(false);
@@ -72,7 +70,9 @@ export const EnrollmentForm: React.FC<Props> = ({ formMode }) => {
     setSubmitting(false);
   };
 
-  useEffect(() => {}, [hasSubmitted]);
+  useEffect(() => {
+    initFormData(form, formMode, enrollment);
+  }, [hasSubmitted]);
 
   return (
     <>

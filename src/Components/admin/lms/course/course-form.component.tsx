@@ -7,7 +7,7 @@ import {
   Upload,
   message,
 } from "antd";
-import React from "react";
+import React, { useEffect } from "react";
 import { UploadOutlined } from "@ant-design/icons";
 import { useAuth } from "hooks/auth/auth.hook";
 import { UpdateMode } from "models/shared/update-mode.enum";
@@ -30,8 +30,6 @@ const CourseForm: React.FC<Props> = ({ formMode }) => {
   const { initFormData } = useFormInit();
   const { fileList, onChangeUpload, onRemove, beforeUpload, progress } =
     useUpload();
-
-  initFormData(form, formMode, course);
 
   const onFinish = async (values: ICourse) => {
     const formData = new FormData();
@@ -71,6 +69,10 @@ const CourseForm: React.FC<Props> = ({ formMode }) => {
       }
     }
   };
+
+  useEffect(() => {
+    initFormData(form, formMode, course);
+  }, []);
   return (
     <ConfigProvider theme={theme}>
       <Form

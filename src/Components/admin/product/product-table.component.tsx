@@ -3,9 +3,7 @@ import { Card, Col, Input, Table, Typography } from "antd";
 import { useNavigate } from "react-router-dom";
 import { useProduct } from "hooks/product.hook";
 import { NoContent } from "components/shared/no-content/no-content.component";
-import { useModalContext } from "context/app-modal.context";
 import { useDispatch } from "react-redux";
-import { ProductForm } from "./product-form.component";
 import { UpdateMode } from "models/shared/update-mode.enum";
 import { API_URL } from "config/constant";
 import search from "utils/search";
@@ -19,7 +17,6 @@ const { Search } = Input;
 
 const ProductTable: React.FC = () => {
   const { products, setProduct, initialFetch } = useProduct();
-  const { setContent, setShow, setTitle, setWidth } = useModalContext();
   const router = useNavigate();
   const { productTableColumns } = useProductColumn()
 
