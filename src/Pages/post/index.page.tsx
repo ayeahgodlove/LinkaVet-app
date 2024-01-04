@@ -1,10 +1,18 @@
 import { Col, Divider, Row, Typography } from "antd";
 import PostList from "components/post/post-list.component";
 import PageBannerComponent from "components/shared/page-banner/page-banner.component";
+import { useAuth } from "hooks/auth/auth.hook";
 import GeneralAppShell from "layout/app/general-app-shell";
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { fetchPostsAsync } from "redux/post.slice";
 
 const PostPage: React.FC = () => {
+  const { isLoading } = useAuth();
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchPostsAsync() as any);
+  }, [isLoading]);
   return (
     <GeneralAppShell>
       {/* Dummy banner */}

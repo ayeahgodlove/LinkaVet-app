@@ -3,6 +3,7 @@ import {
   ConfigProvider,
   Form,
   Input,
+  InputNumber,
   Space,
   Upload,
   message,
@@ -37,6 +38,7 @@ const CourseForm: React.FC<Props> = ({ formMode }) => {
     formData.append("title", values.title);
     formData.append("description", values.description);
     formData.append("authorId", user.id);
+    formData.append("price", values.price.toString())
 
     // Append the selected file(s) to the FormData object
     fileList.forEach((file: any) => {
@@ -91,6 +93,17 @@ const CourseForm: React.FC<Props> = ({ formMode }) => {
           style={{ marginBottom: 10 }}
         >
           <Input />
+        </Form.Item>
+        <Form.Item
+          name={"price"}
+          label="Price"
+          required={true}
+          rules={[
+            { required: true, message: "This field is a required field" },
+          ]}
+          style={{ marginBottom: 10 }}
+        >
+          <InputNumber style={{ width: "100%" }} />
         </Form.Item>
         <Form.Item
           name={"description"}

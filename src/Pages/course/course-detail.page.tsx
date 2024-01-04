@@ -19,16 +19,17 @@ import "./course-detail.style.scss";
 import { FiPlayCircle } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 import slugify from "slugify";
+import { NoContent } from "components/shared/no-content/no-content.component";
 
 const courseDetailPage: React.FC = () => {
   const { course } = useCourse();
   const { getUser } = useUser();
-  const { lessons } = useLesson();
-  const navigate = useNavigate()
+  const { getCourseLessons } = useLesson();
+  const navigate = useNavigate();
 
   const onEnrollCourse = () => {
-    navigate(`/courses/${slugify(course.title, { lower: true })}/enrollment`)
-  }
+    navigate(`/courses/${slugify(course.title, { lower: true })}/enrollment`);
+  };
   return (
     <GeneralAppShell>
       <Row
@@ -94,20 +95,25 @@ const courseDetailPage: React.FC = () => {
             style={{ marginTop: 15 }}
           >
             <Collapse accordion>
-              {lessons.map((lesson, index) => {
-                return (
-                  <Collapse.Panel
-                    header={
-                      <Typography.Title level={5}>
-                        {lesson.title}
-                      </Typography.Title>
-                    }
-                    key={index}
-                  >
-                    <Typography.Text>{lesson.description}</Typography.Text>
-                  </Collapse.Panel>
-                );
-              })}
+              {getCourseLessons(course.id) &&
+              getCourseLessons(course.id).length ? (
+                getCourseLessons(course.id).map((lesson, index) => {
+                  return (
+                    <Collapse.Panel
+                      header={
+                        <Typography.Title level={5}>
+                          {lesson.title}
+                        </Typography.Title>
+                      }
+                      key={index}
+                    >
+                      <Typography.Text>{lesson.description}</Typography.Text>
+                    </Collapse.Panel>
+                  );
+                })
+              ) : (
+                <NoContent title="No lessons at the moment..." />
+              )}
             </Collapse>
           </Card>
         </Col>

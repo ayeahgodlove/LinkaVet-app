@@ -14,12 +14,14 @@ import { fetchLessonSuccess } from "../../../../redux/lms/lesson.slice";
 import { useModalContext } from "context/app-modal.context";
 import { LessonForm } from "./lesson-form.component";
 import { UpdateMode } from "models/shared/update-mode.enum";
+import { useCourse } from "hooks/lms/course.hook";
 
 const LessonTable: React.FC = () => {
-  const { lessons, setLesson, initialFetch } = useLesson();
+  const { getCourseLessons, setLesson, initialFetch } = useLesson();
   const router = useNavigate();
   const { lessonTableColumns } = useLessonColumn();
   const { setContent, setShow, setTitle, setWidth } = useModalContext();
+  const { course } = useCourse();
 
   const [query, setQuery] = useState<string>("");
   const [isLoading, setLoading] = useState(false);
@@ -34,8 +36,9 @@ const LessonTable: React.FC = () => {
     return data;
   }, []);
 
-  const resultLessons: ILesson[] = lessons.filter((lesson) =>
-    search(lesson, ["title", "description", "difficulty"], query, false)
+  const resultLessons: ILesson[] = getCourseLessons(course.id).filter(
+    (lesson) =>
+      search(lesson, ["title", "description", "difficulty"], query, false)
   );
 
   const onChange = (query: any) => {
@@ -48,7 +51,7 @@ const LessonTable: React.FC = () => {
   const handleRowClick = (lesson: ILesson) => {
     setLesson(lesson);
     router(`/admin/lessons/${slugify(lesson.title, "-")}?tab=0`);
-  }; 
+  };
 
   const createLesson = () => {
     setTitle("Create a Lesson");
@@ -74,7 +77,7 @@ const LessonTable: React.FC = () => {
 
   return (
     <>
-      {lessons && lessons.length ? (
+      {getCourseLessons(course.id) && getCourseLessons(course.id).length ? (
         <Card
           title={
             <Col xs={24} md={10} lg={6}>
@@ -91,7 +94,7 @@ const LessonTable: React.FC = () => {
             dataSource={
               resultLessons && resultLessons.length > 0
                 ? resultLessons
-                : lessons
+                : getCourseLessons(course.id)
             }
             columns={lessonTableColumns}
             style={{ borderRadius: 0 }}

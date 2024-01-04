@@ -1,10 +1,18 @@
 import { Col, Divider, Row, Typography } from "antd";
 import CourseList from "components/course/course-list.component";
 import PageBannerComponent from "components/shared/page-banner/page-banner.component";
+import { useAuth } from "hooks/auth/auth.hook";
 import GeneralAppShell from "layout/app/general-app-shell";
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { fetchCoursesAsync } from "redux/lms/course.slice";
 
 const CoursePage: React.FC = () => {
+  const { isLoading } = useAuth();
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchCoursesAsync() as any);
+  }, [isLoading]);
   return (
     <GeneralAppShell>
       {/* Dummy banner */}

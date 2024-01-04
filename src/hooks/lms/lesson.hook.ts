@@ -62,6 +62,10 @@ const useLesson = () => {
         return false;
       });
   };
+  
+  const getCourseLessons = useCallback((courseId: string) => {
+    return lessons.filter(l => l.courseId === courseId)
+  }, [])
 
   const getLesson = useCallback((lessonId: string) => {
     const lesson = lessons.find((c) => c.id === lessonId);
@@ -84,6 +88,7 @@ const useLesson = () => {
     editLesson,
     setLesson,
     getLesson,
+    getCourseLessons
   };
 };
 
