@@ -8,7 +8,7 @@ import { generateShadesOfColor, tagColor } from "utils/tag-generator";
 import ProductAddToCart from "./product-add-to-cart.component";
 
 const ProductDetail: React.FC = () => {
-  const { product } = useProduct();
+  const { product, getProductTags } = useProduct();
   const { tags } = useTag();
   const { getCategory } = useCategory();
 
@@ -55,11 +55,11 @@ const ProductDetail: React.FC = () => {
             value: (
               <Row gutter={[8, 8]}>
                 {product.productImages.map((image) => (
-                  <Col key={image.id} xs={24} md={6}>
+                  <Col key={image} xs={24} md={6}>
                     <Card bordered={false}>
                       <Image
-                        src={`${API_URL_UPLOADS_PRODUCTS}/${image.imageUrl}`}
-                        alt={image.productName}
+                        src={`${API_URL_UPLOADS_PRODUCTS}/${image}`}
+                        alt={product.name}
                       />
                     </Card>
                   </Col>
@@ -69,9 +69,9 @@ const ProductDetail: React.FC = () => {
           },
           {
             label: "Tags",
-            value: product.tags.map((tag, index) => (
-              <Tag key={tag.id} color={shades[index]}>
-                {tag.name}
+            value: getProductTags(product).map((tag, index) => (
+              <Tag key={tag} color={shades[index]}>
+                {tag}
               </Tag>
             )),
           },

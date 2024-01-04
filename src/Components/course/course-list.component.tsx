@@ -9,6 +9,10 @@ interface Props {
 }
 const CourseList: React.FC<Props> = ({ slice = false }) => {
   const { courses, setCourse } = useCourse();
+  const handleCourseClick = (courseId: string) => {
+    const course = courses.find((course) => course.id === courseId);
+    setCourse(course!);
+  };
   return (
     <>
       {courses && courses.length > 0 ? (
@@ -25,8 +29,13 @@ const CourseList: React.FC<Props> = ({ slice = false }) => {
           }}
           dataSource={slice ? courses.slice(0, 4) : courses}
           renderItem={(course) => {
-            setCourse(course);
-            return <CourseCard course={course} key={course.id} />;
+            return (
+              <CourseCard
+                course={course}
+                key={course.id}
+                onCourseClick={handleCourseClick}
+              />
+            );
           }}
         />
       ) : (

@@ -124,7 +124,7 @@ const ProductBannerComponent = () => {
                 <span>Browse products</span>
               </Space>
             </Button>
-          </Card>
+          </Card> 
         </Col>
         <Col xs={24} md={8} className="product-column">
           <Carousel

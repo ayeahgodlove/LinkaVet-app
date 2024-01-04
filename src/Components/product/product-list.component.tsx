@@ -19,7 +19,7 @@ const ProductList: React.FC = () => {
   const [view, setView] = useState("grid");
 
   const { width } = useWindowSize();
-
+ 
   const onChange = (query: any) => {
     setQuery(query.target.value);
   };

@@ -14,22 +14,33 @@ import { useCourse } from "hooks/lms/course.hook";
 import { useLesson } from "hooks/lms/lesson.hook";
 import { useUser } from "hooks/user.hook";
 import GeneralAppShell from "layout/app/general-app-shell";
-import React from "react";
+import React, { useEffect } from "react";
 import "./course-detail.style.scss";
 import { FiPlayCircle } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 import slugify from "slugify";
 import { NoContent } from "components/shared/no-content/no-content.component";
+import { useDispatch } from "react-redux";
+import { fetchLessonsAsync } from "redux/lms/lesson.slice";
+import { fetchUsersAsync } from "redux/user.slice";
 
 const courseDetailPage: React.FC = () => {
   const { course } = useCourse();
   const { getUser } = useUser();
-  const { getCourseLessons } = useLesson();
+  const { lessons } = useLesson();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const onEnrollCourse = () => {
-    navigate(`/courses/${slugify(course.title, { lower: true })}/enrollment`);
+    navigate(`/courses/${slugify(course.title, { lower: true })}/enrollment-payment`);
   };
+
+  const courseLessons = lessons.filter(l => l.courseId === course.id);
+  console.log("lessons: ", lessons, course)
+  useEffect(() => {
+    dispatch(fetchUsersAsync() as any);
+    dispatch(fetchLessonsAsync() as any);
+  }, []);
   return (
     <GeneralAppShell>
       <Row
@@ -95,9 +106,9 @@ const courseDetailPage: React.FC = () => {
             style={{ marginTop: 15 }}
           >
             <Collapse accordion>
-              {getCourseLessons(course.id) &&
-              getCourseLessons(course.id).length ? (
-                getCourseLessons(course.id).map((lesson, index) => {
+              {courseLessons &&
+              courseLessons.length ? (
+                courseLessons.map((lesson, index) => {
                   return (
                     <Collapse.Panel
                       header={
@@ -120,8 +131,6 @@ const courseDetailPage: React.FC = () => {
         <Col xs={6} md={7}>
           <Card
             size="small"
-            // style={{ background: "transparent" }}
-            // bodyStyle={{ background: "transparent" }}
             title={
               <Typography.Title level={3} style={{ marginBottom: 0 }}>
                 Course Progress

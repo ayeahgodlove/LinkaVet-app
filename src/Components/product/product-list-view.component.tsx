@@ -13,14 +13,15 @@ import {
 } from "pure-react-carousel";
 import "pure-react-carousel/dist/react-carousel.es.css";
 import "./product-list-view.style.scss";
-// import { useShoppingCart } from "hooks/shopping-cart/shopping-cart.hook";
 import ProductAddToCart from "./product-add-to-cart.component";
 import { Link } from "react-router-dom";
 import slugify from "slugify";
+import { useProduct } from "hooks/product.hook";
 
 interface IProp {
   product: IProduct;
   showSlides?: boolean;
+  onClickProduct: (productId: string) => void;
 }
 
 interface IProps {
@@ -33,6 +34,11 @@ const ListView: React.FC<IProps> = ({
   resultProducts,
   showSlides = false,
 }) => {
+  const { setProduct } = useProduct();
+  const handleClickProduct = (productId: string) => {
+    const product = products.find((product) => product.id === productId);
+    setProduct(product!);
+  };
   return (
     <List
       itemLayout="horizontal"
@@ -40,14 +46,27 @@ const ListView: React.FC<IProps> = ({
         resultProducts && resultProducts.length > 0 ? resultProducts : products
       }
       renderItem={(item) => (
-        <Card key={item.id} bordered={false}  style={{ marginTop: 10}} bodyStyle={{ padding: 0 }}>
-          <ListViewProduct product={item} showSlides={showSlides} />
+        <Card
+          key={item.id}
+          bordered={false}
+          style={{ marginTop: 10 }}
+          bodyStyle={{ padding: 0 }}
+        >
+          <ListViewProduct
+            product={item}
+            showSlides={showSlides}
+            onClickProduct={handleClickProduct}
+          />
         </Card>
       )}
     />
   );
 };
-const ListViewProduct: React.FC<IProp> = ({ product, showSlides = false }) => {
+const ListViewProduct: React.FC<IProp> = ({
+  product,
+  showSlides = false,
+  onClickProduct,
+}) => {
   return (
     <List.Item key={product.id}>
       <Row gutter={[16, 8]}>
@@ -65,7 +84,7 @@ const ListViewProduct: React.FC<IProp> = ({ product, showSlides = false }) => {
                       <Dot
                         slide={index}
                         key={index}
-                        className="product-list_dot"
+                        className={"product-list_dot"}
                       >
                         <img
                           height={80}
@@ -113,7 +132,10 @@ const ListViewProduct: React.FC<IProp> = ({ product, showSlides = false }) => {
           }}
         >
           <Typography.Title level={5}>
-            <Link to={`/products/${slugify(product.name, { lower: true })}`}>
+            <Link
+              to={`/products/${slugify(product.name, { lower: true })}`}
+              onClick={() => onClickProduct(product.id)}
+            >
               {product.name}
             </Link>
           </Typography.Title>

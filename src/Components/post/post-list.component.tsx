@@ -9,6 +9,10 @@ interface Props {
 }
 const PostList: React.FC<Props> = ({ slice = false }) => {
   const { posts, setPost } = usePost();
+  const handlePostClick = (postId: string) => {
+    const post = posts.find((post) => post.id === postId);
+    setPost(post!);
+  };
   return (
     <>
       {posts && posts.length > 0 ? (
@@ -25,8 +29,13 @@ const PostList: React.FC<Props> = ({ slice = false }) => {
           }}
           dataSource={slice ? posts.slice(0, 4) : posts}
           renderItem={(post) => {
-            setPost(post);
-            return <PostCard post={post} key={post.id} />;
+            return (
+              <PostCard
+                post={post}
+                key={post.id}
+                onPostClick={handlePostClick}
+              />
+            );
           }}
         />
       ) : (

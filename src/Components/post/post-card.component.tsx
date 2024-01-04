@@ -10,8 +10,9 @@ import slugify from "slugify";
 const { Meta } = Card;
 interface IProp {
   post: IPost;
+  onPostClick: (postId: any) => void;
 }
-const PostCard: React.FC<IProp> = ({ post }) => {
+const PostCard: React.FC<IProp> = ({ post, onPostClick }) => {
   return (
     <List.Item
       key={post.id}
@@ -40,7 +41,7 @@ const PostCard: React.FC<IProp> = ({ post }) => {
           <div>
             <Meta
               title={
-                <Link to={`/posts/${slugify(post.title, { lower: true })}`}>
+                <Link to={`/posts/${slugify(post.title, { lower: true })}`} onClick={()=> onPostClick(post.id)}>
                   {post.title}
                 </Link>
               }

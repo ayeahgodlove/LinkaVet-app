@@ -10,8 +10,9 @@ import { ICourse } from "models/lms/course";
 const { Meta } = Card;
 interface IProp {
   course: ICourse;
+  onCourseClick: (courseId: any) => void;
 }
-const CourseCard: React.FC<IProp> = ({ course }) => {
+const CourseCard: React.FC<IProp> = ({ course, onCourseClick }) => {
   return (
     <List.Item
       key={course.id}
@@ -34,7 +35,10 @@ const CourseCard: React.FC<IProp> = ({ course }) => {
           <Meta
             style={{ wordWrap: "break-word" }}
             title={
-              <Link to={`/courses/${slugify(course.title, { lower: true })}`}>
+              <Link
+                to={`/courses/${slugify(course.title, { lower: true })}`}
+                onClick={() => onCourseClick(course.id)}
+              >
                 {course.title}
               </Link>
             }

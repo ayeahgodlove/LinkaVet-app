@@ -9,6 +9,8 @@ import { usePost } from "hooks/post.hook";
 import { useUser } from "hooks/user.hook";
 import GeneralAppShell from "layout/app/general-app-shell";
 import React, { useCallback, useEffect, useRef, useState } from "react";
+import { useDispatch } from "react-redux";
+import { fetchUsersAsync } from "redux/user.slice";
 import { format } from "utils/format";
 
 const postDetailPage: React.FC = () => {
@@ -16,6 +18,8 @@ const postDetailPage: React.FC = () => {
   const { users, getUser } = useUser();
   const { categories } = useCategory();
   const { loadComments, comments, errors } = useComment();
+  const dispatch = useDispatch();
+
   const [commentId, setCommentId] = useState("");
   const handleReplyComment = (parentId: string) => {
     setCommentId(parentId);
@@ -58,6 +62,7 @@ const postDetailPage: React.FC = () => {
     await loadComments(post.id);
   }, []);
   useEffect(() => {
+    dispatch(fetchUsersAsync() as any);
     load();
   }, []);
   return (
@@ -89,13 +94,11 @@ const postDetailPage: React.FC = () => {
               <Typography.Title level={3} style={{ marginTop: 30 }}>
                 {post.title}
               </Typography.Title>
-              <p>
-                <div
-                  dangerouslySetInnerHTML={{
-                    __html: post.content,
-                  }}
-                />
-              </p>
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: post.content,
+                }}
+              />
               <br />
               <p style={{ marginBottom: 0 }}>
                 Category:{" "}
@@ -151,11 +154,7 @@ const postDetailPage: React.FC = () => {
                       >
                         <List.Item.Meta
                           avatar={<Avatar size="large">{item.username}</Avatar>}
-                          title={
-                            <Typography.Title level={5}>
-                              {item.username}
-                            </Typography.Title>
-                          }
+                          title={<strong>{item.username}</strong>}
                           description={item.content}
                         />
                       </List.Item>

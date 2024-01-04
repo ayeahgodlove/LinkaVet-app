@@ -118,18 +118,11 @@ const PageBannerComponent: React.FC<Props> = ({
         </Card>
       </Col>
       <Col xs={24} md={8} className="page-column">
-        <Carousel
-          autoplay
-          style={{
-            background: "#333",
-            borderTopLeftRadius: 10,
-            borderTopRightRadius: 10,
-          }}
-        >
+        <Carousel autoplay className="page-banner-carousel">
           {banners.map((image) => (
             <div
               key={image.id}
-              style={{ background: "none" }}
+              style={{ display: "block", background: "none" }}
               className="page-banner-photo"
             >
               <div>

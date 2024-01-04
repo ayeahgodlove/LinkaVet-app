@@ -16,8 +16,6 @@ import {
 } from "antd";
 import BackButton from "components/shared/back-button.component";
 import { useCourse } from "hooks/lms/course.hook";
-import { useLesson } from "hooks/lms/lesson.hook";
-import { useUser } from "hooks/user.hook";
 import GeneralAppShell from "layout/app/general-app-shell";
 import React, { useEffect, useState } from "react";
 import "./course-detail.style.scss";
@@ -26,12 +24,10 @@ import { useInitTransaction } from "hooks/shopping-cart/init-transaction.hook";
 import { IInitPayment } from "models/init-payment.model";
 import { ProcessPaymentService } from "services/process-payment.service";
 import { PiEqualsLight } from "react-icons/pi";
-import { TiTimes } from "react-icons/ti";
+import slugify from "slugify";
 
 const CourseEnrollmentPaymentPage: React.FC = () => {
   const { course } = useCourse();
-  const { getUser } = useUser();
-  const { lessons } = useLesson();
   const [form] = Form.useForm();
   const [mode, setMode] = useState("mtn");
   const [method, setMethod] = useState("MOMO");
@@ -44,7 +40,6 @@ const CourseEnrollmentPaymentPage: React.FC = () => {
   const onFinish = async (values: any) => {
     setLoading(true);
     const obj: IInitPayment = {
-      // amount: `${totalAmount}`,
       amount: `5`,
       operator: mode,
       telephone: values.telephone,
@@ -67,7 +62,7 @@ const CourseEnrollmentPaymentPage: React.FC = () => {
 
     if (feedback) {
       message.success("Payment Successful!");
-      navigate("/payment-feedback");
+      navigate(`/courses/${slugify(course.title, { lower: true })}/enrollment`);
     } else {
       message.error(`Error: ${error.message}`);
     }
@@ -255,10 +250,12 @@ const CourseEnrollmentPaymentPage: React.FC = () => {
               </Typography.Title>
               <Typography.Paragraph
                 key={course.id}
-                style={{ display: "flex", alignItems: "center" }}
+                style={{ display: "block" }}
               >
-                <span>{course.title}</span> <PiEqualsLight />{" "}
-                <span>Unit Price: {5000 + "XAF"}</span>
+                <span>Course Title</span> <PiEqualsLight />{" "}
+                <span> {course.title}</span> <br />
+                <span>Unit Price</span> <PiEqualsLight />{" "}
+                <span>{course.price + "XAF"}</span>
               </Typography.Paragraph>
             </>
 
@@ -275,15 +272,6 @@ const CourseEnrollmentPaymentPage: React.FC = () => {
                 justifyContent: "flex-start",
               }}
             >
-              <Typography.Text
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                }}
-              >
-                <span>Unit Price</span> <TiTimes /> <span>Quantity</span>
-              </Typography.Text>
-
               <Typography.Title
                 style={{
                   marginBottom: 0,
@@ -293,7 +281,6 @@ const CourseEnrollmentPaymentPage: React.FC = () => {
                 }}
                 level={4}
               >
-                <PiEqualsLight />{" "}
                 <span>
                   {course.price} {" XAF"}
                 </span>

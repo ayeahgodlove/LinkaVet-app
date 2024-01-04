@@ -9,10 +9,12 @@ import { NoContent } from "components/shared/no-content/no-content.component";
 import ProductAddToCart from "./product-add-to-cart.component";
 import { Link } from "react-router-dom";
 import slugify from "slugify";
+import { useProduct } from "hooks/product.hook";
 
 const { Meta } = Card;
 interface IProp {
   product: IProduct;
+  onClickProduct: (productId: string) => void;
 }
 
 interface IProps {
@@ -25,6 +27,11 @@ const GridView: React.FC<IProps> = ({
   resultProducts,
   classProp = false,
 }) => {
+  const { setProduct } = useProduct();
+  const handleClickProduct = (productId: string) => {
+    const product = products.find((product) => product.id === productId);
+    setProduct(product!);
+  };
   return (
     <>
       {products && products.length > 0 ? (
@@ -45,7 +52,11 @@ const GridView: React.FC<IProps> = ({
               : products
           }
           renderItem={(product) => (
-            <GridProductCard key={product.id} product={product} />
+            <GridProductCard
+              key={product.id}
+              product={product}
+              onClickProduct={handleClickProduct}
+            />
           )}
         />
       ) : (
@@ -57,7 +68,10 @@ const GridView: React.FC<IProps> = ({
   );
 };
 
-export const GridProductCard: React.FC<IProp> = ({ product }) => {
+export const GridProductCard: React.FC<IProp> = ({
+  product,
+  onClickProduct,
+}) => {
   return (
     <>
       <List.Item
@@ -112,6 +126,7 @@ export const GridProductCard: React.FC<IProp> = ({ product }) => {
                 title={
                   <Link
                     to={`/products/${slugify(product.name, { lower: true })}`}
+                    onClick={() => onClickProduct(product.id)}
                   >
                     {product.name}
                   </Link>
