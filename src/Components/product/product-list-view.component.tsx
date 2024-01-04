@@ -40,7 +40,7 @@ const ListView: React.FC<IProps> = ({
         resultProducts && resultProducts.length > 0 ? resultProducts : products
       }
       renderItem={(item) => (
-        <Card key={item.id} bordered={false} bodyStyle={{ padding: 0 }}>
+        <Card key={item.id} bordered={false}  style={{ marginTop: 10}} bodyStyle={{ padding: 0 }}>
           <ListViewProduct product={item} showSlides={showSlides} />
         </Card>
       )}
@@ -71,7 +71,7 @@ const ListViewProduct: React.FC<IProp> = ({ product, showSlides = false }) => {
                           height={80}
                           width={80}
                           key={index}
-                          src={`${API_URL_UPLOADS_PRODUCTS}/${image.imageUrl}`}
+                          src={`${API_URL_UPLOADS_PRODUCTS}/${image}`}
                         />
                       </Dot>
                     );
@@ -93,7 +93,7 @@ const ListViewProduct: React.FC<IProp> = ({ product, showSlides = false }) => {
                           objectFit: "cover",
                         }}
                         alt={product.shortDescription}
-                        src={`${API_URL_UPLOADS_PRODUCTS}/${image.imageUrl}`}
+                        src={`${API_URL_UPLOADS_PRODUCTS}/${image}`}
                         hasMasterSpinner={false}
                       />
                     </Slide>

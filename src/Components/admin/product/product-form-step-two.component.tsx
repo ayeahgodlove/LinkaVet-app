@@ -1,12 +1,19 @@
 import { Col, Form, Input } from "antd";
-import { useForm } from "antd/es/form/Form";
+import { FormInstance } from "antd/es/form/Form";
 import { modules } from "config/constant";
-import React from "react";
+import { IProduct } from "models/product.model";
+import React, { useEffect } from "react";
 import ReactQuill from "react-quill";
 
-const ProductFormStepTwo = () => {
-  const [form] = useForm();
+interface Props {
+  form: FormInstance<any>;
+  formValues: IProduct;
+}
 
+const ProductFormStepTwo: React.FC<Props> = ({ form, formValues }) => {
+  useEffect(() => {
+    form.validateFields();
+  }, [form]);
   return (
     <div style={{ padding: 10 }}>
       <Col xs={24} span={24}>
@@ -21,6 +28,7 @@ const ProductFormStepTwo = () => {
               message: "Short Description is required",
             },
           ]}
+          initialValue={formValues.shortDescription}
         >
           <Input.TextArea />
         </Form.Item>
@@ -34,6 +42,7 @@ const ProductFormStepTwo = () => {
               message: "Description is required",
             },
           ]}
+          // initialValue={formValues.description}
         >
           <ReactQuill
             modules={modules}

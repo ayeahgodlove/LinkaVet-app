@@ -129,16 +129,15 @@ const ProductBannerComponent = () => {
         <Col xs={24} md={8} className="product-column">
           <Carousel
             autoplay
-            style={{
-              background: "#333",
-              borderTopLeftRadius: 10,
-              borderTopRightRadius: 10,
-            }}
+            className="product-banner-carousel"
           >
             {banners.map((image) => (
               <div
                 key={image.id}
-                style={{ background: "none" }}
+                style={{
+                  display: "block",
+                  background: "none",
+                }}
                 className="product-banner-photo"
               >
                 <div>

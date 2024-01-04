@@ -3,15 +3,45 @@ import CategoryList from "components/admin/category/category-list.component";
 import TagList from "components/admin/tag/tag-list.component";
 import BannerIndexComponent from "components/product/product-banner.component";
 import ProductList from "components/product/product-list.component";
+import { SpinnerComponent } from "components/shared/spinner";
+import { API_URL } from "config/constant";
+import useWindowSize from "hooks/shared/window-resize.hook";
 import { useShoppingCart } from "hooks/shopping-cart/shopping-cart.hook";
 import GeneralAppShell from "layout/app/general-app-shell";
-import React from "react";
+import { IProduct } from "models/product.model";
+import React, { useCallback, useEffect, useState } from "react";
 import { FiShoppingCart } from "react-icons/fi";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { fetchproductSuccess } from "redux/product.slice";
 
 const ProductPage: React.FC = () => {
   const router = useNavigate();
   const { cartQuantity } = useShoppingCart();
+  const [isLoading, setLoading] = useState(false);
+  
+  const dispatch = useDispatch();
+  const { width } = useWindowSize();
+  
+  const getProducts = useCallback(async (): Promise<IProduct[]> => {
+    setLoading(true);
+    const response = await fetch(`${API_URL}/api/products`);
+    const { data } = await response.json();
+    return data;
+  }, []);
+  
+  useEffect(() => {
+    (async () => {
+      const productDATas = await getProducts();
+      dispatch(fetchproductSuccess([...productDATas]));
+      setLoading(false);
+    })();
+  }, []);
+  
+  if (isLoading) {
+    return <SpinnerComponent message="Products loading..." height="100vh" />;
+  }
+
   return (
     <GeneralAppShell>
       {/* banner */}
@@ -29,7 +59,9 @@ const ProductPage: React.FC = () => {
         <Col xs={24} md={20}>
           <ProductList />
         </Col>
-        <Col xs={24} md={4}>
+
+        {
+          width >= 768 &&   <Col xs={24} md={4}>
           <Card bordered={false} size="small">
             <Typography.Text style={{ marginBottom: 0 }}>
               Filter By
@@ -53,6 +85,9 @@ const ProductPage: React.FC = () => {
             <Divider />
           </Card>
         </Col>
+        }
+        
+      
       </Row>
       {cartQuantity > 0 && (
         <FloatButton

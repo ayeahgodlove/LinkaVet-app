@@ -1,10 +1,24 @@
 import { UploadOutlined } from "@ant-design/icons";
-import { Button, Form, Upload } from "antd";
-import { useUpload } from "hooks/shared/upload.hook";
-import React from "react";
+import { Button, Form, FormInstance, Upload, UploadFile } from "antd";
+import React, { useEffect } from "react";
 
-const ProductFormStepUploads = () => {
-  const { beforeUpload, onRemove, normFile, fileList } = useUpload();
+interface Props {
+  form: FormInstance<any>;
+  fileList: UploadFile<any>[];
+  beforeUpload: (file: UploadFile<any>) => boolean;
+  onRemove: (file: UploadFile<any>) => void;
+  normFile: (e: any) => any;
+}
+const ProductFormStepUploads: React.FC<Props> = ({
+  form,
+  fileList,
+  beforeUpload,
+  onRemove,
+  normFile,
+}) => {
+  useEffect(() => {
+    form.validateFields();
+  }, [form]);
 
   return (
     <div style={{ padding: 10 }}>

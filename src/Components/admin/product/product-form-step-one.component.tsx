@@ -1,11 +1,19 @@
-import { Col, Form, Input, InputNumber, Row, Select } from "antd";
+import { Col, Form, FormInstance, Input, InputNumber, Row, Select } from "antd";
 import { useCategory } from "hooks/category.hook";
+import { useFormInit } from "hooks/shared/form-init.hook";
 import { useTag } from "hooks/tag.hook";
-import React from "react";
+import { IProduct } from "models/product.model";
+import React, { useEffect } from "react";
 
-const ProductFormStepOne: React.FC = () => {
+interface Props {
+  form: FormInstance<any>;
+  formValues: IProduct;
+}
+
+const ProductFormStepOne: React.FC<Props> = ({ form, formValues }) => {
   const { categories } = useCategory();
   const { tags } = useTag();
+  const { initFormData } = useFormInit();
 
   const onChange = (value: string) => {
     console.log(`selected ${value}`);
@@ -15,6 +23,9 @@ const ProductFormStepOne: React.FC = () => {
     console.log("search:", value);
   };
 
+  useEffect(() => {
+    form.validateFields();
+  }, [form]);
   return (
     <div style={{ padding: 10 }}>
       <Row justify={"space-between"} align={"top"} gutter={[8, 8]}>
@@ -32,6 +43,7 @@ const ProductFormStepOne: React.FC = () => {
                     message: "Name is required",
                   },
                 ]}
+                initialValue={formValues.name}
               >
                 <Input />
               </Form.Item>
@@ -48,6 +60,7 @@ const ProductFormStepOne: React.FC = () => {
                     message: "Category is required",
                   },
                 ]}
+                initialValue={formValues.categoryId}
               >
                 <Select
                   showSearch
@@ -81,6 +94,7 @@ const ProductFormStepOne: React.FC = () => {
                     message: "Tags is required",
                   },
                 ]}
+                initialValue={formValues.tags}
               >
                 <Select
                   showSearch
@@ -115,6 +129,7 @@ const ProductFormStepOne: React.FC = () => {
                     message: "Quantity is required",
                   },
                 ]}
+                initialValue={formValues.qtty}
               >
                 <InputNumber style={{ width: "100%" }} />
               </Form.Item>
@@ -131,6 +146,7 @@ const ProductFormStepOne: React.FC = () => {
                     message: "Amount is required",
                   },
                 ]}
+                initialValue={formValues.amount}
               >
                 <InputNumber style={{ width: "100%" }} />
               </Form.Item>

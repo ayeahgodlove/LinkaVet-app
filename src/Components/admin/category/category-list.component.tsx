@@ -27,10 +27,10 @@ const CategoryList = () => {
   }, []);
   return (
     <>
-      <div style={{ display: "flex"}}>
+      <div style={{ display: "flex" }}>
         <Space size={"small"} wrap>
           {categories.map((category, index) => (
-            <>
+            <span key={index + category.id}>
               <Tag
                 key={category.id}
                 onChange={() => handleChange(category)}
@@ -38,7 +38,7 @@ const CategoryList = () => {
               >
                 {category.name}
               </Tag>
-            </>
+            </span>
           ))}
         </Space>
       </div>

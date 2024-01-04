@@ -49,7 +49,7 @@ const ProductList: React.FC = () => {
   return (
     <>
       <Card
-      bordered={true}
+        bordered={true}
         title={
           <>
             <div
@@ -59,12 +59,19 @@ const ProductList: React.FC = () => {
                 alignItems: "center",
               }}
             >
-              {width >= 911 && (
+              {width >= 768 && (
                 <Space>
-                  <Typography.Title level={5}>Products</Typography.Title>
-                  <Typography.Text>
-                    (Showing 1- 40 products of 1,000)
-                  </Typography.Text>
+                  {width >= 768 ? (
+                    <span>Showing 1- 40 products of 1,000</span>
+                  ) : (
+                    <>
+                      {" "}
+                      <Typography.Title level={5}>Products</Typography.Title>
+                      <Typography.Text>
+                        (Showing 1- 40 products of 1,000)
+                      </Typography.Text>
+                    </>
+                  )}
                 </Space>
               )}
 
@@ -74,24 +81,27 @@ const ProductList: React.FC = () => {
                     placeholder="Search products"
                     onChange={(product) => onChange(product)}
                   />
-                  <ButtonGroup>
-                    <Button
-                      type={view === 'list' ? "primary" : 'ghost'}
-                      icon={<FiList size={25} />}
-                      onClick={onClickList}
-                    />
-                    <Button
-                           type={view === 'grid' ? "primary" : 'ghost'}
-                      icon={<FiGrid size={25} />}
-                      onClick={onClickGrid}
-                    />
-                  </ButtonGroup>
+                  {width >= 768 && (
+                    <ButtonGroup>
+                      <Button
+                        type={view === "list" ? "primary" : "ghost"}
+                        icon={<FiList size={25} />}
+                        onClick={onClickList}
+                      />
+
+                      <Button
+                        type={view === "grid" ? "primary" : "ghost"}
+                        icon={<FiGrid size={25} />}
+                        onClick={onClickGrid}
+                      />
+                    </ButtonGroup>
+                  )}
                 </Space>
               </>
             </div>
           </>
         }
-        style={{ marginBottom: 20}}
+        style={{ marginBottom: 20 }}
         bodyStyle={{ background: "#f4f7fe" }}
         size="small"
       >

@@ -17,17 +17,22 @@
   .product-column {
     order: -1;
   }
+  .product-banner-carousel .slick-list .slick-track .slick-slide {
+    & > div {
+      height: 250px;
+      width: 250px;
+      margin: 0 auto;
+    }
+  }
   .product-banner-photo {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    margin: 0 auto;
     box-shadow: none !important;
     div {
-      height: 180px;
-      width: 180px;
+      height: 220px;
+      width: 220px;
       background: #fff;
       border-radius: 20px;
-      margin: 20px;
+      margin: 0 20px;
       transition: all ease 0.2s;
       transform: translateY(10px);
 

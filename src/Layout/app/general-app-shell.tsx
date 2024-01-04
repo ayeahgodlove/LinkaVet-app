@@ -1,4 +1,4 @@
-import { Divider, Drawer, Layout, Menu, Typography } from "antd";
+import { Drawer, Layout, Menu, Typography } from "antd";
 import React, { useCallback, useEffect, useState } from "react";
 import { ConfigProvider, theme, FloatButton } from "antd";
 
@@ -6,8 +6,6 @@ import Navbar from "components/navbar";
 import "./AppShell.scss";
 import { useTheme } from "hooks/shared/theme.hook";
 import { FiArrowUp } from "react-icons/fi";
-import useWindowSize from "hooks/shared/window-resize.hook";
-// import { green } from '@ant-design/colors';
 import Footer from "rc-footer";
 import { CategoryService } from "services/category.service";
 import { ICategory } from "models/category.model";
@@ -27,7 +25,6 @@ const GeneralAppShell: React.FC<IProps> = ({ children }) => {
   const [collapsed, setCollapsed] = useState(false);
   const [show, setShow] = useState(false);
   const { isDarkMode } = useTheme();
-  const { height } = useWindowSize();
   const [categories, setCategories] = useState<ICategory[]>([]);
   const [tags, setTags] = useState<ITag[]>([]);
 
@@ -119,7 +116,7 @@ const GeneralAppShell: React.FC<IProps> = ({ children }) => {
               columnLayout="space-between"
               columns={[
                 {
-                  title: <Typography.Title level={3}>FAQs</Typography.Title>,
+                  title: <strong>FAQs</strong>,
                   items: [
                     {
                       title: "Discount",
@@ -145,9 +142,9 @@ const GeneralAppShell: React.FC<IProps> = ({ children }) => {
                 },
                 {
                   title: (
-                    <Typography.Title level={3}>
+                    <strong>
                       Browse by Categories
-                    </Typography.Title>
+                    </strong>
                   ),
                   items: [
                     ...categories.map((c) => {
@@ -160,9 +157,9 @@ const GeneralAppShell: React.FC<IProps> = ({ children }) => {
                 },
                 {
                   title: (
-                    <Typography.Title level={3}>
+                    <strong>
                       Browse by Tags
-                    </Typography.Title>
+                    </strong>
                   ),
                   items: [
                     ...tags.map((c) => {
@@ -175,7 +172,7 @@ const GeneralAppShell: React.FC<IProps> = ({ children }) => {
                 },
                 {
                   title: (
-                    <Typography.Title level={3}>About Us</Typography.Title>
+                    <strong>About Us</strong>
                   ),
                   items: [
                     {
@@ -205,11 +202,6 @@ const GeneralAppShell: React.FC<IProps> = ({ children }) => {
                 <>
                   <Typography.Paragraph style={{ textAlign: "center" }}>
                     Made by Cumi <Link to={"/dashboard"}>Admin Area</Link>
-                    {/* <div
-                      dangerouslySetInnerHTML={{
-                        __html: "&amp;",
-                      }}
-                    /> */}
                   </Typography.Paragraph>
                 </>
               }

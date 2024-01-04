@@ -84,7 +84,7 @@ export const GridProductCard: React.FC<IProp> = ({ product }) => {
             >
               {product.productImages.map((image) => (
                 <img
-                  key={image.id}
+                  key={image}
                   style={{
                     // objectFit: "cover",
                     backgroundRepeat: "no-repeat",
@@ -93,7 +93,7 @@ export const GridProductCard: React.FC<IProp> = ({ product }) => {
                     width: "100%",
                   }}
                   alt={product.shortDescription}
-                  src={`${API_URL_UPLOADS_PRODUCTS}/${image.imageUrl}`}
+                  src={`${API_URL_UPLOADS_PRODUCTS}/${image}`}
                 />
               ))}
             </Carousel>
