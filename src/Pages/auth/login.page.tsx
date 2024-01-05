@@ -1,41 +1,69 @@
 import GeneralAppShell from "layout/app/general-app-shell";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { LockOutlined } from "@ant-design/icons";
-import { Button, Checkbox, Col, Form, Input, Row, message } from "antd";
+import { Alert, Button, Checkbox, Col, Form, Input, Row, message } from "antd";
 import "../../styles/login.style.scss";
 import { Link, Navigate } from "react-router-dom";
 import { MdEmail } from "react-icons/md";
 import { useAuth } from "hooks/auth/auth.hook";
+import { useMessageContext } from "context/session.context";
+import useWindowSize from "hooks/shared/window-resize.hook";
 
 const LoginPage: React.FC = () => {
   const { loginUserFunction, isAuthenticated, user } = useAuth();
   const [isSubmitting, setSubmitting] = useState(false);
+  const [go, setGo] = useState(false);
+  const { session } = useMessageContext();
+  const { width } = useWindowSize();
+  
 
   const onFinish = async (values: any) => {
     setSubmitting(true);
-    loginUserFunction({
+    await loginUserFunction({
       email: values.email,
       password: values.password,
     });
     setSubmitting(false);
   };
 
-  if (isAuthenticated && user) {
-    message.success("Login Successful!");
+  useEffect(() => {
+    (async () => {
+      if (isAuthenticated && user) {
+        message.success("Login Successful!");
+        setGo(true);
+      }
+    })();
+  }, [isAuthenticated, user]);
+
+  if (go) {
     return <Navigate to={"/callback"} />;
   }
+
   return (
     <GeneralAppShell>
       <Row
         justify={"center"}
         align="middle"
         className="form__container"
-        style={{
-          background: "url(./images/bg-1-removebg-preview.png)",
-          backgroundRepeat: "no-repeat",
-          backgroundPosition: "left",
-        }}
+        // style={{
+        //   background: "url(./images/bg-1-removebg-preview.png)",
+        //   backgroundRepeat: "no-repeat",
+        //   backgroundPosition: "left",
+        // }}
       >
+        {session.title.length > 0 ? (
+          <Col span={24}>
+            <Alert
+              banner
+              icon={session.icon}
+              description={session.message}
+              message={session.title}
+              style={{ width: width >= 768 ? "380px" : "80%", margin: "1rem auto" }}
+            />
+          </Col>
+        ) : (
+          <></>
+        )}
         <Col
           xs={18}
           sm={12}

@@ -11,6 +11,7 @@ import { Tabs } from "antd";
 import { FloatButton } from "antd";
 import { CommentOutlined } from "@ant-design/icons";
 import useWindowSize from "hooks/shared/window-resize.hook";
+import { useMessageContext } from "context/session.context";
 
 const contentStyle: React.CSSProperties = {
   height: "75vh",
@@ -107,9 +108,16 @@ const DashboardPage: React.FC = () => {
   const { isAuthenticated, user } = useAuth();
   const { width } = useWindowSize();
   const { items } = useTabHeaders(width);
+  const { session } = useMessageContext();
+
   if (!isAuthenticated || !user) {
     return <Navigate to={"/auth/login"} />;
   }
+
+  if (session.isRedirect) {
+    return <Navigate to={session.redirectTo!} />;
+  }
+
   return (
     <>
       <Carousel effect="fade" autoplay>

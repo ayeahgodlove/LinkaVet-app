@@ -121,7 +121,7 @@ export const useAppShellMenus = () => {
             </Link>
           ),
           key: "appointments",
-          icon: <GrScheduleNew  size={21} color="#08a30a" />,
+          icon: <GrScheduleNew size={21} color="#08a30a" />,
         },
       ],
     },
@@ -568,6 +568,12 @@ export const useAppShellMenus = () => {
           key: "profile_path",
           type: "group",
           children: [
+            {
+              label: <Link to="/dashboard" onClick={() => {
+                
+              }}>Admin</Link>,
+              key: "dashboard",
+            },
             {
               label: (
                 <Link

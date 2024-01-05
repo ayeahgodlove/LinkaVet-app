@@ -4,7 +4,6 @@ import {
   Col,
   Collapse,
   Descriptions,
-  List,
   Row,
   Typography,
 } from "antd";
@@ -18,7 +17,6 @@ import React, { useEffect } from "react";
 import "./course-detail.style.scss";
 import { FiPlayCircle } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
-import slugify from "slugify";
 import { NoContent } from "components/shared/no-content/no-content.component";
 import { useDispatch } from "react-redux";
 import { fetchLessonsAsync } from "redux/lms/lesson.slice";
@@ -32,11 +30,14 @@ const courseDetailPage: React.FC = () => {
   const dispatch = useDispatch();
 
   const onEnrollCourse = () => {
-    navigate(`/courses/${slugify(course.title, { lower: true })}/enrollment-payment`);
+    // user needs to be authenticated first.
+    debugger
+    navigate("/auth-check");
+    // navigate(`/courses/${slugify(course.title, { lower: true })}/enrollment-payment`);
   };
 
-  const courseLessons = lessons.filter(l => l.courseId === course.id);
-  console.log("lessons: ", lessons, course)
+  const courseLessons = lessons.filter((l) => l.courseId === course.id);
+  console.log("lessons: ", lessons, course);
   useEffect(() => {
     dispatch(fetchUsersAsync() as any);
     dispatch(fetchLessonsAsync() as any);
@@ -106,8 +107,7 @@ const courseDetailPage: React.FC = () => {
             style={{ marginTop: 15 }}
           >
             <Collapse accordion>
-              {courseLessons &&
-              courseLessons.length ? (
+              {courseLessons && courseLessons.length ? (
                 courseLessons.map((lesson, index) => {
                   return (
                     <Collapse.Panel

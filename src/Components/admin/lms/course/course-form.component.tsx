@@ -1,9 +1,12 @@
 import {
   Button,
+  Col,
   ConfigProvider,
+  DatePicker,
   Form,
   Input,
   InputNumber,
+  Row,
   Space,
   Upload,
   message,
@@ -18,6 +21,7 @@ import { useUpload } from "hooks/shared/upload.hook";
 import theme from "utils/themeConfig";
 import { useCourse } from "hooks/lms/course.hook";
 import { CourseFormData, ICourse, emptyCourse } from "models/lms/course";
+import useWindowSize from "hooks/shared/window-resize.hook";
 
 type Props = {
   formMode: UpdateMode;
@@ -31,6 +35,7 @@ const CourseForm: React.FC<Props> = ({ formMode }) => {
   const { initFormData } = useFormInit();
   const { fileList, onChangeUpload, onRemove, beforeUpload, progress } =
     useUpload();
+  const { width } = useWindowSize();
 
   const onFinish = async (values: ICourse) => {
     const formData = new FormData();
@@ -38,7 +43,9 @@ const CourseForm: React.FC<Props> = ({ formMode }) => {
     formData.append("title", values.title);
     formData.append("description", values.description);
     formData.append("authorId", user.id);
-    formData.append("price", values.price.toString())
+    formData.append("price", values.price.toString());
+    formData.append("startDate", values.startDate.toISOString());
+    formData.append("completionDate", values.completionDate.toISOString());
 
     // Append the selected file(s) to the FormData object
     fileList.forEach((file: any) => {
@@ -94,17 +101,52 @@ const CourseForm: React.FC<Props> = ({ formMode }) => {
         >
           <Input />
         </Form.Item>
-        <Form.Item
-          name={"price"}
-          label="Price"
-          required={true}
-          rules={[
-            { required: true, message: "This field is a required field" },
-          ]}
-          style={{ marginBottom: 10 }}
-        >
-          <InputNumber style={{ width: "100%" }} />
-        </Form.Item>
+        <Row justify={"space-between"} align={"middle"}>
+          {
+            <Col span={width >= 768 ? 8 : 24}>
+              <Form.Item
+                name={"price"}
+                label="Price"
+                required={true}
+                rules={[
+                  { required: true, message: "This field is a required field" },
+                ]}
+                style={{ marginBottom: 10 }}
+              >
+                <InputNumber style={{ width: "95%" }} />
+              </Form.Item>
+            </Col>
+          }
+
+          <Col span={width >= 768 ? 8 : 12}>
+            <Form.Item
+              name={"startDate"}
+              label="Start Date"
+              required={true}
+              rules={[
+                { required: true, message: "This field is a required field" },
+              ]}
+              style={{ marginBottom: 10 }}
+            >
+              <DatePicker style={{ width: "95%" }} />
+            </Form.Item>
+          </Col>
+
+          <Col span={width >= 768 ? 8 : 12}>
+            <Form.Item
+              name={"completionDate"}
+              label="Completion Date"
+              required={true}
+              rules={[
+                { required: true, message: "This field is a required field" },
+              ]}
+              style={{ marginBottom: 10 }}
+            >
+              <DatePicker style={{ width: "95%" }} />
+            </Form.Item>
+          </Col>
+        </Row>
+
         <Form.Item
           name={"description"}
           label="Description"
@@ -127,6 +169,7 @@ const CourseForm: React.FC<Props> = ({ formMode }) => {
               message: "Upload is required",
             },
           ]}
+          
         >
           <Upload
             maxCount={1}

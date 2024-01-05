@@ -55,6 +55,7 @@ import AdminAppointmentPage from "pages/admin/health/appointment/appointment.pag
 import AdminAppointmentDetailPage from "pages/admin/health/appointment/appointment-detail.page";
 import CourseEnrollmentPaymentPage from "pages/course/course-enrollment-payment.page";
 import CourseEnrollmentPage from "pages/course/course-enrollment.page";
+import AuthCheckPage from "pages/auth/auth-check.page";
 
 export const routes: IRoute[] = [
   {
@@ -183,6 +184,12 @@ export const routes: IRoute[] = [
     private: false,
     exact: true,
     component: <ForgotPasswordPage />,
+  },
+  {
+    path: "/auth-check",
+    private: false,
+    exact: true,
+    component: <AuthCheckPage />,
   },
 
   // admin section

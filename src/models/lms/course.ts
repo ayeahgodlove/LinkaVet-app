@@ -1,3 +1,4 @@
+import dayjs from "dayjs";
 import { IBaseState } from "models/base-state.model";
 import { IResponseBase } from "models/response-base.model";
 
@@ -7,7 +8,9 @@ export interface ICourse {
   description: string;
   courseImage: string;
   authorId: string;
-  price: number
+  price: number;
+  startDate: Date;
+  completionDate: Date;
 }
 
 export interface CourseFormData extends FormData {
@@ -20,7 +23,9 @@ export const emptyCourse: ICourse = {
   description: "",
   courseImage: "",
   authorId: "",
-  price: 0
+  price: 0,
+  startDate: dayjs(new Date()) as unknown as Date,
+  completionDate: dayjs(new Date()) as unknown as Date
 };
 
 export interface ICourseState extends IBaseState {

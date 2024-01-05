@@ -35,6 +35,7 @@ import { enrollmentReducer } from "./lms/enrollment.slice";
 import { quizReducer } from "./lms/quiz.slice";
 import { consultationReducer } from "./health/consultation.slice";
 import { appointmentReducer } from "./health/appointment.slice";
+import { sessionReducer } from "./shared/session.slice";
 
 const middlewares: [any] = [thunkMiddleware];
 
@@ -51,6 +52,7 @@ export const rootReducer = combineReducers({
   review: reviewReducer,
   theme: themeReducer,
   formError: formErrorReducer,
+  session: sessionReducer,
   auth: authReducer,
   token: tokenReducer,
   banner: bannerReducer,
