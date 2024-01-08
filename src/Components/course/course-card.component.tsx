@@ -26,7 +26,7 @@ const CourseCard: React.FC<IProp> = ({ course, onCourseClick }) => {
         cover={
           <img
             alt={course.title}
-            src={`http://localhost:8000/uploads/courses/${course.courseImage}`}
+            src={`https://linkavet-api.onrender.com/uploads/courses/${course.courseImage}`}
           />
         }
         className="course-card"

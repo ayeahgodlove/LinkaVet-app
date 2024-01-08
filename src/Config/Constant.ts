@@ -1,15 +1,15 @@
 export  const AppConstant = {
-    API_URI: "http://localhost:8000"
+    API_URI: "https://linkavet-api.onrender.com"
 }
-export const API_URL = "http://localhost:8000";
-export const API_URL_UPLOADS_POSTS = "http://localhost:8000/uploads/posts";
-export const API_URL_UPLOADS_DOCUMENTS = "http://localhost:8000/uploads/document";
-export const API_URL_UPLOADS_EVENTS = "http://localhost:8000/uploads/events";
-export const API_URL_UPLOADS_PROJECTS = "http://localhost:8000/uploads/projects";
-export const  API_URL_UPLOADS_BANNERS = "http://localhost:8000/uploads/banners"
-export const  API_URL_UPLOADS_STORES = "http://localhost:8000/uploads/stores"
-export const  API_URL_UPLOADS_PRODUCTS = "http://localhost:8000/uploads/products"
-export const  API_URL_UPLOADS_COURSES = "http://localhost:8000/uploads/courses"
+export const API_URL = "https://linkavet-api.onrender.com";
+export const API_URL_UPLOADS_POSTS = "https://linkavet-api.onrender.com/uploads/posts";
+export const API_URL_UPLOADS_DOCUMENTS = "https://linkavet-api.onrender.com/uploads/document";
+export const API_URL_UPLOADS_EVENTS = "https://linkavet-api.onrender.com/uploads/events";
+export const API_URL_UPLOADS_PROJECTS = "https://linkavet-api.onrender.com/uploads/projects";
+export const  API_URL_UPLOADS_BANNERS = "https://linkavet-api.onrender.com/uploads/banners"
+export const  API_URL_UPLOADS_STORES = "https://linkavet-api.onrender.com/uploads/stores"
+export const  API_URL_UPLOADS_PRODUCTS = "https://linkavet-api.onrender.com/uploads/products"
+export const  API_URL_UPLOADS_COURSES = "https://linkavet-api.onrender.com/uploads/courses"
 
 export const modules = {
     toolbar: [

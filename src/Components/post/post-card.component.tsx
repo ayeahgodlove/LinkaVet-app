@@ -26,7 +26,7 @@ const PostCard: React.FC<IProp> = ({ post, onPostClick }) => {
         cover={
           <img
             alt={post.title}
-            src={`http://localhost:8000/uploads/posts/${post.imageUrl}`}
+            src={`https://linkavet-api.onrender.com/uploads/posts/${post.imageUrl}`}
           />
         }
         className="post-card"

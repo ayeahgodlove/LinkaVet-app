@@ -62,7 +62,7 @@ const courseDetailPage: React.FC = () => {
             >
               <img
                 alt={course.title}
-                src={`http://localhost:8000/uploads/courses/${course.courseImage}`}
+                src={`https://linkavet-api.onrender.com/uploads/courses/${course.courseImage}`}
                 style={{
                   width: "100%",
                   maxHeight: "55vh",

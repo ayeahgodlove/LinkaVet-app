@@ -2,7 +2,7 @@ import { IUser, IUserResponse } from "models/user.model";
 import axios from "axios";
 
 const instance = axios.create({
-  baseURL: "http://localhost:8000", // Replace with your API server URL
+  baseURL: "https://linkavet-api.onrender.com", // Replace with your API server URL
 });
 
 export const authService = {

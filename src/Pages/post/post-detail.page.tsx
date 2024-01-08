@@ -77,7 +77,7 @@ const postDetailPage: React.FC = () => {
             <div style={{ display: "flex", justifyContent: "flex-start" }}>
               <img
                 alt={post.title}
-                src={`http://localhost:8000/uploads/posts/${post.imageUrl}`}
+                src={`https://linkavet-api.onrender.com/uploads/posts/${post.imageUrl}`}
                 style={{
                   width: "100%",
                   maxHeight: "65vh",
